@@ -35,7 +35,7 @@ export default function AboutSection() {
               Recruitment Partner
             </h2>
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across West Europe — primarily the Netherlands.
+              Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global.
             </p>
             <p className="text-slate-600 leading-relaxed mb-10">
               With over a decade of experience, we have successfully placed 500+ nurses in European hospitals, providing end-to-end support from language training to visa processing to career mentorship after placement.
@@ -45,7 +45,7 @@ export default function AboutSection() {
               {[
                 { icon: Target, title: 'Our Mission', desc: 'To empower Indian nurses with global opportunities and world-class careers.', color: 'bg-blue-50 text-blue-600' },
                 { icon: Heart, title: 'Our Values', desc: 'Transparency, care, and commitment to every nurse we represent.', color: 'bg-rose-50 text-rose-600' },
-                { icon: Lightbulb, title: 'Our Vision', desc: 'To be the leading bridge between Indian talent and European healthcare.', color: 'bg-amber-50 text-amber-600' },
+                { icon: Lightbulb, title: 'Our Vision', desc: 'To be the leading bridge between Indian talent and global healthcare.', color: 'bg-amber-50 text-amber-600' },
               ].map(({ icon: Icon, title, desc, color }) => (
                 <div key={title} className="text-center">
                   <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${color} mb-3`}>

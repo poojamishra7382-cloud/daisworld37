@@ -325,11 +325,14 @@ export default function ChatbotWidget() {
   if (!isDefaultPos) {
     const chatWidth = Math.min(384, window.innerWidth - 2 * MARGIN);
     const placeLeft = pos.x + BTN_SIZE + chatWidth + MARGIN > window.innerWidth;
-    const placeUp = pos.y + 360 + MARGIN > window.innerHeight;
+    // const placeUp = pos.y + 360 + MARGIN > window.innerHeight;
+    const chatHeight = Math.min(window.innerHeight * 0.8, 500); // dynamic height
+const placeUp = pos.y + chatHeight + MARGIN > window.innerHeight;
     chatStyle = {
       left: placeLeft ? `${pos.x - chatWidth - MARGIN}px` : `${pos.x}px`,
       top: placeUp ? `${Math.max(MARGIN, pos.y - 340)}px` : `${pos.y + BTN_SIZE + MARGIN}px`,
       width: `${chatWidth}px`,
+       maxHeight: `${chatHeight}px`, 
       right: 'auto',
       bottom: 'auto',
     };
@@ -338,7 +341,7 @@ export default function ChatbotWidget() {
   return (
     <>
       {/* Floating Button (draggable) */}
-      <button
+      {/* <button
         ref={btnRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -363,7 +366,43 @@ export default function ChatbotWidget() {
             !
           </span>
         )}
-      </button>
+      </button> */}
+    <button
+  ref={btnRef}
+  onPointerDown={onPointerDown}
+  onPointerMove={onPointerMove}
+  onPointerUp={(e) => {
+    onPointerUp(e);
+
+    // 👉 CLICK pe hi open/close hoga (drag pe nahi)
+    if (!dragRef.current.moved) {
+      setOpen(!open);
+    }
+  }}
+  onDoubleClick={onDoubleClick}
+  aria-label={open ? 'Close chat' : 'Open chat — drag to move, double-click to reset'}
+  title="Drag to move · Double-click to reset"
+  style={btnStyle}
+  className={`fixed z-[90] w-14 h-14 rounded-full shadow-2xl transition-[background,transform] duration-300 flex items-center justify-center touch-none select-none ${
+    open
+      ? 'bg-slate-700 scale-90'
+      : 'bg-gradient-to-br from-blue-600 to-cyan-500 hover:scale-110 animate-pulse-ring'
+  } ${dragRef.current.dragging && dragRef.current.moved ? 'cursor-grabbing' : 'cursor-grab'}`}
+>
+  {/* 👉 ICON (emoji / cancel button) */}
+  {open ? (
+    <X size={24} color="white" />
+  ) : (
+    <MessageCircle size={24} color="white" />
+  )}
+
+  {/* 👉 unread badge */}
+  {unread && !open && (
+    <span className="absolute top-1 right-1 bg-red-500 text-white text-xs px-1 rounded-full">
+      !
+    </span>
+  )}
+</button>
 
       {/* Chat Window */}
       {open && (

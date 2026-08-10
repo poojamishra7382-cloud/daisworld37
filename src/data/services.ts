@@ -16,7 +16,7 @@ export const services: ServiceItem[] = [
     slug: 'language',
     title: 'Language',
     icon: Languages,
-    short: 'Free Dutch & German language training',
+    short: 'Free Dutch, German, spanish, arabic, french, language training',
     description:
       'We provide comprehensive language training in Dutch and German, taking you from zero to conversational fluency. Our certified trainers use immersive techniques so you can communicate confidently in hospitals and daily life.',
     features: [
@@ -44,27 +44,27 @@ export const services: ServiceItem[] = [
     ],
     color: 'from-indigo-600 to-blue-500',
   },
-  {
-    slug: 'it',
-    title: 'IT',
-    icon: Laptop,
-    short: 'IT skills training for healthcare tech',
-    description:
-      'Modern European hospitals use advanced healthcare IT systems. We train you on electronic health records, hospital management software, and digital tools so you are job-ready from day one.',
-    features: [
-      'Hospital information system training',
-      'Electronic health record (EHR) systems',
-      'Digital patient management tools',
-      'Basic IT certifications',
-      'Hands-on software workshops',
-    ],
-    color: 'from-cyan-600 to-teal-500',
-  },
+  // {
+  //   slug: 'it',
+  //   title: 'IT',
+  //   icon: Laptop,
+  //   short: 'IT skills training for healthcare tech',
+  //   description:
+  //     'Modern European hospitals use advanced healthcare IT systems. We train you on electronic health records, hospital management software, and digital tools so you are job-ready from day one.',
+  //   features: [
+  //     'Hospital information system training',
+  //     'Electronic health record (EHR) systems',
+  //     'Digital patient management tools',
+  //     'Basic IT certifications',
+  //     'Hands-on software workshops',
+  //   ],
+  //   color: 'from-cyan-600 to-teal-500',
+  // },
   {
     slug: 'nurse',
     title: 'Nurse',
     icon: Stethoscope,
-    short: 'Nursing licensing & job placement',
+    short: 'Nursing Career & job placement',
     description:
       'We guide you through nursing license validation, credential equivalence, and job placement with top European healthcare institutions. Our network spans hundreds of partner hospitals.',
     features: [

@@ -18,7 +18,7 @@ export default function ServicesSection() {
             Our <span className="text-gradient">Services</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            End-to-end support from language training to relocation. Everything you need to build your nursing career in Europe.
+            End-to-end support from language training ,documentation and relocation. Everything you need to build your career across globally.
           </p>
         </div>
 
@@ -59,14 +59,23 @@ export default function ServicesSection() {
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-white/10 rounded-3xl rotate-12" />
             <div className="relative">
               <h3 className="text-xl font-black mb-3">Ready to Begin?</h3>
-              <p className="text-white/90 text-sm leading-relaxed mb-6">Start your application today and take the first step toward your European nursing career.</p>
-              <Link
+              <p className="text-white/90 text-sm leading-relaxed mb-6">Start your application today and take the first step toward your global nursing career.</p>
+              {/* {<Link
                 to="/home"
                 className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-all group/btn"
+                
               >
                 Apply Now
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </Link>
+              </Link>  */}
+              <button
+  onClick={() => window.dispatchEvent(new CustomEvent('open-apply-modal'))}
+  className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-all group/btn"
+>
+  Apply Now
+  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+</button>
+
             </div>
           </div>
         </div>

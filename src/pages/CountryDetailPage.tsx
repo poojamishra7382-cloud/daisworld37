@@ -85,6 +85,7 @@ export default function CountryDetailPage() {
               </Link>
             ))}
           </div>
+          
         </div>
       </section>
 

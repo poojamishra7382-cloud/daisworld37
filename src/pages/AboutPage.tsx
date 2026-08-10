@@ -20,7 +20,7 @@ export default function AboutPage() {
             Recruitment Partner
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We connect qualified Indian nursing professionals with top healthcare institutions across West Europe.
+            Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We connect qualified Indian nursing professionals with top healthcare institutions across global.
           </p>
         </div>
       </section>
@@ -54,14 +54,14 @@ export default function AboutPage() {
                 With over a decade of experience, we have successfully placed 500+ nurses in European hospitals, providing end-to-end support from language training to visa processing to career mentorship after placement.
               </p>
               <p className="text-slate-600 leading-relaxed mb-8">
-                We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across West Europe — primarily the Netherlands. Our mission is to empower Indian nurses with global opportunities and world-class careers.
+                We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global. Our mission is to empower Indian nurses with global opportunities and world-class careers.
               </p>
 
               <div className="grid sm:grid-cols-3 gap-6">
                 {[
                   { icon: Target, title: 'Mission', desc: 'Empowering Indian nurses with global careers.', color: 'bg-blue-50 text-blue-600' },
                   { icon: Heart, title: 'Values', desc: 'Transparency, care, and commitment.', color: 'bg-rose-50 text-rose-600' },
-                  { icon: Lightbulb, title: 'Vision', desc: 'The leading bridge to European healthcare.', color: 'bg-amber-50 text-amber-600' },
+                  { icon: Lightbulb, title: 'Vision', desc: 'To be the leading bridge between Indian talent and global healthcare.', color: 'bg-amber-50 text-amber-600' },
                 ].map(({ icon: Icon, title, desc, color }) => (
                   <div key={title} className="text-center">
                     <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${color} mb-3`}>

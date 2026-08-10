@@ -112,6 +112,13 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
               </div>
             </div>
           </div>
+                {/* Clienter */}
+    <Link
+  to="/clients"
+  className="px-4 py-2 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+>
+  Clients
+</Link>
 
           {/* Countries Dropdown */}
           <div ref={countriesRef} className="relative">
@@ -151,7 +158,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             to="/contact"
             className="px-4 py-2 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
           >
-            Contact
+            Contact Us
           </Link>
         </nav>
 

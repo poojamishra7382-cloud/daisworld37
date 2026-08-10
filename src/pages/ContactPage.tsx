@@ -190,7 +190,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Phone</p>
-                    <p className="text-slate-900 font-bold group-hover:text-blue-600 transition-colors">8788631659</p>
+                    <p className="text-slate-900 font-bold group-hover:text-blue-600 transition-colors">8788631659/8291697383</p>
                   </div>
                 </a>
 
@@ -204,7 +204,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Email</p>
                     <p className="text-slate-900 font-bold group-hover:text-cyan-600 transition-colors break-all">
-                      aditya.s@knooviq.com
+                      aditya.s@knooviq.com/sanchit.r@knooviq.com
                     </p>
                   </div>
                 </a>
@@ -225,7 +225,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Hours</p>
-                    <p className="text-slate-900 font-bold">Mon – Sat · 9:00 AM – 7:00 PM IST</p>
+                    <p className="text-slate-900 font-bold">Mon – Sat · 11:00 AM – 8:00 PM IST</p>
                   </div>
                 </div>
               </div>

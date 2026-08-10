@@ -4,31 +4,46 @@ const testimonials = [
   {
     name: 'Priya Sharma',
     role: 'ICU Nurse, Paris, France',
-    image: 'https://images.pexels.com/photos/18878842/pexels-photo-18878842.jpeg?auto=compress&cs=tinysrgb&w=200',
+    //  image: 'https://images.pexels.com/photos/18878842/pexels-photo-18878842.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '/no-dp-image-1.webp',
     rating: 5,
     text: 'From a small town in Kerala to a leading hospital in Paris. The French language training was tough but the Knooviq mentors stayed patient with me. Today I earn €4,200 a month and my family is so proud.',
   },
   {
     name: 'Anjali Reddy',
     role: 'Registered Nurse, Berlin, Germany',
-    image: 'https://images.pexels.com/photos/37601638/pexels-photo-37601638.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '/no-dp-image-1.webp',
     rating: 4,
     text: 'The German B1 exam felt impossible at first, but the structured classes made it achievable. Visa and document work was fully handled. Wish the accommodation setup had been a bit quicker, but overall a great experience.',
   },
   {
     name: 'Deepika Nair',
     role: 'Staff Nurse, Moscow, Russia',
-    image: 'https://images.pexels.com/photos/7275701/pexels-photo-7275701.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '/no-dp-image-1.webp',
     rating: 4,
     text: 'I never thought I could work in Russia as a nurse. The Russian language course was challenging, but the team arranged everything from licensing to the airport pickup. Good salary and learning a lot on the job.',
   },
   {
     name: 'Meera Iyer',
     role: 'Surgical Nurse, Zurich, Switzerland',
-    image: 'https://images.pexels.com/photos/22679062/pexels-photo-22679062.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '/no-dp-image-1.webp',
     rating: 5,
     text: 'Switzerland was always a dream. The pay is incredible — over €6,000 a month — and the hospitals are world-class. Knooviq guided me through every document and interview. Best decision of my life.',
   },
+  {
+  name: 'Sneha Patel',
+  role: 'Registered Nurse, London, UK',
+  image: '/no-dp-image-1.webp',
+  rating: 5,
+  text: 'Being from India, I was nervous about moving abroad, but the team supported me at every step. From interview preparation to visa process, everything was handled professionally. Now I am working in the UK and living my dream!',
+},
+{
+  name: 'Pooja Nair',
+  role: 'Healthcare Assistant, Toronto, Canada',
+  image: '/no-dp-image-1.webp',
+  rating: 5,
+  text: 'The entire journey from India to Canada was smooth and well-guided. The training sessions and documentation support were excellent. I felt confident throughout the process and now I have a stable job with great growth opportunities.',
+},
 ];
 
 const avgRating = (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1);

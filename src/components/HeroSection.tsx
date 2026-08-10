@@ -12,28 +12,28 @@ interface Slide {
 const slides: Slide[] = [
   {
     image: 'https://images.pexels.com/photos/4930705/pexels-photo-4930705.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    badge: 'Now Hiring — West Europe 2026',
+    badge: 'Now Hiring — across globe 2026',
     heading: 'We Are Hiring',
     highlight: 'Nurses',
-    subtext: 'Build your career in West Europe with excellent salaries and great opportunities.',
+    subtext: 'Build your career across global.'
   },
   {
     image: 'https://images.pexels.com/photos/8460371/pexels-photo-8460371.jpeg?auto=compress&cs=tinysrgb&w=1920',
     badge: 'Join Our Medical Team',
     heading: 'Work With Top',
     highlight: 'Hospitals',
-    subtext: 'Partnered with leading healthcare facilities across Netherlands, Germany & more.',
+    subtext: 'Partnered with leading healthcare facilities across Europe, Australia, Canada, USA, Middle East & more.',
   },
   {
     image: 'https://images.pexels.com/photos/36078152/pexels-photo-36078152.jpeg?auto=compress&cs=tinysrgb&w=1920',
     badge: 'Visa + Air Ticket Included',
     heading: 'Your Career',
     highlight: 'Beyond Borders',
-    subtext: 'Complete visa support, air ticket, and accommodation — fully handled for you.',
+    subtext: 'Complete visa support, air ticket, and language training — fully handled by company.',
   },
   {
     image: 'https://images.pexels.com/photos/29941468/pexels-photo-29941468.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    badge: '70+ Open Positions',
+    badge: '2500+ Open Positions',
     heading: 'A Better Future',
     highlight: 'Awaits You',
     subtext: 'Take the next step in your nursing career with salaries up to €5,500/month.',
@@ -41,7 +41,7 @@ const slides: Slide[] = [
 ];
 
 const trustItems = [
-  { icon: Users, label: '70 Open Positions' },
+  { icon: Users, label: '2500 Open Positions' },
   { icon: TrendingUp, label: 'Up to €5,500/mo' },
   { icon: MapPin, label: 'Europe & More' },
 ];

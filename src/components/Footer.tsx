@@ -20,6 +20,9 @@ const footerLinks = {
     { label: 'Germany', to: '/country/germany' },
     { label: 'France', to: '/country/france' },
     { label: 'Switzerland', to: '/country/switzerland' },
+    { label: 'Australia', to: '/country/australia' },
+    { label: 'Canada', to: '/country/canada' },
+    { label: 'UK', to: '/country/uk' },
   ],
 };
 
@@ -110,13 +113,13 @@ export default function Footer() {
 
         {/* Contact row */}
         <div className="grid sm:grid-cols-3 gap-4 py-8 border-t border-white/10">
-          <a href="tel:8788631659" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+          <a href="tel:8788631659/8104363255" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
             <Phone className="w-5 h-5 text-cyan-400" />
-            8788631659
+            8788631659/ 8104363255
           </a>
           <a href="mailto:aditya.s@knooviq.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
             <Mail className="w-5 h-5 text-cyan-400" />
-            aditya.s@knooviq.com
+            aditya.s@knooviq.com/sanchit.r@knooviq.com
           </a>
           <div className="flex items-center gap-3 text-white/70">
             <MapPin className="w-5 h-5 text-cyan-400" />
@@ -132,12 +135,12 @@ export default function Footer() {
           <div className="flex items-center gap-1 text-white/40 text-sm">
             Made with <Heart className="w-4 h-4 text-rose-500 fill-rose-500" /> for Indian Nurses
           </div>
-          <Link
+          {/* <Link
             to="/home"
             className="flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium transition-colors"
           >
             Back to Top <ArrowUp className="w-4 h-4" />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </footer>

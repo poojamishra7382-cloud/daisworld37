@@ -19,7 +19,7 @@ export default function CountriesSection() {
             Where You'll <span className="text-gradient">Work</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            We place nurses across 8 European countries. Explore opportunities, salaries, and benefits for each destination.
+            We place nurses across globally. Explore opportunities, salaries, and benefits for each destination.
           </p>
         </div>
 

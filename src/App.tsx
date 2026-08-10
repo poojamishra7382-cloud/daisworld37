@@ -6,6 +6,7 @@ import ServiceDetailPage from '@/pages/ServiceDetailPage';
 import CountryDetailPage from '@/pages/CountryDetailPage';
 import ContactPage from '@/pages/ContactPage';
 import AdminPage from '@/pages/AdminPage';
+import ClienterPage from "./pages/ClienterPage";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/country" element={<CountryDetailPage />} />
           <Route path="/country/:slug" element={<CountryDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/clients" element={<ClienterPage />} />
         </Route>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<HomePage />} />
