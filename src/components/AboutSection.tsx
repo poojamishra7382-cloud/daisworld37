@@ -17,7 +17,7 @@ export default function AboutSection() {
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="glassmorphism rounded-2xl p-5">
                   <p className="text-white font-bold text-xl italic">"We Care. We Train. We Place. You Grow."</p>
-                  <p className="text-white/70 text-sm mt-1">— Knooviq Overseas Mission</p>
+                  <p className="text-white/70 text-sm mt-1">— DAIS WORLD MISSION</p>
                 </div>
               </div>
             </div>
@@ -28,14 +28,14 @@ export default function AboutSection() {
 
           {/* Right content */}
           <div>
-            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Knooviq Overseas</p>
+            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Dais World</p>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-6">
               India's Most Trusted{' '}
               <span className="text-gradient">Nursing</span>{' '}
               Recruitment Partner
             </h2>
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global.
+              Dais World is a premier international nursing recruitment consultancy based in Mumbai, India. We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global.
             </p>
             <p className="text-slate-600 leading-relaxed mb-10">
               With over a decade of experience, we have successfully placed 500+ nurses in European hospitals, providing end-to-end support from language training to visa processing to career mentorship after placement.

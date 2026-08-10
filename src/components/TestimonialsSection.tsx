@@ -7,7 +7,7 @@ const testimonials = [
     //  image: 'https://images.pexels.com/photos/18878842/pexels-photo-18878842.jpeg?auto=compress&cs=tinysrgb&w=200',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'From a small town in Kerala to a leading hospital in Paris. The French language training was tough but the Knooviq mentors stayed patient with me. Today I earn €4,200 a month and my family is so proud.',
+    text: 'From a small town in Kerala to a leading hospital in Paris. The French language training was tough but the Dais mentors stayed patient with me. Today I earn €4,200 a month and my family is so proud.',
   },
   {
     name: 'Anjali Reddy',
@@ -28,7 +28,7 @@ const testimonials = [
     role: 'Surgical Nurse, Zurich, Switzerland',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'Switzerland was always a dream. The pay is incredible — over €6,000 a month — and the hospitals are world-class. Knooviq guided me through every document and interview. Best decision of my life.',
+    text: 'Switzerland was always a dream. The pay is incredible — over €6,000 a month — and the hospitals are world-class. Dais World guided me through every document and interview. Best decision of my life.',
   },
   {
   name: 'Sneha Patel',

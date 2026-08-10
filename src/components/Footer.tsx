@@ -34,7 +34,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
           <div>
             <h3 className="text-2xl sm:text-3xl font-black text-white">Ready to Start Your Career?</h3>
-            <p className="text-white/90 mt-2">Join 500+ nurses who transformed their lives with Knooviq Overseas.</p>
+            <p className="text-white/90 mt-2">Join 500+ nurses who transformed their lives with Dias World.</p>
           </div>
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('open-apply-modal'))}
@@ -52,9 +52,14 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link to="/home" className="inline-block mb-4">
               <img
-                src="/WhatsApp_Image_2026-07-22_at_6.22.41_PM.jpeg"
+                src="logo3.png"
                 alt="Knooviq Overseas"
                 className="h-14 w-auto object-contain"
+                style={{
+    width: "240px",
+    margin: "-28px",
+    height:"6rem"
+  }}
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
@@ -115,11 +120,11 @@ export default function Footer() {
         <div className="grid sm:grid-cols-3 gap-4 py-8 border-t border-white/10">
           <a href="tel:8788631659/8104363255" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
             <Phone className="w-5 h-5 text-cyan-400" />
-            8788631659/ 8104363255
+            8976697001
           </a>
           <a href="mailto:aditya.s@knooviq.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
             <Mail className="w-5 h-5 text-cyan-400" />
-            aditya.s@knooviq.com/sanchit.r@knooviq.com
+            aditya.s@dais.com/sanchit.r@dais.com
           </a>
           <div className="flex items-center gap-3 text-white/70">
             <MapPin className="w-5 h-5 text-cyan-400" />
@@ -130,7 +135,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm text-center sm:text-left">
-            © {new Date().getFullYear()} Knooviq Overseas. All rights reserved.
+            © {new Date().getFullYear()} Dais World. All rights reserved.
           </p>
           <div className="flex items-center gap-1 text-white/40 text-sm">
             Made with <Heart className="w-4 h-4 text-rose-500 fill-rose-500" /> for Indian Nurses

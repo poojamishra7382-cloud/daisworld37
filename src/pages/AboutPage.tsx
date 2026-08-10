@@ -20,7 +20,7 @@ export default function AboutPage() {
             Recruitment Partner
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Knooviq Overseas is a premier international nursing recruitment consultancy based in Mumbai, India. We connect qualified Indian nursing professionals with top healthcare institutions across global.
+            Dais world is a premier international nursing recruitment consultancy based in Mumbai, India. We connect qualified Indian nursing professionals with top healthcare institutions across global.
           </p>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function AboutPage() {
           <div className="text-center mb-16">
             <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Why Choose Us</p>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
-              The <span className="text-gradient">Knooviq</span> Advantage
+              The <span className="text-gradient">Dais World</span> Advantage
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

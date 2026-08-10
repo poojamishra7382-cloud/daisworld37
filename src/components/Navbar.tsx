@@ -54,11 +54,20 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 flex items-center justify-between gap-2">
         {/* Logo */}
         <Link to="/home" className="flex items-center group flex-shrink-0">
-          <img
-            src="/WhatsApp_Image_2026-07-22_at_6.22.41_PM.jpeg"
+          {/* <img
+            src="/logo3.png"
             alt="Knooviq Overseas"
-            className="h-11 w-auto object-contain group-hover:opacity-90 transition-opacity duration-300 sm:h-12"
-          />
+            className="h-11 w-auto object-contain group-hover:opacity-90 transition-opacity duration-300 sm:h-12" style="width:200px;margin:-15px;"
+          /> */}
+          <img
+  src="/logo3.png"
+  alt="Knooviq Overseas"
+  className="w-auto object-contain group-hover:opacity-90 transition-opacity duration-300"
+  style={{
+    width: "170px",
+    margin: "-15px",
+  }}
+/>
         </Link>
 
         {/* Desktop Nav */}

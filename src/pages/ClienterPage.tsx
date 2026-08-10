@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// import Navbar from "@/components/Navbar";
+// import Footer from "@/components/Footer";
 import { useState } from "react";
 import { hospitalsData } from "@/data/hospitals";
 
@@ -13,7 +13,7 @@ export default function ClienterPage() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="pt-24">
         {/* HERO */}
@@ -84,7 +84,7 @@ export default function ClienterPage() {
         </section>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
