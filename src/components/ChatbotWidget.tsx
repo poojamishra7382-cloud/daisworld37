@@ -321,22 +321,57 @@ export default function ChatbotWidget() {
     : { left: `${pos.x}px`, top: `${pos.y}px` };
 
   // Compute chat window position relative to button
-  let chatStyle: React.CSSProperties = {};
-  if (!isDefaultPos) {
-    const chatWidth = Math.min(384, window.innerWidth - 2 * MARGIN);
-    const placeLeft = pos.x + BTN_SIZE + chatWidth + MARGIN > window.innerWidth;
-    // const placeUp = pos.y + 360 + MARGIN > window.innerHeight;
-    const chatHeight = Math.min(window.innerHeight * 0.8, 500); // dynamic height
-const placeUp = pos.y + chatHeight + MARGIN > window.innerHeight;
-    chatStyle = {
-      left: placeLeft ? `${pos.x - chatWidth - MARGIN}px` : `${pos.x}px`,
-      top: placeUp ? `${Math.max(MARGIN, pos.y - 340)}px` : `${pos.y + BTN_SIZE + MARGIN}px`,
-      width: `${chatWidth}px`,
-       maxHeight: `${chatHeight}px`, 
-      right: 'auto',
-      bottom: 'auto',
-    };
-  }
+//   let chatStyle: React.CSSProperties = {};
+//   if (!isDefaultPos) {
+//     const chatWidth = Math.min(384, window.innerWidth - 2 * MARGIN);
+//     const placeLeft = pos.x + BTN_SIZE + chatWidth + MARGIN > window.innerWidth;
+//     // const placeUp = pos.y + 360 + MARGIN > window.innerHeight;
+//     const chatHeight = Math.min(window.innerHeight * 0.8, 500); // dynamic height
+// const placeUp = pos.y + chatHeight + MARGIN > window.innerHeight;
+//     chatStyle = {
+//       left: placeLeft ? `${pos.x - chatWidth - MARGIN}px` : `${pos.x}px`,
+//       top: placeUp ? `${Math.max(MARGIN, pos.y - 340)}px` : `${pos.y + BTN_SIZE + MARGIN}px`,
+//       width: `${chatWidth}px`,
+//        maxHeight: `${chatHeight}px`, 
+//       right: 'auto',
+//       bottom: 'auto',
+//     };
+//   }
+let chatStyle: React.CSSProperties = {};
+
+if (!isDefaultPos) {
+  const chatWidth = Math.min(384, window.innerWidth - 32);
+  const chatHeight = Math.min(window.innerHeight * 0.8, 500);
+
+  const calculatedLeft =
+    pos.x + BTN_SIZE + chatWidth + MARGIN > window.innerWidth
+      ? pos.x - chatWidth - MARGIN
+      : pos.x;
+
+  const calculatedTop =
+    pos.y + BTN_SIZE + chatHeight + MARGIN > window.innerHeight
+      ? pos.y - chatHeight - MARGIN
+      : pos.y + BTN_SIZE + MARGIN;
+
+  chatStyle = {
+    left: `${Math.max(
+      MARGIN,
+      Math.min(calculatedLeft, window.innerWidth - chatWidth - MARGIN)
+    )}px`,
+
+    top: `${Math.max(
+      MARGIN,
+      Math.min(calculatedTop, window.innerHeight - chatHeight - MARGIN)
+    )}px`,
+
+    width: `${chatWidth}px`,
+    maxWidth: `calc(100vw - ${MARGIN * 2}px)`,
+    maxHeight: `${chatHeight}px`,
+    right: 'auto',
+    bottom: 'auto',
+  };
+}
+
 
   return (
     <>
@@ -371,6 +406,7 @@ const placeUp = pos.y + chatHeight + MARGIN > window.innerHeight;
   ref={btnRef}
   onPointerDown={onPointerDown}
   onPointerMove={onPointerMove}
+  
   onPointerUp={(e) => {
     onPointerUp(e);
 
@@ -407,7 +443,8 @@ const placeUp = pos.y + chatHeight + MARGIN > window.innerHeight;
       {/* Chat Window */}
       {open && (
         <div
-          className="fixed z-[90] w-[calc(100vw-2.5rem)] sm:w-96 animate-fadeInUp"
+          // className="fixed z-[90] w-[calc(100vw-2.5rem)] sm:w-96 animate-fadeInUp"
+          className="fixed z-[90] w-[calc(100vw-2rem)] max-w-[384px] animate-fadeInUp"
           style={isDefaultPos
             ? { bottom: '6rem', right: `${MARGIN}px` }
             : chatStyle}

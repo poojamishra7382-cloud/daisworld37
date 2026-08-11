@@ -262,6 +262,15 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 ))}
               </div>
             </div>
+{/* clients */}
+            <Link
+  to="/clients"
+  onClick={() => setOpen(false)}
+  className="flex items-center px-4 py-3.5 text-white/90 hover:text-white hover:bg-white/10 rounded-2xl font-medium transition-all active:scale-[0.98]"
+>
+  Clients
+</Link>
+
 
             {/* Mobile Countries — collapsible */}
             <button

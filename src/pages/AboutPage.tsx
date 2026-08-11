@@ -133,7 +133,7 @@ export default function AboutPage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-cyan-500">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-white/90 text-lg mb-8">Join 500+ nurses who transformed their lives with Knooviq Overseas.</p>
+          <p className="text-white/90 text-lg mb-8">Join 500+ nurses who transformed their lives with Dais World.</p>
           <Link to="/home" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl hover:bg-blue-50 transition-colors">
             Back to Home <ArrowRight className="w-5 h-5" />
           </Link>
