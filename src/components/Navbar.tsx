@@ -664,7 +664,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           "
         >
 
-          <button
+          {/* <button
             type="button"
             onClick={() => {
               onApplyClick();
@@ -688,7 +688,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             Apply
 
             <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          </button> */}
 
 
           <button
@@ -1179,3 +1179,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
     </header>
   );
 }
+
+
+
+
+
+            
