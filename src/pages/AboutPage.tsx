@@ -40,7 +40,7 @@ export default function AboutPage() {
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="glassmorphism rounded-2xl p-5">
                     <p className="text-white font-bold text-xl italic">"We Care. We Train. We Place. You Grow."</p>
-                    <p className="text-white/70 text-sm mt-1">— Knooviq Overseas Mission</p>
+                    <p className="text-white/70 text-sm mt-1">— DIAS WORLD Mission</p>
                   </div>
                 </div>
               </div>

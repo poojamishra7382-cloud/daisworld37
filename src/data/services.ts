@@ -1,4 +1,10 @@
-import { Languages, Plane, Laptop, Stethoscope, LifeBuoy } from 'lucide-react';
+import {
+  Stethoscope,
+  Hotel,
+  HardHat,
+  Fuel,
+} from 'lucide-react';
+
 import type { LucideIcon } from 'lucide-react';
 
 export interface ServiceItem {
@@ -7,89 +13,291 @@ export interface ServiceItem {
   icon: LucideIcon;
   short: string;
   description: string;
+  overview: string;
   features: string[];
+  roles: string[];
+  industries: string[];
+  benefits: string[];
   color: string;
+  image: string;
 }
 
 export const services: ServiceItem[] = [
+
+  // =====================================================
+  // HEALTHCARE
+  // =====================================================
+
   {
-    slug: 'language',
-    title: 'Language',
-    icon: Languages,
-    short: 'Free Dutch, German, spanish, arabic, french, language training',
-    description:
-      'We provide comprehensive language training in Dutch and German, taking you from zero to conversational fluency. Our certified trainers use immersive techniques so you can communicate confidently in hospitals and daily life.',
-    features: [
-      'Free A1–B2 Dutch language courses',
-      'Native-speaker conversation practice',
-      'Medical vocabulary focused training',
-      'Flexible online + offline classes',
-      'Certified exam preparation',
-    ],
-    color: 'from-blue-600 to-cyan-500',
-  },
-  {
-    slug: 'visa',
-    title: 'Visa',
-    icon: Plane,
-    short: 'Full visa processing & documentation',
-    description:
-      'From document verification to embassy interviews, we handle the entire visa process end-to-end. Our team ensures your application is complete, compliant, and submitted on time for the highest success rate.',
-    features: [
-      'Complete visa documentation support',
-      'Embassy interview preparation',
-      'Document attestation & translation',
-      'MVV and work permit processing',
-      'Real-time application tracking',
-    ],
-    color: 'from-indigo-600 to-blue-500',
-  },
-  // {
-  //   slug: 'it',
-  //   title: 'IT',
-  //   icon: Laptop,
-  //   short: 'IT skills training for healthcare tech',
-  //   description:
-  //     'Modern European hospitals use advanced healthcare IT systems. We train you on electronic health records, hospital management software, and digital tools so you are job-ready from day one.',
-  //   features: [
-  //     'Hospital information system training',
-  //     'Electronic health record (EHR) systems',
-  //     'Digital patient management tools',
-  //     'Basic IT certifications',
-  //     'Hands-on software workshops',
-  //   ],
-  //   color: 'from-cyan-600 to-teal-500',
-  // },
-  {
-    slug: 'nurse',
-    title: 'Nurse',
+    slug: 'healthcare',
+    title: 'Healthcare',
     icon: Stethoscope,
-    short: 'Nursing Career & job placement',
+
+    short:
+      'International healthcare recruitment and career opportunities',
+
     description:
-      'We guide you through nursing license validation, credential equivalence, and job placement with top European healthcare institutions. Our network spans hundreds of partner hospitals.',
+      'We connect qualified healthcare professionals with leading hospitals, clinics, and healthcare institutions across international markets. From recruitment to documentation and placement, we support candidates throughout their journey.',
+
+    overview:
+      'Our healthcare recruitment services connect qualified and experienced healthcare professionals with trusted hospitals, clinics, medical centers, and healthcare institutions across international markets. We support candidates throughout the recruitment journey, from profile assessment and documentation to job matching, interviews, and placement.',
+
     features: [
-      'Nursing license validation & equivalence',
-      'Direct placement in partner hospitals',
-      'Clinical practice gap training',
-      'Specialty-specific job matching',
-      'Post-placement career mentoring',
+      'Healthcare professional recruitment',
+      'Nurse and medical staff placement',
+      'Credential verification & documentation',
+      'International job placement',
+      'Career guidance & placement support',
     ],
-    color: 'from-blue-500 to-indigo-600',
+
+    roles: [
+      'Registered Nurses',
+      'Staff Nurses',
+      'Nursing Assistants',
+      'Healthcare Assistants',
+      'Medical Technicians',
+      'Laboratory Technicians',
+      'Radiology Technicians',
+      'Medical Professionals',
+    ],
+
+    industries: [
+      'Hospitals',
+      'Private Clinics',
+      'Medical Centers',
+      'Nursing Homes',
+      'Rehabilitation Centers',
+      'Specialized Healthcare Facilities',
+      'Long-Term Care Facilities',
+    ],
+
+    benefits: [
+      'International healthcare career opportunities',
+      'Professional job placement',
+      'Documentation guidance',
+      'Interview coordination',
+      'Career guidance and placement support',
+      'International placement assistance',
+    ],
+
+    color: 'from-blue-600 to-cyan-500',
+
+    image:
+      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
   },
+
+
+  // =====================================================
+  // HOSPITALITY
+  // =====================================================
+
   {
-    slug: 'support',
-    title: 'Support',
-    icon: LifeBuoy,
-    short: 'End-to-end relocation & settlement support',
+    slug: 'hospitality',
+    title: 'Hospitality',
+    icon: Hotel,
+
+    short:
+      'Skilled hospitality professionals for global opportunities',
+
     description:
-      'Moving to a new country is a big step. We provide complete relocation support — from airport pickup to accommodation, banking, registration, and ongoing mentorship throughout your journey.',
+      'We recruit and place skilled hospitality professionals with hotels, resorts, restaurants, and hospitality businesses worldwide. Our solutions help employers build reliable teams while helping candidates discover international career opportunities.',
+
+    overview:
+      'Our hospitality recruitment services connect skilled and experienced professionals with hotels, resorts, restaurants, and hospitality organizations across international markets. We focus on matching candidates according to their skills, experience, qualifications, and employer requirements.',
+
     features: [
-      'Airport pickup & initial accommodation',
-      'Bank account & insurance setup',
-      'City registration & BSN assistance',
-      '24/7 helpline for first 6 months',
-      'Community & cultural integration events',
+      'Hotel & resort recruitment',
+      'Chefs & kitchen staff placement',
+      'Housekeeping staff recruitment',
+      'Front office recruitment',
+      'Restaurant & food service recruitment',
+      'Food & beverage staffing',
+      'International job placement support',
     ],
-    color: 'from-teal-600 to-emerald-500',
+
+    roles: [
+      'Hotel Managers',
+      'Front Office Staff',
+      'Receptionists',
+      'Chefs',
+      'Sous Chefs',
+      'Cooks',
+      'Kitchen Assistants',
+      'Housekeeping Staff',
+      'Waiters & Waitresses',
+      'Food & Beverage Staff',
+      'Restaurant Staff',
+      'Maintenance Staff',
+    ],
+
+    industries: [
+      'Hotels',
+      'Luxury Resorts',
+      'Restaurants',
+      'Cafes',
+      'Food & Beverage Businesses',
+      'Holiday Resorts',
+      'Guest Houses',
+      'Hospitality Groups',
+    ],
+
+    benefits: [
+      'International hospitality opportunities',
+      'Professional job matching',
+      'Access to hotel and resort vacancies',
+      'Career development support',
+      'Employer interview coordination',
+      'International placement assistance',
+    ],
+
+
+    color: 'from-indigo-600 to-blue-500',
+
+image: '/download5.jpg',
+  },
+
+
+  // =====================================================
+  // CONSTRUCTION
+  // =====================================================
+
+  {
+    slug: 'construction',
+    title: 'Construction',
+    icon: HardHat,
+
+    short:
+      'Skilled and experienced construction workforce',
+
+    description:
+      'We provide skilled and experienced construction professionals for international projects. Our recruitment services cover multiple construction trades and help employers build dependable teams for residential, commercial, infrastructure, and industrial projects.',
+
+    overview:
+      'Our construction recruitment services help international employers find skilled and experienced professionals for residential, commercial, infrastructure, and industrial projects. We match candidates according to their technical skills, experience, qualifications, and project requirements.',
+
+    features: [
+      'Skilled construction worker recruitment',
+      'Civil & building professionals',
+      'Electricians & plumbers',
+      'Welders & technicians',
+      'Engineers & supervisors',
+      'Heavy equipment operators',
+      'International workforce placement',
+    ],
+
+    roles: [
+      'Civil Engineers',
+      'Site Engineers',
+      'Construction Supervisors',
+      'Electricians',
+      'Plumbers',
+      'Welders',
+      'Steel Fixers',
+      'Carpenters',
+      'Masons',
+      'Painters',
+      'Tile Fixers',
+      'Equipment Operators',
+      'Technicians',
+    ],
+
+    industries: [
+      'Residential Construction',
+      'Commercial Construction',
+      'Infrastructure Projects',
+      'Road & Highway Projects',
+      'Industrial Construction',
+      'Building Projects',
+      'Engineering Projects',
+      'Maintenance Projects',
+    ],
+
+    benefits: [
+      'Access to skilled international workforce',
+      'Project-specific recruitment',
+      'Technical skill assessment',
+      'Experienced candidate sourcing',
+      'Documentation support',
+      'International placement assistance',
+    ],
+
+    
+    color: 'from-blue-500 to-indigo-600',
+
+    image:
+      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+  },
+
+
+  // =====================================================
+  // OIL & GAS
+  // =====================================================
+
+  {
+    slug: 'oil-and-gas',
+    title: 'Oil & Gas',
+    icon: Fuel,
+
+    short:
+      'Specialized manpower for the oil and gas industry',
+
+    description:
+      'We connect experienced oil and gas professionals with international employers and projects. Our recruitment solutions help companies access qualified technical, engineering, operational, and maintenance talent for demanding industry requirements.',
+
+    overview:
+      'Our oil and gas recruitment services connect experienced professionals with international employers and energy projects. We provide recruitment support for engineering, technical, operational, maintenance, and skilled workforce requirements while focusing on qualifications, experience, and project needs.',
+
+    features: [
+      'Oil & gas workforce recruitment',
+      'Engineers & technical professionals',
+      'Operators & maintenance staff',
+      'Skilled technicians & workers',
+      'Project-based manpower solutions',
+      'Technical candidate screening',
+      'International placement & documentation support',
+    ],
+
+    roles: [
+      'Petroleum Engineers',
+      'Mechanical Engineers',
+      'Electrical Engineers',
+      'Process Engineers',
+      'Project Engineers',
+      'Plant Operators',
+      'Field Operators',
+      'Maintenance Technicians',
+      'Mechanical Technicians',
+      'Electrical Technicians',
+      'Welders',
+      'Pipe Fitters',
+      'Safety Professionals',
+    ],
+
+    industries: [
+      'Oil Exploration',
+      'Oil Production',
+      'Gas Processing',
+      'Refineries',
+      'Petrochemical Plants',
+      'Energy Projects',
+      'Pipeline Projects',
+      'Offshore Operations',
+      'Onshore Operations',
+    ],
+
+    benefits: [
+      'Access to specialized technical professionals',
+      'Industry-focused recruitment',
+      'Experienced candidate sourcing',
+      'Technical skill assessment',
+      'Project-specific manpower solutions',
+      'International recruitment support',
+    ],
+
+    
+    color: 'from-cyan-600 to-teal-500',
+
+      image: 
+  'https://images.openai.com/static-rsc-4/d9KX9WrZF_8aeIxbdpX0rCO7tZunJ4_tYxiifAnjEw0AdEliwY1qLmI5aX8MYf6PRrdJh4QZkNQg6emMjboy-_dNwQBn0ZjJQx3djugvjftZCQDYCYILrQXiPaegMbkdVRrCowEhiEU0M0QeBsNxB4UZUb_cJ7yWobbxEK7M7BkICCq6LlzV2K7m2ZKZnjVn?purpose=fullsize',
   },
 ];

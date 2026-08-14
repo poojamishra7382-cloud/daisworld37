@@ -52,15 +52,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link to="/home" className="inline-block mb-4">
               <img
-                src="logo3.png"
-                alt="Knooviq Overseas"
-                className="h-14 w-auto object-contain"
-                style={{
-    width: "240px",
-    margin: "-28px",
-    height:"6rem"
-  }}
-              />
+  src="/logo3.png"
+  alt="Dias World"
+  className="h-12 w-auto object-contain"
+/>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
               India's most trusted nursing recruitment consultancy. We connect Indian healthcare professionals with world-class European hospitals.
@@ -70,7 +65,7 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-3">
               <a
-                href="https://www.instagram.com/"
+                href="https://www.instagram.com/dais_world_?igsh=a3ljcDFhamh3cjRr"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -79,7 +74,7 @@ export default function Footer() {
                 <Instagram className="w-5 h-5 text-white" />
               </a>
               <a
-                href="https://www.facebook.com/"
+                href="https://www.facebook.com/share/1DYs7V9D6o/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -88,7 +83,8 @@ export default function Footer() {
                 <Facebook className="w-5 h-5 text-white" />
               </a>
               <a
-                href="https://www.youtube.com/"
+                // href="https://www.youtube.com/"
+                 href="https://www.youtube.com/@DaisWorld-d2y"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
@@ -122,9 +118,9 @@ export default function Footer() {
             <Phone className="w-5 h-5 text-cyan-400" />
             8976697001
           </a>
-          <a href="mailto:aditya.s@knooviq.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+          <a href="mailto:aditya.s@daisworld.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
             <Mail className="w-5 h-5 text-cyan-400" />
-            aditya.s@dais.com/sanchit.r@dais.com
+            aditya.s@daisworld.com/sanchit.r@daisworld.com
           </a>
           <div className="flex items-center gap-3 text-white/70">
             <MapPin className="w-5 h-5 text-cyan-400" />

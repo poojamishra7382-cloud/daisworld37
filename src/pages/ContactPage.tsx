@@ -20,8 +20,8 @@ const quickCards = [
     href: 'https://wa.me/918788631659', color: 'from-emerald-600 to-emerald-500',
   },
   {
-    icon: Mail, label: 'Email', value: 'aditya.s@knooviq.com', sub: 'Reply within 24h',
-    href: 'mailto:aditya.s@knooviq.com', color: 'from-cyan-600 to-cyan-500',
+    icon: Mail, label: 'Email', value: 'aditya.s@dais.com', sub: 'Reply within 24h',
+    href: 'mailto:aditya.s@dais.com', color: 'from-cyan-600 to-cyan-500',
   },
   {
     icon: Calendar, label: 'Book Consultation', value: 'Schedule a call', sub: 'Free 30-min session',
@@ -30,9 +30,9 @@ const quickCards = [
 ];
 
 const socials = [
-  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/', hover: 'hover:bg-blue-600' },
-  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/knooviq_overseas', hover: 'hover:bg-pink-600' },
-  { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/', hover: 'hover:bg-red-600' },
+  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/1DYs7V9D6o/', hover: 'hover:bg-blue-600' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/dais_world_?igsh=a3ljcDFhamh3cjRr', hover: 'hover:bg-pink-600' },
+  { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/@DaisWorld-d2y', hover: 'hover:bg-red-600' },
 ];
 
 const trustStats = [
@@ -195,7 +195,7 @@ export default function ContactPage() {
                 </a>
 
                 <a
-                  href="mailto:aditya.s@knooviq.com"
+                  href="mailto:aditya.s@diasworld.com"
                   className="flex items-center gap-4 group"
                 >
                   <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-cyan-50 group-hover:bg-cyan-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
@@ -204,7 +204,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Email</p>
                     <p className="text-slate-900 font-bold group-hover:text-cyan-600 transition-colors break-all">
-                      aditya.s@dais.com/sanchit.r@dais.com
+                      aditya.s@daisworld.com/sanchit.r@daisworld.com
                     </p>
                   </div>
                 </a>
@@ -420,7 +420,7 @@ export default function ContactPage() {
 
           <div className="rounded-3xl overflow-hidden shadow-2xl shadow-blue-200 border border-white">
             <iframe
-              title="Knooviq Overseas — Malad West, Mumbai"
+              title="DIAS WORLD — Malad West, Mumbai"
               src="https://www.google.com/maps?q=Malad+West,+Mumbai,+Maharashtra&output=embed"
               className="w-full h-[420px] border-0"
               loading="lazy"

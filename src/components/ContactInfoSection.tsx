@@ -45,7 +45,7 @@ export default function ContactInfoSection() {
               <h3 className="text-white font-black text-xl">Our Office</h3>
             </div>
             <p className="text-white/70 leading-relaxed mb-4">
-              Knooviq Overseas<br />
+              DIAS WORLD<br />
               Mumbai, Maharashtra<br />
               India
             </p>

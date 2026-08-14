@@ -236,7 +236,7 @@ export default function ContactFormSection() {
           </button>
 
           <p className="text-center text-slate-400 text-xs mt-4">
-            By submitting, you agree to be contacted by Knooviq Overseas regarding your application.
+            By submitting, you agree to be contacted by DAIS WORLD regarding your application.
           </p>
         </form>
       </div>

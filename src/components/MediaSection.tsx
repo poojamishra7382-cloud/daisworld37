@@ -7,7 +7,7 @@ const media = [
     title: 'Mumbai Agency Bridges Nursing Gap Between India and Europe',
     source: 'The Hindu',
     date: 'March 2024',
-    excerpt: 'Knooviq Overseas has placed over 500 Indian nurses in West European hospitals, addressing critical healthcare shortages...',
+    excerpt: 'DIAS WORLD has placed over 500 Indian nurses in West European hospitals, addressing critical healthcare shortages...',
   },
   {
     type: 'TV Interview',
@@ -28,7 +28,7 @@ const media = [
   {
     type: 'Award',
     icon: Award,
-    title: 'Knooviq Wins Excellence in International Recruitment Award',
+    title: 'DIAS WORLD Wins Excellence in International Recruitment Award',
     source: 'Healthcare India Summit',
     date: 'October 2023',
     excerpt: 'Recognized for ethical recruitment practices and outstanding contribution to international healthcare placement...',

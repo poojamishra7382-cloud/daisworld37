@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: 'How much does the program cost?',
-    a: 'Most candidates qualify for our full Knooviq Package where training, visa assistance, and air ticket are covered. Some employer-sponsored roles cover everything. We discuss costs transparently during your screening call.',
+    a: 'Most candidates qualify for our full DIAS WORLD Package where training, visa assistance, and air ticket are covered. Some employer-sponsored roles cover everything. We discuss costs transparently during your screening call.',
   },
   {
     q: 'How long does the entire process take?',

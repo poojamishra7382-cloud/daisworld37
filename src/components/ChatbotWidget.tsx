@@ -40,7 +40,7 @@ const RULES: Rule[] = [
   },
   {
     match: ['contact', 'email', 'phone', 'call', 'reach', 'support'],
-    reply: "You can contact us at aditya.s@knooviq.com or call 8788631659. We're available Mon–Sat, 9am–7pm IST. You can also use the Contact page to send us a message directly.",
+    reply: "You can contact us at aditya.s@daisworld.com or call 8788631659. We're available Mon–Sat, 9am–7pm IST. You can also use the Contact page to send us a message directly.",
   },
   {
     match: ['hello', 'hi', 'hey', 'namaste', 'namaskar'],
@@ -460,7 +460,7 @@ if (!isDefaultPos) {
                   <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-blue-600" />
                 </div>
                 <div>
-                  <p className="text-white font-black text-sm">Knooviq Assistant</p>
+                  <p className="text-white font-black text-sm">DAIS WORLD Assistant</p>
                   <p className="text-white/70 text-xs flex items-center gap-1">
                     <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
                     Online · Replies instantly

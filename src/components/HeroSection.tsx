@@ -11,28 +11,28 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    image: 'https://images.pexels.com/photos/4930705/pexels-photo-4930705.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'hosp.png',
     badge: 'Now Hiring — across globe 2026',
     heading: 'We Are Hiring',
     highlight: 'Nurses',
     subtext: 'Build your career across global.'
   },
   {
-    image: 'https://images.pexels.com/photos/8460371/pexels-photo-8460371.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'tm.jpg',
     badge: 'Join Our Medical Team',
     heading: 'Work With Top',
     highlight: 'Hospitals',
     subtext: 'Partnered with leading healthcare facilities across Europe, Australia, Canada, USA, Middle East & more.',
   },
   {
-    image: 'https://images.pexels.com/photos/36078152/pexels-photo-36078152.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'construct1.jpg',
     badge: 'Visa + Air Ticket Included',
     heading: 'Your Career',
     highlight: 'Beyond Borders',
     subtext: 'Complete visa support, air ticket, and language training — fully handled by company.',
   },
   {
-    image: 'https://images.pexels.com/photos/29941468/pexels-photo-29941468.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'construct.png',
     badge: '2500+ Open Positions',
     heading: 'A Better Future',
     highlight: 'Awaits You',
@@ -70,26 +70,30 @@ export default function HeroSection() {
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Slides */}
-      {slides.map((slide, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
-          style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-        >
-          <img
-            src={slide.image}
-            alt={slide.heading}
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              transform: i === current ? 'scale(1.12) translateX(-3%)' : 'scale(1.12) translateX(3%)',
-              transition: 'transform 8s ease-out',
-            }}
-          />
-          {/* Cinematic overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#06122a]/95 via-[#06122a]/55 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#06122a]/85 via-transparent to-[#06122a]/35" />
-        </div>
-      ))}
+{slides.map((slide, i) => (
+  <div
+    key={i}
+    className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
+    style={{
+      opacity: i === current ? 1 : 0,
+      zIndex: i === current ? 1 : 0,
+    }}
+  >
+    <img
+      src={slide.image}
+      alt={slide.heading}
+      className="absolute inset-0 w-full h-full object-fill object-center"
+      style={{
+        transform: 'scale(1)',
+        transition: 'transform 8s ease-out',
+      }}
+    />
+
+    {/* Cinematic overlays */}
+    <div className="absolute inset-0 bg-gradient-to-r from-[#06122a]/95 via-[#06122a]/55 to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#06122a]/85 via-transparent to-[#06122a]/35" />
+  </div>
+))}
 
       {/* Slide content */}
       <div className="relative z-10 h-full flex items-center">
