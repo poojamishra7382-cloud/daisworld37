@@ -19,7 +19,7 @@ export default function CountriesSection() {
             Where You'll <span className="text-gradient">Work</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            We place nurses across globally. Explore opportunities, salaries, and benefits for each destination.
+            We connect skilled professionals with global career opportunities. Explore jobs, salaries, and benefits across each destination.
           </p>
         </div>
 

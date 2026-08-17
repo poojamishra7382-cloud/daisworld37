@@ -1,14 +1,7 @@
 import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
-  {
-    name: 'Priya Sharma',
-    role: 'ICU Nurse, Paris, France',
-    //  image: 'https://images.pexels.com/photos/18878842/pexels-photo-18878842.jpeg?auto=compress&cs=tinysrgb&w=200',
-    image: '/no-dp-image-1.webp',
-    rating: 5,
-    text: 'From a small town in Kerala to a leading hospital in Paris. The French language training was tough but the Dais mentors stayed patient with me. Today I earn €4,200 a month and my family is so proud.',
-  },
+  
   {
     name: 'Anjali Reddy',
     role: 'Registered Nurse, Berlin, Germany',
@@ -16,6 +9,7 @@ const testimonials = [
     rating: 4,
     text: 'The German B1 exam felt impossible at first, but the structured classes made it achievable. Visa and document work was fully handled. Wish the accommodation setup had been a bit quicker, but overall a great experience.',
   },
+
   {
     name: 'Deepika Nair',
     role: 'Staff Nurse, Moscow, Russia',
@@ -23,27 +17,62 @@ const testimonials = [
     rating: 4,
     text: 'I never thought I could work in Russia as a nurse. The Russian language course was challenging, but the team arranged everything from licensing to the airport pickup. Good salary and learning a lot on the job.',
   },
+
+
+  // ================= HOSPITALITY =================
+
   {
-    name: 'Meera Iyer',
-    role: 'Surgical Nurse, Zurich, Switzerland',
+    name: 'Rajesh Mehta',
+    role: 'Hotel Operations Supervisor, Dubai, UAE',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'Switzerland was always a dream. The pay is incredible — over €6,000 a month — and the hospitals are world-class. Dais World guided me through every document and interview. Best decision of my life.',
+    text: 'I always wanted to build my career in the international hospitality industry. Dais World helped me find the right opportunity in Dubai and supported me throughout the interview and documentation process. Today I am working in a reputed hotel and gaining valuable international experience.',
   },
+
   {
-  name: 'Sneha Patel',
-  role: 'Registered Nurse, London, UK',
-  image: '/no-dp-image-1.webp',
-  rating: 5,
-  text: 'Being from India, I was nervous about moving abroad, but the team supported me at every step. From interview preparation to visa process, everything was handled professionally. Now I am working in the UK and living my dream!',
-},
-{
-  name: 'Pooja Nair',
-  role: 'Healthcare Assistant, Toronto, Canada',
-  image: '/no-dp-image-1.webp',
-  rating: 5,
-  text: 'The entire journey from India to Canada was smooth and well-guided. The training sessions and documentation support were excellent. I felt confident throughout the process and now I have a stable job with great growth opportunities.',
-},
+    name: 'Sonam Singh',
+    role: 'Chef, Doha, Qatar',
+    image: '/no-dp-image-1.webp',
+    rating: 5,
+    text: 'The team understood my experience and helped me find a suitable hospitality position in Qatar. The interview preparation was very useful and the entire relocation process was clearly explained. I am happy with my new career opportunity.',
+  },
+
+  // ================= CONSTRUCTION =================
+
+  {
+    name: 'Amit Kumar',
+    role: 'Civil Engineer, Riyadh, Saudi Arabia',
+    image: '/no-dp-image-1.webp',
+    rating: 5,
+    text: 'I was looking for an opportunity in the Middle East construction sector and Dais World helped me connect with the right employer. The documentation and interview guidance were very helpful. I am now working on a major construction project in Riyadh.',
+  },
+
+  {
+    name: 'Sandeep Yadav',
+    role: 'Site Supervisor, Abu Dhabi, UAE',
+    image: '/no-dp-image-1.webp',
+    rating: 5,
+    text: 'The recruitment process was simple and well organized. The team explained everything clearly, from the job requirements to the relocation process. I am now working as a site supervisor in Abu Dhabi and getting excellent international experience.',
+  },
+
+  // ================= OIL & GAS =================
+
+  {
+    name: 'Rajesh Patel',
+    role: 'Mechanical Engineer, Abu Dhabi, UAE',
+    image: '/no-dp-image-1.webp',
+    rating: 5,
+    text: 'Dais World helped me take the next step in my oil and gas career. The team understood my technical background and guided me towards a suitable opportunity in Abu Dhabi. Their support during the recruitment process was excellent.',
+  },
+
+  {
+    name: 'Karan Singh',
+    role: 'Electrical Technician, Doha, Qatar',
+    image: '/no-dp-image-1.webp',
+    rating: 5,
+    text: 'I wanted to work in the Middle East energy sector and did not know where to start. Dais World guided me through the complete process and helped me prepare for the technical interview. I am now working in Qatar and building my international career.',
+  },
+
 ];
 
 const avgRating = (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1);
@@ -55,12 +84,12 @@ export default function TestimonialsSection() {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Real Stories</p>
+          <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3"></p>
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
-            Hear From Our <span className="text-gradient">Nurses</span>
+            Hear From Our <span className="text-gradient">Candidates</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            500+ nurses placed. 500+ lives transformed. Here are a few of their stories.
+          500+ professionals placed. 500+ careers transformed. Here are a few of their stories.
           </p>
         </div>
 

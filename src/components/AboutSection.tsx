@@ -31,22 +31,36 @@ export default function AboutSection() {
             <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Dais World</p>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-6">
               India's Most Trusted{' '}
-              <span className="text-gradient">Nursing</span>{' '}
+              <span className="text-gradient">Overseas</span>{' '}
               Recruitment Partner
             </h2>
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Dais World is a premier international nursing recruitment consultancy based in Mumbai, India. We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global.
-            </p>
+Dais World is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas worldwide.            </p>
             <p className="text-slate-600 leading-relaxed mb-10">
-              With over a decade of experience, we have successfully placed 500+ nurses in European hospitals, providing end-to-end support from language training to visa processing to career mentorship after placement.
-            </p>
+              With over a decade of experience, we have helped hundreds of skilled professionals build international careers across Healthcare, Hospitality, Construction, and Oil & Gas. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.    </p>
 
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                { icon: Target, title: 'Our Mission', desc: 'To empower Indian nurses with global opportunities and world-class careers.', color: 'bg-blue-50 text-blue-600' },
-                { icon: Heart, title: 'Our Values', desc: 'Transparency, care, and commitment to every nurse we represent.', color: 'bg-rose-50 text-rose-600' },
-                { icon: Lightbulb, title: 'Our Vision', desc: 'To be the leading bridge between Indian talent and global healthcare.', color: 'bg-amber-50 text-amber-600' },
-              ].map(({ icon: Icon, title, desc, color }) => (
+                { 
+  icon: Target, 
+  title: 'Our Mission', 
+  desc: 'To connect skilled professionals with global opportunities while delivering trusted and reliable workforce solutions.', 
+  color: 'bg-blue-50 text-blue-600' 
+},
+
+{ 
+  icon: Heart, 
+  title: 'Our Values', 
+  desc: 'Integrity, transparency, professionalism, and commitment guide everything we do for our clients and candidates.', 
+  color: 'bg-rose-50 text-rose-600' 
+},
+
+{ 
+  icon: Lightbulb, 
+  title: 'Our Vision', 
+  desc: 'To become a trusted global partner for talent and workforce solutions across diverse industries.', 
+  color: 'bg-amber-50 text-amber-600' 
+},   ].map(({ icon: Icon, title, desc, color }) => (
                 <div key={title} className="text-center">
                   <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${color} mb-3`}>
                     <Icon className="w-6 h-6" />

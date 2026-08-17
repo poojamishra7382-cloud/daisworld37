@@ -16,12 +16,11 @@ export default function AboutPage() {
           <p className="text-blue-400 font-semibold text-sm uppercase tracking-widest mb-3">About Us</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6">
             India's Most Trusted{' '}
-            <span className="text-gradient">Nursing</span>{' '}
+            <span className="text-gradient">Overseas</span>{' '}
             Recruitment Partner
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Dais world is a premier international nursing recruitment consultancy based in Mumbai, India. We connect qualified Indian nursing professionals with top healthcare institutions across global.
-          </p>
+            Dais World is a premier international manpower recruitment consultancy based in Mumbai, India. We connect skilled Indian professionals with leading employers across Healthcare, Hospitality, Construction, and Oil & Gas worldwide. </p>
         </div>
       </section>
 
@@ -51,18 +50,33 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6">Our Story</h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                With over a decade of experience, we have successfully placed 500+ nurses in European hospitals, providing end-to-end support from language training to visa processing to career mentorship after placement.
+                With over a decade of experience, we have helped hundreds of skilled professionals build successful international careers across Healthcare, Hospitality, Construction, and Oil & Gas. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
               </p>
               <p className="text-slate-600 leading-relaxed mb-8">
-                We specialize in connecting qualified Indian nursing professionals with top healthcare institutions across global. Our mission is to empower Indian nurses with global opportunities and world-class careers.
-              </p>
+                We specialize in connecting skilled Indian professionals with leading international employers across Healthcare, Hospitality, Construction, and Oil & Gas. Our mission is to empower professionals with global opportunities, reliable career support, and pathways to build successful careers abroad.    </p>
 
               <div className="grid sm:grid-cols-3 gap-6">
                 {[
-                  { icon: Target, title: 'Mission', desc: 'Empowering Indian nurses with global careers.', color: 'bg-blue-50 text-blue-600' },
-                  { icon: Heart, title: 'Values', desc: 'Transparency, care, and commitment.', color: 'bg-rose-50 text-rose-600' },
-                  { icon: Lightbulb, title: 'Vision', desc: 'To be the leading bridge between Indian talent and global healthcare.', color: 'bg-amber-50 text-amber-600' },
-                ].map(({ icon: Icon, title, desc, color }) => (
+                  { 
+  icon: Target, 
+  title: 'Mission', 
+  desc: 'Connecting skilled talent with global opportunities and trusted employers.', 
+  color: 'bg-blue-50 text-blue-600' 
+},
+
+{ 
+  icon: Heart, 
+  title: 'Values', 
+  desc: 'Integrity, transparency, care, and commitment in everything we do.', 
+  color: 'bg-rose-50 text-rose-600' 
+},
+
+{ 
+  icon: Lightbulb, 
+  title: 'Vision', 
+  desc: 'To become a trusted global bridge between talent and leading industries.', 
+  color: 'bg-amber-50 text-amber-600' 
+},].map(({ icon: Icon, title, desc, color }) => (
                   <div key={title} className="text-center">
                     <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${color} mb-3`}>
                       <Icon className="w-6 h-6" />
@@ -110,12 +124,17 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: Shield, title: 'Trusted & Transparent', desc: 'No hidden fees, no false promises. We deliver what we commit.' },
-              { icon: Award, title: 'Expert Guidance', desc: 'A decade of experience in European nursing recruitment.' },
-              { icon: Users, title: 'Personal Support', desc: 'Dedicated case manager for every nurse from start to finish.' },
-              { icon: Globe, title: 'Global Network', desc: 'Direct partnerships with 100+ European hospitals.' },
-              { icon: TrendingUp, title: 'Career Growth', desc: 'Continuous mentorship even after you start your job.' },
-              { icon: Heart, title: 'End-to-End Care', desc: 'From language training to airport pickup, we handle it all.' },
+              { icon: Shield, title: 'Trusted & Reliable', desc: 'Transparent processes, honest communication, and reliable solutions you can count on.' },
+
+{ icon: Award, title: 'Industry Expertise', desc: 'Experienced professionals with strong knowledge across healthcare, hospitality, construction, and oil & gas.' },
+
+{ icon: Users, title: 'Personalized Support', desc: 'Dedicated support at every stage, from initial consultation to successful placement and beyond.' },
+
+{ icon: Globe, title: 'Global Opportunities', desc: 'Connecting skilled professionals with trusted employers and opportunities across international markets.' },
+
+{ icon: TrendingUp, title: 'Career & Business Growth', desc: 'Helping professionals build successful careers and organizations find the right talent for long-term growth.' },
+
+{ icon: Heart, title: 'End-to-End Service', desc: 'From recruitment and documentation to onboarding and ongoing support, we make the entire journey simple.' },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="group bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -133,7 +152,7 @@ export default function AboutPage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-cyan-500">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-white/90 text-lg mb-8">Join 500+ nurses who transformed their lives with Dais World.</p>
+          <p className="text-white/90 text-lg mb-8">Join 500+ professionals who started their global careers with Dais World.</p>
           <Link to="/home" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl hover:bg-blue-50 transition-colors">
             Back to Home <ArrowRight className="w-5 h-5" />
           </Link>

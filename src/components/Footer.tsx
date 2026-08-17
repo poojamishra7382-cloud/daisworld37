@@ -67,7 +67,7 @@ export default function Footer() {
             </h3>
 
             <p className="text-white/90 mt-2 text-sm sm:text-base leading-relaxed">
-              Join 500+ nurses who transformed their lives with Dias World.
+              Join 500+ professionals who transformed their careers with Dais World.
             </p>
           </div>
 
@@ -157,9 +157,8 @@ export default function Footer() {
                 break-words
               "
             >
-              India's most trusted nursing recruitment consultancy.
-              We connect Indian healthcare professionals with
-              world-class European hospitals.
+              India’s trusted global recruitment partner.
+We connect skilled Indian professionals with world-class opportunities across Healthcare, Hospitality, Construction, and Oil & Gas in Europe, the Middle East, Canada, Australia, and beyond.
             </p>
 
             <p
