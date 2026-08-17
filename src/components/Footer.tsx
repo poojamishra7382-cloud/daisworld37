@@ -15,15 +15,21 @@ const footerLinks = {
     { label: 'Contact', to: '/contact' },
     { label: 'Our Services', to: '/services/language' },
     { label: 'Countries', to: '/country/netherlands' },
-    { label: 'Apply Now', to: '/home' },
   ],
 
+  // Services: [
+  //   { label: 'Healthcare', to: '/services/healthcare' },
+  //   { label: 'Hospitality', to: '/services/visa' },
+  //   { label: 'Construction', to: '/services/nurse' },
+  //   { label: 'Oil & Gas', to: '/services/support' },
+  // ],
+
   Services: [
-    { label: 'Language Training', to: '/services/language' },
-    { label: 'Visa Processing', to: '/services/visa' },
-    { label: 'Nurse Placement', to: '/services/nurse' },
-    { label: 'Relocation Support', to: '/services/support' },
-  ],
+  { label: 'Healthcare', to: '/services/healthcare' },
+  { label: 'Hospitality', to: '/services/hospitality' },
+  { label: 'Construction', to: '/services/construction' },
+  { label: 'Oil & Gas', to: '/services/oil-and-gas' },
+],
 
   Countries: [
     { label: 'Netherlands', to: '/country/netherlands' },

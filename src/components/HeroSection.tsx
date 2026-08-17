@@ -17,14 +17,14 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    image: 'hosp.png',
+    image: 'health3.png',
     badge: 'Now Hiring — across globe 2026',
     heading: 'We Are Hiring',
     highlight: 'Nurses',
     subtext: 'Build your career across global.',
   },
   {
-    image: 'tm.jpg',
+    image: 'hotel7.png',
     badge: 'Join Our Medical Team',
     heading: 'Work With Top',
     highlight: 'Hospitals',
@@ -68,7 +68,7 @@ export default function HeroSection() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const AUTOPLAY_MS = 7000;
+  const AUTOPLAY_MS = 4000;
 
   const go = useCallback((dir: number) => {
     setCurrent(
@@ -173,6 +173,25 @@ export default function HeroSection() {
               "
               draggable="false"
             />
+
+            {/* <img
+  src={slide.image}
+  alt={slide.heading}
+  className={`
+    absolute
+    inset-0
+    w-full
+    h-full
+    object-cover
+    select-none
+    ${
+      slide.image === 'tm.jpg'
+        ? 'object-[center_30%]'
+        : 'object-center'
+    }
+  `}
+  draggable="false"
+/> */}
 
             {/* Dark left overlay */}
             <div

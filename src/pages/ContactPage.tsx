@@ -12,20 +12,20 @@ const professions = ['Registered Nurse', 'OT Nurse', 'Healthcare Assistant'];
 
 const quickCards = [
   {
-    icon: Phone, label: 'Call', value: '8788631659', sub: 'Mon–Sat, 9am–7pm IST',
-    href: 'tel:8788631659', color: 'from-blue-600 to-blue-500',
+    icon: Phone, label: 'Call', value: '8976697001', sub: 'Mon–Sat, 11am–8pm IST',
+    href: 'tel:8976697001', color: 'from-blue-600 to-blue-500',
   },
   {
     icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', sub: 'Quick replies',
-    href: 'https://wa.me/918788631659', color: 'from-emerald-600 to-emerald-500',
+    href: 'https://wa.me/918976697001', color: 'from-emerald-600 to-emerald-500',
   },
   {
-    icon: Mail, label: 'Email', value: 'aditya.s@dais.com', sub: 'Reply within 24h',
-    href: 'mailto:aditya.s@dais.com', color: 'from-cyan-600 to-cyan-500',
+    icon: Mail, label: 'Email', value: 'aditya.s@daisworld.com', sub: 'Reply within 24h',
+    href: 'mailto:aditya.s@daisworld.com', color: 'from-cyan-600 to-cyan-500',
   },
   {
     icon: Calendar, label: 'Book Consultation', value: 'Schedule a call', sub: 'Free 30-min session',
-    href: 'https://wa.me/918788631659?text=Hi%2C%20I%27d%20like%20to%20book%20a%20consultation.', color: 'from-amber-500 to-orange-500',
+    href: 'https://wa.me/918976697001?text=Hi%2C%20I%27d%20like%20to%20book%20a%20consultation.', color: 'from-amber-500 to-orange-500',
   },
 ];
 
@@ -37,7 +37,7 @@ const socials = [
 
 const trustStats = [
   { icon: Users, value: '500+', label: 'Nurses Placed' },
-  { icon: Globe, value: '8', label: 'Countries' },
+  { icon: Globe, value: '10+', label: 'Countries' },
   { icon: Heart, value: '100%', label: 'Support' },
   { icon: Zap, value: '48h', label: 'Response' },
 ];
@@ -182,7 +182,7 @@ export default function ContactPage() {
 
               <div className="space-y-5">
                 <a
-                  href="tel:8788631659"
+                  href="tel:8976697001"
                   className="flex items-center gap-4 group"
                 >
                   <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
@@ -438,13 +438,13 @@ export default function ContactPage() {
               <Navigation className="w-5 h-5" /> Get Directions
             </a>
             <a
-              href="tel:8788631659"
+              href="tel:8976697001"
               className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
             >
               <Phone className="w-5 h-5 text-blue-600" /> Call the Office
             </a>
             <a
-              href="https://wa.me/918788631659"
+              href="https://wa.me/918976697001"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"

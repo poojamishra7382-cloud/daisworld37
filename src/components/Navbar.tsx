@@ -790,7 +790,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             ================================================== */}
 
             <a
-              href="tel:8788631659"
+              href="tel:8976697001"
               className="
                 flex items-center gap-3
                 px-4 py-3

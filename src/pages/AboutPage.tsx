@@ -84,7 +84,7 @@ export default function AboutPage() {
             {[
               { icon: Users, value: '500+', label: 'Nurses Placed', color: 'from-blue-600 to-cyan-500' },
               { icon: Award, value: '10+', label: 'Years Experience', color: 'from-emerald-600 to-teal-500' },
-              { icon: Globe, value: '8', label: 'Countries', color: 'from-indigo-600 to-blue-500' },
+              { icon: Globe, value: '10+', label: 'Countries', color: 'from-indigo-600 to-blue-500' },
               { icon: TrendingUp, value: '98%', label: 'Success Rate', color: 'from-amber-500 to-orange-500' },
             ].map(({ icon: Icon, value, label, color }) => (
               <div key={label} className="text-center bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">

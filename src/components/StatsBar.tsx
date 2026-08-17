@@ -3,7 +3,7 @@ import { Users, Globe, Award, Clock } from 'lucide-react';
 
 const stats = [
   { icon: Users, value: '500+', label: 'Nurses Placed', color: 'text-blue-400' },
-  { icon: Globe, value: '8+', label: 'European Countries', color: 'text-cyan-400' },
+  { icon: Globe, value: '10+', label: 'European Countries', color: 'text-cyan-400' },
   { icon: Award, value: '10+', label: 'Years Experience', color: 'text-amber-400' },
   { icon: Clock, value: '4-6', label: 'Month Process', color: 'text-emerald-400' },
 ];
