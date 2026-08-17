@@ -823,7 +823,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 </p>
 
                 <p className="text-white font-bold text-sm">
-                  87886 31659
+                  8976697001
                 </p>
               </div>
 
