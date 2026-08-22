@@ -58,7 +58,6 @@ const EMAIL_PROVIDERS = [
   { label: 'Outlook', value: '@outlook.com' },
   { label: 'Yahoo', value: '@yahoo.com' },
   { label: 'Hotmail', value: '@hotmail.com' },
-  { label: 'Other', value: 'other' },
 ];
 
 const PHONE_COUNTRIES = [
