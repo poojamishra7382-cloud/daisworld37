@@ -141,6 +141,14 @@ const QUALIFICATIONS = [
   'Other',
 ];
 
+const EMAIL_DOMAINS = [
+  '@gmail.com',
+  '@outlook.com',
+  '@yahoo.com',
+  '@hotmail.com',
+  '@icloud.com',
+];
+
 const EMPTY: FormData = {
   fullName: '',
   email: '',
@@ -247,6 +255,28 @@ export default function ApplyNowModal({
           // ignore
         }
       });
+  };
+
+  const handleApplyDomain = (domain: string) => {
+    const current = data.email.trim();
+    if (!current) {
+      update('email', domain);
+      return;
+    }
+    const username = current.includes('@')
+      ? current.split('@')[0]
+      : current;
+    update('email', username + domain);
+  };
+
+  const getEmailSuggestions = () => {
+    const current = data.email.trim();
+    if (!current) return [];
+    const username = current.includes('@')
+      ? current.split('@')[0]
+      : current;
+    if (!username) return [];
+    return EMAIL_DOMAINS.map((domain) => username + domain);
   };
 
   useEffect(() => {
@@ -366,13 +396,13 @@ export default function ApplyNowModal({
       e.position = 'Please select a position.';
     }
 
-    /* Experience: 0 to 20 years */
+    /* Experience: 0 to 30 years */
     if (!data.experience && data.experience !== '0') {
       e.experience = 'Please enter your years of experience.';
     } else {
       const exp = Number(data.experience);
-      if (isNaN(exp) || exp < 0 || exp > 20) {
-        e.experience = 'Experience must be between 0 and 20 years.';
+      if (isNaN(exp) || exp < 0 || exp > 30) {
+        e.experience = 'Experience must be between 0 and 30 years.';
       }
     }
 
@@ -391,7 +421,7 @@ export default function ApplyNowModal({
       e.nationality = 'Please enter your nationality.';
     }
 
-    /* Date of Birth: 18 - 60 years */
+    /* Date of Birth: 10 - 50 years */
     if (!data.dateOfBirth) {
       e.dateOfBirth = 'Please select your date of birth.';
     } else {
@@ -402,8 +432,8 @@ export default function ApplyNowModal({
       if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
         age--;
       }
-      if (age < 18 || age > 60) {
-        e.dateOfBirth = 'Age must be between 18 and 60 years.';
+      if (age < 10 || age > 50) {
+        e.dateOfBirth = 'Age must be between 10 and 50 years.';
       }
     }
 
@@ -646,62 +676,104 @@ export default function ApplyNowModal({
                   </div>
 
                   <div className="space-y-3.5">
-                    {/* FULL NAME + EMAIL */}
-                    <div className="grid sm:grid-cols-2 gap-3.5">
-                      <Field
-                        label="Full Name"
-                        icon={User}
-                        error={errors.fullName}
-                        required
-                      >
-                        <input
-                          type="text"
-                          value={data.fullName}
-                          onChange={(e) => update('fullName', e.target.value)}
-                          placeholder="e.g. Rahul Sharma"
-                          className={inputCls(!!errors.fullName)}
-                        />
-                      </Field>
+                    {/* FULL NAME */}
+                    <Field
+                      label="Full Name"
+                      icon={User}
+                      error={errors.fullName}
+                      required
+                    >
+                      <input
+                        type="text"
+                        value={data.fullName}
+                        onChange={(e) => update('fullName', e.target.value)}
+                        placeholder="e.g. Rahul Sharma"
+                        className={inputCls(!!errors.fullName)}
+                      />
+                    </Field>
 
-                      <Field
-                        label="Email Address"
-                        icon={Mail}
-                        error={errors.email}
-                        required
-                      >
-                        <input
-                          type="email"
-                          value={data.email}
-                          onChange={(e) => update('email', e.target.value)}
-                          placeholder="rahul@example.com"
-                          className={inputCls(!!errors.email)}
-                        />
-                      </Field>
-                    </div>
+                    {/* EMAIL ADDRESS WITH DOMAIN AUTOCOMPLETE & CHIPS */}
+                    <Field
+                      label="Email Address"
+                      icon={Mail}
+                      error={errors.email}
+                      required
+                    >
+                      <input
+                        type="email"
+                        list="email-domain-suggestions"
+                        value={data.email}
+                        onChange={(e) => update('email', e.target.value)}
+                        placeholder="username@gmail.com"
+                        className={inputCls(!!errors.email)}
+                      />
 
-                    {/* PHONE WITH COUNTRY CODE + COMPACT DOB */}
+                      {/* Browser suggestion dropdown list */}
+                      <datalist id="email-domain-suggestions">
+                        {getEmailSuggestions().map((suggestion) => (
+                          <option key={suggestion} value={suggestion} />
+                        ))}
+                      </datalist>
+
+                      {/* Quick Domain Clickable Badges */}
+                      <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                        <span className="text-[11px] font-semibold text-slate-400">
+                          Select domain:
+                        </span>
+                        {EMAIL_DOMAINS.map((domain) => (
+                          <button
+                            key={domain}
+                            type="button"
+                            onClick={() => handleApplyDomain(domain)}
+                            className="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-700 text-slate-600 text-[11px] font-medium transition-colors cursor-pointer active:scale-95"
+                          >
+                            {domain}
+                          </button>
+                        ))}
+                      </div>
+                    </Field>
+
+                    {/* SINGLE UNIFIED PHONE INPUT BOX + COMPACT DOB */}
                     <div className="grid sm:grid-cols-2 gap-3.5">
-                      {/* PHONE NUMBER */}
+                      {/* SINGLE BOX PHONE WITH INTEGRATED COUNTRY SELECTOR */}
                       <Field
                         label="Phone Number"
                         icon={Phone}
                         error={errors.phone}
                         required
                       >
-                        <div className="flex gap-2">
-                          <select
-                            value={data.countryCode}
-                            onChange={(e) => update('countryCode', e.target.value)}
-                            aria-label="Country Code"
-                            className="w-[105px] sm:w-[120px] px-2.5 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-slate-800 text-xs sm:text-sm font-semibold cursor-pointer shrink-0 transition-all"
-                          >
-                            {COUNTRY_DIAL_CODES.map((c, i) => (
-                              <option key={`${c.code}-${i}`} value={c.code}>
-                                {c.flag} {c.code} ({c.name})
-                              </option>
-                            ))}
-                          </select>
+                        <div
+                          className={`flex items-center w-full rounded-2xl border ${
+                            errors.phone
+                              ? 'border-rose-300 bg-rose-50/40 ring-1 ring-rose-200'
+                              : 'border-slate-200 bg-white hover:border-slate-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100'
+                          } transition-all overflow-hidden`}
+                        >
+                          {/* Country Code Picker integrated seamlessly */}
+                          <div className="relative flex items-center bg-slate-50 border-r border-slate-200 hover:bg-slate-100 transition-colors">
+                            <select
+                              value={data.countryCode}
+                              onChange={(e) =>
+                                update('countryCode', e.target.value)
+                              }
+                              aria-label="Country Code"
+                              className="appearance-none bg-transparent py-2.5 sm:py-3 pl-3 pr-6 text-xs sm:text-sm font-semibold text-slate-800 outline-none cursor-pointer"
+                            >
+                              {COUNTRY_DIAL_CODES.map((c, i) => (
+                                <option
+                                  key={`${c.code}-${i}`}
+                                  value={c.code}
+                                >
+                                  {c.flag} {c.code} ({c.name})
+                                </option>
+                              ))}
+                            </select>
+                            <span className="pointer-events-none absolute right-1.5 text-slate-400 text-[10px]">
+                              ▼
+                            </span>
+                          </div>
 
+                          {/* 10-digit number field in the same single box */}
                           <input
                             type="tel"
                             inputMode="numeric"
@@ -713,16 +785,16 @@ export default function ApplyNowModal({
                                 .slice(0, 10);
                               update('phone', digits);
                             }}
-                            placeholder="10-digit number"
-                            className={inputCls(!!errors.phone) + ' flex-1'}
+                            placeholder="10-digit mobile number"
+                            className="flex-1 bg-transparent px-3 py-2.5 sm:py-3 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none"
                           />
                         </div>
                         <p className="text-[11px] text-slate-400 mt-1">
-                          Enter 10-digit mobile number.
+                          Enter 10-digit number.
                         </p>
                       </Field>
 
-                      {/* COMPACT DATE OF BIRTH */}
+                      {/* COMPACT DATE OF BIRTH (AGE 10 TO 50) */}
                       <Field
                         label="Date of Birth"
                         icon={Calendar}
@@ -736,7 +808,16 @@ export default function ApplyNowModal({
                           max={
                             new Date(
                               new Date().setFullYear(
-                                new Date().getFullYear() - 18
+                                new Date().getFullYear() - 10
+                              )
+                            )
+                              .toISOString()
+                              .split('T')[0]
+                          }
+                          min={
+                            new Date(
+                              new Date().setFullYear(
+                                new Date().getFullYear() - 50
                               )
                             )
                               .toISOString()
@@ -745,7 +826,7 @@ export default function ApplyNowModal({
                           className={inputCls(!!errors.dateOfBirth)}
                         />
                         <p className="text-[11px] text-slate-400 mt-1">
-                          Age must be between 18 and 60 years.
+                          Age limit: 10 to 50 years.
                         </p>
                       </Field>
                     </div>
@@ -762,7 +843,7 @@ export default function ApplyNowModal({
                   </div>
 
                   <div className="space-y-3.5">
-                    {/* POSITION + YEARS OF EXPERIENCE (0-20) */}
+                    {/* POSITION + YEARS OF EXPERIENCE (UP TO 30 YEARS) */}
                     <div className="grid sm:grid-cols-2 gap-3.5">
                       <Field
                         label="Position Applying For"
@@ -785,7 +866,7 @@ export default function ApplyNowModal({
                       </Field>
 
                       <Field
-                        label="Years of Experience (0–20)"
+                        label="Years of Experience"
                         icon={Briefcase}
                         error={errors.experience}
                         required
@@ -793,10 +874,10 @@ export default function ApplyNowModal({
                         <input
                           type="number"
                           min={0}
-                          max={20}
+                          max={30}
                           value={data.experience}
                           onChange={(e) => update('experience', e.target.value)}
-                          placeholder="e.g. 3 (Max 20)"
+                          placeholder="e.g. 5"
                           className={inputCls(!!errors.experience)}
                         />
                       </Field>
@@ -979,7 +1060,7 @@ export default function ApplyNowModal({
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3.5 sm:py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-base mt-2"
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3.5 sm:py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed text-sm sm:text-base mt-2 cursor-pointer"
                 >
                   {status === 'loading' ? (
                     <>
@@ -1061,7 +1142,7 @@ function YesNo({
       <button
         type="button"
         onClick={() => onChange(true)}
-        className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+        className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
           value === true
             ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
             : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -1073,7 +1154,7 @@ function YesNo({
       <button
         type="button"
         onClick={() => onChange(false)}
-        className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+        className={`flex-1 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
           value === false
             ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
             : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
