@@ -1,21 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  X,
-  ArrowRight,
-  Loader2,
-  CheckCircle,
-  Upload,
-  FileText,
-  Calendar,
-  Phone,
-  Mail,
-  User,
-  MapPin,
-  Flag,
-  Briefcase,
-  GraduationCap,
-  FileCheck,
-  MessageSquare,
+  X, ArrowRight, Loader2, CheckCircle, Upload, FileText, Calendar,
+  Phone, Mail, User, MapPin, Flag, Briefcase, GraduationCap, FileCheck, MessageSquare,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -27,7 +13,10 @@ interface ApplyNowModalProps {
 interface FormData {
   fullName: string;
   email: string;
+  emailProvider: string;
   phone: string;
+  phoneCountryCode: string;
+  phoneCountry: string;
   position: string;
   experience: string;
   qualification: string;
@@ -64,10 +53,51 @@ const QUALIFICATIONS = [
   'Other',
 ];
 
+const EMAIL_PROVIDERS = [
+  { label: 'Gmail', value: '@gmail.com' },
+  { label: 'Outlook', value: '@outlook.com' },
+  { label: 'Yahoo', value: '@yahoo.com' },
+  { label: 'Hotmail', value: '@hotmail.com' },
+  { label: 'Other', value: 'other' },
+];
+
+const PHONE_COUNTRIES = [
+  { country: 'India', code: '+91', min: 10, max: 10 },
+  { country: 'United States', code: '+1', min: 10, max: 10 },
+  { country: 'Canada', code: '+1', min: 10, max: 10 },
+  { country: 'United Kingdom', code: '+44', min: 10, max: 10 },
+  { country: 'United Arab Emirates', code: '+971', min: 9, max: 9 },
+  { country: 'Australia', code: '+61', min: 9, max: 9 },
+  { country: 'New Zealand', code: '+64', min: 8, max: 10 },
+  { country: 'Germany', code: '+49', min: 10, max: 11 },
+  { country: 'France', code: '+33', min: 9, max: 9 },
+  { country: 'Italy', code: '+39', min: 9, max: 10 },
+  { country: 'Spain', code: '+34', min: 9, max: 9 },
+  { country: 'Portugal', code: '+351', min: 9, max: 9 },
+  { country: 'Ireland', code: '+353', min: 9, max: 9 },
+  { country: 'Netherlands', code: '+31', min: 9, max: 9 },
+  { country: 'Switzerland', code: '+41', min: 9, max: 9 },
+  { country: 'Sweden', code: '+46', min: 9, max: 9 },
+  { country: 'Norway', code: '+47', min: 8, max: 8 },
+  { country: 'Denmark', code: '+45', min: 8, max: 8 },
+  { country: 'Finland', code: '+358', min: 9, max: 10 },
+  { country: 'Saudi Arabia', code: '+966', min: 9, max: 9 },
+  { country: 'Qatar', code: '+974', min: 8, max: 8 },
+  { country: 'Kuwait', code: '+965', min: 8, max: 8 },
+  { country: 'Oman', code: '+968', min: 8, max: 8 },
+  { country: 'Bahrain', code: '+973', min: 8, max: 8 },
+  { country: 'Singapore', code: '+65', min: 8, max: 8 },
+  { country: 'Malaysia', code: '+60', min: 9, max: 10 },
+  { country: 'South Africa', code: '+27', min: 9, max: 9 },
+];
+
 const EMPTY: FormData = {
   fullName: '',
   email: '',
+  emailProvider: '@gmail.com',
   phone: '',
+  phoneCountryCode: '+91',
+  phoneCountry: 'India',
   position: '',
   experience: '',
   qualification: '',
@@ -90,15 +120,9 @@ const VALID_RESUME_TYPES = [
 
 const VALID_RESUME_EXTS = ['.pdf', '.doc', '.docx'];
 
-/*
- * Browser-based 24-hour lock
- *
- * IMPORTANT:
- * This is only a browser/localStorage restriction.
- * Database-level restriction is NOT implemented here.
- */
-const APPLICATION_LOCK_KEY = 'daisworld_apply_lock';
-const APPLICATION_LOCK_DURATION = 24 * 60 * 60 * 1000;
+// 24 hours
+const APPLY_LOCK_KEY = 'daisworld_apply_now_submitted_at';
+const APPLY_LOCK_MS = 24 * 60 * 60 * 1000;
 
 export default function ApplyNowModal({
   open,
@@ -111,7 +135,6 @@ export default function ApplyNowModal({
   >('idle');
 
   const [submitError, setSubmitError] = useState('');
-
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,9 +157,6 @@ export default function ApplyNowModal({
 
   if (!open) return null;
 
-  /*
-   * Update form field
-   */
   const update = (
     field: keyof FormData,
     value: string | boolean | null | File
@@ -148,256 +168,156 @@ export default function ApplyNowModal({
 
     setErrors((prev) => {
       const next = { ...prev };
-
       delete next[field];
       delete next._scrollTo;
-
       return next;
     });
+  };
 
-    if (submitError) {
-      setSubmitError('');
+  const handleEmailProviderChange = (provider: string) => {
+    update('emailProvider', provider);
+
+    if (provider !== 'other') {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.email;
+        return next;
+      });
     }
   };
 
-  /*
-   * Check browser-based 24-hour lock
-   */
-  const getApplicationLockRemaining = (): number => {
-    try {
-      const lockedAt = localStorage.getItem(
-        APPLICATION_LOCK_KEY
-      );
-
-      if (!lockedAt) {
-        return 0;
-      }
-
-      const timestamp = Number(lockedAt);
-
-      if (!Number.isFinite(timestamp)) {
-        localStorage.removeItem(
-          APPLICATION_LOCK_KEY
-        );
-
-        return 0;
-      }
-
-      const elapsed = Date.now() - timestamp;
-
-      /*
-       * 24 hours completed
-       */
-      if (elapsed >= APPLICATION_LOCK_DURATION) {
-        localStorage.removeItem(
-          APPLICATION_LOCK_KEY
-        );
-
-        return 0;
-      }
-
-      return APPLICATION_LOCK_DURATION - elapsed;
-    } catch {
-      return 0;
-    }
-  };
-
-  /*
-   * Format remaining lock time
-   */
-  const formatLockTime = (
-    milliseconds: number
-  ): string => {
-    const totalMinutes = Math.ceil(
-      milliseconds / (60 * 1000)
+  const handleCountryChange = (countryName: string) => {
+    const country = PHONE_COUNTRIES.find(
+      (item) => item.country === countryName
     );
 
-    const hours = Math.floor(
-      totalMinutes / 60
-    );
+    if (!country) return;
 
-    const minutes = totalMinutes % 60;
+    setData((prev) => ({
+      ...prev,
+      phoneCountry: country.country,
+      phoneCountryCode: country.code,
+      phone: '',
+    }));
 
-    if (hours > 0) {
-      return `${hours} hour${
-        hours !== 1 ? 's' : ''
-      }${
-        minutes > 0
-          ? ` ${minutes} minute${
-              minutes !== 1 ? 's' : ''
-            }`
-          : ''
-      }`;
-    }
-
-    return `${minutes} minute${
-      minutes !== 1 ? 's' : ''
-    }`;
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.phone;
+      return next;
+    });
   };
 
-  /*
-   * Start 24-hour browser lock
-   */
-  const setApplicationLock = () => {
-    try {
-      localStorage.setItem(
-        APPLICATION_LOCK_KEY,
-        Date.now().toString()
-      );
-    } catch {
-      // Ignore localStorage errors
-    }
-  };
-
-  /*
-   * FORM VALIDATION
-   */
   const validate = (): boolean => {
     const e: FormErrors = {};
 
-    /*
-     * Full Name
-     */
+    // Full name
     if (!data.fullName.trim()) {
-      e.fullName =
-        'Please enter your full name.';
+      e.fullName = 'Please enter your full name.';
     }
 
-    /*
-     * Email
-     */
+    // Email
     if (!data.email.trim()) {
-      e.email =
-        'Please enter your email address.';
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(
-        data.email.trim()
-      )
-    ) {
-      e.email =
-        'Please enter a valid email address.';
-    }
-
-    /*
-     * Phone
-     *
-     * EXACTLY 10 DIGITS
-     */
-    if (!data.phone.trim()) {
-      e.phone =
-        'Please enter your phone number.';
+      e.email = 'Please enter your email address.';
+    } else if (data.emailProvider === 'other') {
+      if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())
+      ) {
+        e.email = 'Please enter a valid email address.';
+      }
     } else {
-      const digits =
-        data.phone.replace(/\D/g, '');
-
-      if (digits.length !== 10) {
-        e.phone =
-          'Phone number must be exactly 10 digits.';
+      if (!/^[a-zA-Z0-9._%+-]+$/.test(data.email.trim())) {
+        e.email = 'Please enter a valid email username.';
       }
     }
 
-    /*
-     * Position
-     */
-    if (!data.position) {
-      e.position =
-        'Please select a position.';
-    }
-
-    /*
-     * Experience
-     */
-    if (
-      !data.experience &&
-      data.experience !== '0'
-    ) {
-      e.experience =
-        'Please enter your years of experience.';
+    // Phone
+    if (!data.phone.trim()) {
+      e.phone = 'Please enter your phone number.';
     } else {
-      const exp = Number(
-        data.experience
+      const digits = data.phone.replace(/\D/g, '');
+
+      const selectedCountry = PHONE_COUNTRIES.find(
+        (item) => item.country === data.phoneCountry
       );
 
-      if (
-        isNaN(exp) ||
-        exp < 0 ||
-        exp > 50
-      ) {
-        e.experience =
-          'Experience must be between 0 and 50.';
+      if (selectedCountry) {
+        if (
+          digits.length < selectedCountry.min ||
+          digits.length > selectedCountry.max
+        ) {
+          if (
+            selectedCountry.country === 'India'
+          ) {
+            e.phone = 'Indian phone number must be exactly 10 digits.';
+          } else {
+            e.phone = `Phone number must be between ${selectedCountry.min} and ${selectedCountry.max} digits.`;
+          }
+        }
       }
     }
 
-    /*
-     * Qualification
-     */
+    // Position
+    if (!data.position) {
+      e.position = 'Please select a position.';
+    }
+
+    // Experience
+    if (!data.experience && data.experience !== '0') {
+      e.experience = 'Please enter your years of experience.';
+    } else {
+      const exp = Number(data.experience);
+
+      if (isNaN(exp) || exp < 0 || exp > 50) {
+        e.experience = 'Experience must be between 0 and 50.';
+      }
+    }
+
+    // Qualification
     if (!data.qualification) {
       e.qualification =
         'Please select your highest qualification.';
     }
 
-    /*
-     * Current Country
-     */
+    // Current Country
     if (!data.currentCountry.trim()) {
-      e.currentCountry =
-        'Please enter your current country.';
+      e.currentCountry = 'Please enter your current country.';
     }
 
-    /*
-     * Nationality
-     */
+    // Nationality
     if (!data.nationality.trim()) {
-      e.nationality =
-        'Please enter your nationality.';
+      e.nationality = 'Please enter your nationality.';
     }
 
-    /*
-     * Date of Birth
-     */
+    // Date of Birth
     if (!data.dateOfBirth) {
-      e.dateOfBirth =
-        'Please enter your date of birth.';
+      e.dateOfBirth = 'Please enter your date of birth.';
     } else {
-      const dob = new Date(
-        data.dateOfBirth
-      );
-
+      const dob = new Date(data.dateOfBirth);
       const today = new Date();
 
       let age =
-        today.getFullYear() -
-        dob.getFullYear();
+        today.getFullYear() - dob.getFullYear();
 
       const m =
-        today.getMonth() -
-        dob.getMonth();
+        today.getMonth() - dob.getMonth();
 
       if (
         m < 0 ||
-        (
-          m === 0 &&
-          today.getDate() < dob.getDate()
-        )
+        (m === 0 &&
+          today.getDate() < dob.getDate())
       ) {
         age--;
       }
 
-      if (
-        age < 18 ||
-        age > 60
-      ) {
+      if (age < 18 || age > 60) {
         e.dateOfBirth =
           'Age must be between 18 and 60 years.';
       }
     }
 
-    /*
-     * Passport
-     */
+    // Passport
     if (data.hasPassport === null) {
-      e.hasPassport =
-        'Please select Yes or No.';
+      e.hasPassport = 'Please select Yes or No.';
     } else if (
       data.hasPassport &&
       !data.passportNumber.trim()
@@ -406,27 +326,17 @@ export default function ApplyNowModal({
         'Please enter your passport number.';
     }
 
-    /*
-     * Resume
-     */
+    // Resume
     if (!data.resume) {
-      e.resume =
-        'Please upload your resume.';
+      e.resume = 'Please upload your resume.';
     } else {
-      if (
-        data.resume.size >
-        MAX_RESUME_SIZE
-      ) {
-        e.resume =
-          'Resume must be under 2MB.';
+      if (data.resume.size > MAX_RESUME_SIZE) {
+        e.resume = 'Resume must be under 2MB.';
       } else {
         const ext =
           '.' +
-          (
-            data.resume.name
-              .split('.')
-              .pop() || ''
-          ).toLowerCase();
+          (data.resume.name.split('.').pop() || '')
+            .toLowerCase();
 
         const typeOk =
           VALID_RESUME_TYPES.includes(
@@ -434,9 +344,7 @@ export default function ApplyNowModal({
           );
 
         const extOk =
-          VALID_RESUME_EXTS.includes(
-            ext
-          );
+          VALID_RESUME_EXTS.includes(ext);
 
         if (!typeOk && !extOk) {
           e.resume =
@@ -446,65 +354,47 @@ export default function ApplyNowModal({
     }
 
     if (Object.keys(e).length > 0) {
-      (
-        e as FormErrors
-      )._scrollTo = 'true';
+      (e as FormErrors)._scrollTo = 'true';
     }
 
     setErrors(e);
 
     return (
       Object.keys(e).filter(
-        (key) => key !== '_scrollTo'
+        (k) => k !== '_scrollTo'
       ).length === 0
     );
   };
 
-  /*
-   * Resume validation
-   */
   const handleResumeChange = (
     file: File | null
   ) => {
     if (file) {
       const ext =
         '.' +
-        (
-          file.name
-            .split('.')
-            .pop() || ''
-        ).toLowerCase();
+        (file.name.split('.').pop() || '')
+          .toLowerCase();
 
       const typeOk =
-        VALID_RESUME_TYPES.includes(
-          file.type
-        );
+        VALID_RESUME_TYPES.includes(file.type);
 
       const extOk =
-        VALID_RESUME_EXTS.includes(
-          ext
-        );
+        VALID_RESUME_EXTS.includes(ext);
 
       if (!typeOk && !extOk) {
-        setErrors((prev) => ({
-          ...prev,
+        setErrors((p) => ({
+          ...p,
           resume:
             'Only PDF, DOC, or DOCX files are allowed.',
         }));
-
         return;
       }
 
-      if (
-        file.size >
-        MAX_RESUME_SIZE
-      ) {
-        setErrors((prev) => ({
-          ...prev,
-          resume:
-            'Resume must be under 2MB.',
+      if (file.size > MAX_RESUME_SIZE) {
+        setErrors((p) => ({
+          ...p,
+          resume: 'Resume must be under 2MB.',
         }));
-
         return;
       }
     }
@@ -512,60 +402,73 @@ export default function ApplyNowModal({
     update('resume', file);
   };
 
-  /*
-   * SUBMIT APPLICATION
-   */
   const handleSubmit = async (
     ev: React.FormEvent
   ) => {
     ev.preventDefault();
 
     /*
-     * STEP 1:
-     * Check 24-hour browser lock
+     * 24-HOUR APPLICATION LOCK
      */
-    const remainingLock =
-      getApplicationLockRemaining();
+    const lastSubmittedAt = Number(
+      localStorage.getItem(APPLY_LOCK_KEY) || 0
+    );
 
-    if (remainingLock > 0) {
+    if (
+      lastSubmittedAt &&
+      Date.now() - lastSubmittedAt <
+        APPLY_LOCK_MS
+    ) {
+      const remainingMs =
+        APPLY_LOCK_MS -
+        (Date.now() - lastSubmittedAt);
+
+      const remainingHours = Math.ceil(
+        remainingMs / (60 * 60 * 1000)
+      );
+
       setStatus('error');
 
       setSubmitError(
-        `You have already submitted an application. Please try again after ${formatLockTime(
-          remainingLock
-        )}.`
+        `You have already submitted an application. Please try again after ${remainingHours} hour(s).`
       );
 
       return;
     }
 
-    /*
-     * STEP 2:
-     * Validate form
-     */
-    if (!validate()) {
-      return;
-    }
+    // Validate all fields
+    if (!validate()) return;
 
     setStatus('loading');
     setSubmitError('');
 
-    let resumeUrl: string | null =
-      null;
+    let resumeUrl: string | null = null;
 
     /*
-     * STEP 3:
-     * Upload Resume to Supabase
+     * Create final email
      */
+    let finalEmail = data.email.trim();
+
+    if (data.emailProvider !== 'other') {
+      finalEmail =
+        `${data.email.trim()}${data.emailProvider}`;
+    }
+
+    /*
+     * Create final phone number
+     */
+    const phoneDigits =
+      data.phone.replace(/\D/g, '');
+
+    const finalPhone =
+      `${data.phoneCountryCode} ${phoneDigits}`;
+
+    // Upload resume
     if (data.resume) {
-      const safeName =
-        data.fullName
-          .trim()
-          .toLowerCase()
-          .replace(
-            /[^a-z0-9]/g,
-            '-'
-          );
+      const safeName = data.fullName
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '-');
 
       const ts = Date.now();
 
@@ -578,127 +481,106 @@ export default function ApplyNowModal({
       const filePath =
         `${safeName}-${ts}/${safeFileName}`;
 
-      const {
-        error: uploadError,
-      } = await supabase.storage
-        .from('resumes')
-        .upload(
-          filePath,
-          data.resume
-        );
+      const { error: uploadError } =
+        await supabase.storage
+          .from('resumes')
+          .upload(
+            filePath,
+            data.resume
+          );
 
       if (uploadError) {
         setStatus('error');
-
         setSubmitError(
           'Could not upload your resume. Please try again.'
         );
-
         return;
       }
 
       resumeUrl = filePath;
     }
 
-    /*
-     * STEP 4:
-     * Submit application to Supabase
-     *
-     * Existing database fields kept same.
-     */
-    const { error } =
-      await supabase
-        .from('applications')
-        .insert({
-          full_name:
-            data.fullName.trim(),
+    // Save application to Supabase
+    const { error } = await supabase
+      .from('applications')
+      .insert({
+        full_name: data.fullName.trim(),
 
-          email:
-            data.email.trim(),
+        // Complete email
+        email: finalEmail,
 
-          phone:
-            data.phone.trim(),
+        // Country code + phone
+        phone: finalPhone,
 
-          position:
-            data.position,
+        position: data.position,
 
-          experience_years:
-            Number(data.experience),
+        experience_years:
+          Number(data.experience),
 
-          qualification:
-            data.qualification,
+        qualification:
+          data.qualification,
 
-          current_country:
-            data.currentCountry.trim(),
+        current_country:
+          data.currentCountry.trim(),
 
-          nationality:
-            data.nationality.trim(),
+        nationality:
+          data.nationality.trim(),
 
-          date_of_birth:
-            data.dateOfBirth,
+        date_of_birth:
+          data.dateOfBirth,
 
-          has_passport:
-            data.hasPassport,
+        has_passport:
+          data.hasPassport,
 
-          passport_number:
-            data.hasPassport
-              ? data.passportNumber.trim()
-              : null,
+        passport_number:
+          data.hasPassport
+            ? data.passportNumber.trim()
+            : null,
 
-          resume_url:
-            resumeUrl,
+        resume_url:
+          resumeUrl,
 
-          message:
-            data.message.trim() ||
-            null,
-        });
+        message:
+          data.message.trim() || null,
+      });
 
-    /*
-     * STEP 5:
-     * Supabase error
-     */
     if (error) {
       console.error(
-        'Application submission error:',
+        'Supabase application error:',
         error
       );
 
       setStatus('error');
-
       setSubmitError(
         'Something went wrong. Please try again.'
       );
-
       return;
     }
 
     /*
-     * STEP 6:
-     * Supabase submission successful
-     *
-     * Start 24-hour browser lock.
+     * Save submission time ONLY after Supabase successfully
+     * saves the application.
      */
-    setApplicationLock();
+    localStorage.setItem(
+      APPLY_LOCK_KEY,
+      String(Date.now())
+    );
 
     setStatus('success');
   };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-
-      {/* Background */}
       <div
         className="absolute inset-0 bg-[#050e1f]/80 backdrop-blur-md"
         onClick={onClose}
       />
 
       <div className="relative w-full max-w-2xl animate-fadeInUp">
-
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-          {/* HEADER */}
+          {/* Header */}
           <div className="relative bg-gradient-to-br from-blue-600 to-cyan-500 p-6 text-center">
-
             <button
               onClick={onClose}
               className="absolute top-4 right-4 w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
@@ -713,30 +595,20 @@ export default function ApplyNowModal({
             <p className="text-white/90 text-sm mt-1">
               Fill in your details and we'll get back to you within 48 hours.
             </p>
-
           </div>
 
-          {/* SUCCESS */}
           {status === 'success' ? (
-
             <div className="p-10 text-center">
-
               <div className="inline-flex w-16 h-16 bg-emerald-100 rounded-full items-center justify-center mb-4 animate-pulse-ring">
-
                 <CheckCircle className="w-8 h-8 text-emerald-600" />
-
               </div>
 
               <h3 className="text-xl font-black text-slate-900 mb-2">
                 Application Submitted!
               </h3>
 
-              <p className="text-slate-500 text-sm mb-4">
+              <p className="text-slate-500 text-sm mb-6">
                 Thank you for applying. Our team will review your application and contact you within 48 hours.
-              </p>
-
-              <p className="text-xs text-slate-400 mb-6">
-                You can submit another application after 24 hours.
               </p>
 
               <button
@@ -745,17 +617,12 @@ export default function ApplyNowModal({
               >
                 Close
               </button>
-
             </div>
-
           ) : (
-
             <div
               ref={scrollRef}
               className="p-6 max-h-[70vh] overflow-y-auto scrollbar-hide"
             >
-
-              {/* ERROR */}
               {submitError && (
                 <div className="mb-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl p-3 text-sm font-medium">
                   {submitError}
@@ -767,7 +634,7 @@ export default function ApplyNowModal({
                 className="space-y-4"
               >
 
-                {/* NAME + EMAIL */}
+                {/* Name + Email */}
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <Field
@@ -798,25 +665,70 @@ export default function ApplyNowModal({
                     error={errors.email}
                     required
                   >
-                    <input
-                      type="email"
-                      value={data.email}
-                      onChange={(e) =>
-                        update(
-                          'email',
-                          e.target.value
-                        )
-                      }
-                      placeholder="you@example.com"
-                      className={inputCls(
-                        !!errors.email
-                      )}
-                    />
-                  </Field>
+                    <div className="flex gap-2">
 
+                      <input
+                        type={
+                          data.emailProvider ===
+                          'other'
+                            ? 'email'
+                            : 'text'
+                        }
+                        value={data.email}
+                        onChange={(e) =>
+                          update(
+                            'email',
+                            e.target.value
+                          )
+                        }
+                        placeholder={
+                          data.emailProvider ===
+                          'other'
+                            ? 'you@example.com'
+                            : 'yourname'
+                        }
+                        className={
+                          inputCls(!!errors.email) +
+                          ' flex-1 min-w-0'
+                        }
+                      />
+
+                      <select
+                        value={data.emailProvider}
+                        onChange={(e) =>
+                          handleEmailProviderChange(
+                            e.target.value
+                          )
+                        }
+                        className="w-[125px] px-2 py-3 rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 text-sm bg-white"
+                      >
+                        {EMAIL_PROVIDERS.map(
+                          (provider) => (
+                            <option
+                              key={provider.value}
+                              value={provider.value}
+                            >
+                              {provider.label}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+
+                    {data.emailProvider !==
+                      'other' && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        Your email will be:
+                        {' '}
+                        {data.email ||
+                          'yourname'}
+                        {data.emailProvider}
+                      </p>
+                    )}
+                  </Field>
                 </div>
 
-                {/* PHONE + POSITION */}
+                {/* Phone + Position */}
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <Field
@@ -825,41 +737,94 @@ export default function ApplyNowModal({
                     error={errors.phone}
                     required
                   >
+                    <div className="flex gap-2">
 
-                    <input
-                      type="tel"
-                      inputMode="numeric"
-                      maxLength={10}
-                      value={data.phone}
-                      onChange={(e) => {
+                      <select
+                        value={data.phoneCountry}
+                        onChange={(e) =>
+                          handleCountryChange(
+                            e.target.value
+                          )
+                        }
+                        className="w-[145px] px-2 py-3 rounded-2xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 text-sm bg-white"
+                      >
+                        {PHONE_COUNTRIES.map(
+                          (country) => (
+                            <option
+                              key={
+                                country.country
+                              }
+                              value={
+                                country.country
+                              }
+                            >
+                              {country.country}{' '}
+                              {country.code}
+                            </option>
+                          )
+                        )}
+                      </select>
 
-                        /*
-                         * Only numbers
-                         * Maximum 10 digits
-                         */
-                        const digits =
-                          e.target.value
-                            .replace(
-                              /\D/g,
-                              ''
-                            )
-                            .slice(0, 10);
+                      <div className="flex items-center border border-slate-200 rounded-2xl overflow-hidden flex-1 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100">
 
-                        update(
-                          'phone',
-                          digits
-                        );
-                      }}
-                      placeholder="9876543210"
-                      className={inputCls(
-                        !!errors.phone
-                      )}
-                    />
+                        <span className="px-3 text-sm font-bold text-slate-600 bg-slate-50 h-full flex items-center border-r border-slate-200">
+                          {data.phoneCountryCode}
+                        </span>
 
-                    <p className="text-xs text-slate-400 mt-1">
-                      Enter exactly 10 digits.
-                    </p>
+                        <input
+                          type="tel"
+                          value={data.phone}
+                          onChange={(e) => {
+                            const value =
+                              e.target.value.replace(
+                                /\D/g,
+                                ''
+                              );
 
+                            const selectedCountry =
+                              PHONE_COUNTRIES.find(
+                                (item) =>
+                                  item.country ===
+                                  data.phoneCountry
+                              );
+
+                            const maxDigits =
+                              selectedCountry?.max ||
+                              15;
+
+                            update(
+                              'phone',
+                              value.slice(
+                                0,
+                                maxDigits
+                              )
+                            );
+                          }}
+                          inputMode="numeric"
+                          maxLength={
+                            PHONE_COUNTRIES.find(
+                              (item) =>
+                                item.country ===
+                                data.phoneCountry
+                            )?.max || 15
+                          }
+                          placeholder={
+                            data.phoneCountry ===
+                            'India'
+                              ? '9876543210'
+                              : 'Phone number'
+                          }
+                          className="w-full px-3 py-3 outline-none text-slate-900 text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {data.phoneCountry ===
+                      'India' && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        India (+91) requires exactly 10 digits.
+                      </p>
+                    )}
                   </Field>
 
                   <Field
@@ -868,7 +833,6 @@ export default function ApplyNowModal({
                     error={errors.position}
                     required
                   >
-
                     <select
                       value={data.position}
                       onChange={(e) =>
@@ -881,29 +845,23 @@ export default function ApplyNowModal({
                         !!errors.position
                       )}
                     >
-
                       <option value="">
                         Select a position
                       </option>
 
-                      {POSITIONS.map(
-                        (position) => (
-                          <option
-                            key={position}
-                            value={position}
-                          >
-                            {position}
-                          </option>
-                        )
-                      )}
-
+                      {POSITIONS.map((p) => (
+                        <option
+                          key={p}
+                          value={p}
+                        >
+                          {p}
+                        </option>
+                      ))}
                     </select>
-
                   </Field>
-
                 </div>
 
-                {/* EXPERIENCE + QUALIFICATION */}
+                {/* Experience + Qualification */}
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <Field
@@ -912,7 +870,6 @@ export default function ApplyNowModal({
                     error={errors.experience}
                     required
                   >
-
                     <input
                       type="number"
                       min={0}
@@ -929,22 +886,16 @@ export default function ApplyNowModal({
                         !!errors.experience
                       )}
                     />
-
                   </Field>
 
                   <Field
                     label="Highest Qualification"
                     icon={GraduationCap}
-                    error={
-                      errors.qualification
-                    }
+                    error={errors.qualification}
                     required
                   >
-
                     <select
-                      value={
-                        data.qualification
-                      }
+                      value={data.qualification}
                       onChange={(e) =>
                         update(
                           'qualification',
@@ -955,47 +906,36 @@ export default function ApplyNowModal({
                         !!errors.qualification
                       )}
                     >
-
                       <option value="">
                         Select qualification
                       </option>
 
                       {QUALIFICATIONS.map(
-                        (qualification) => (
+                        (q) => (
                           <option
-                            key={qualification}
-                            value={
-                              qualification
-                            }
+                            key={q}
+                            value={q}
                           >
-                            {qualification}
+                            {q}
                           </option>
                         )
                       )}
-
                     </select>
-
                   </Field>
-
                 </div>
 
-                {/* COUNTRY + NATIONALITY */}
+                {/* Country + Nationality */}
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <Field
                     label="Current Country"
                     icon={MapPin}
-                    error={
-                      errors.currentCountry
-                    }
+                    error={errors.currentCountry}
                     required
                   >
-
                     <input
                       type="text"
-                      value={
-                        data.currentCountry
-                      }
+                      value={data.currentCountry}
                       onChange={(e) =>
                         update(
                           'currentCountry',
@@ -1007,23 +947,17 @@ export default function ApplyNowModal({
                         !!errors.currentCountry
                       )}
                     />
-
                   </Field>
 
                   <Field
                     label="Nationality"
                     icon={Flag}
-                    error={
-                      errors.nationality
-                    }
+                    error={errors.nationality}
                     required
                   >
-
                     <input
                       type="text"
-                      value={
-                        data.nationality
-                      }
+                      value={data.nationality}
                       onChange={(e) =>
                         update(
                           'nationality',
@@ -1035,26 +969,19 @@ export default function ApplyNowModal({
                         !!errors.nationality
                       )}
                     />
-
                   </Field>
-
                 </div>
 
-                {/* DATE OF BIRTH */}
+                {/* DOB */}
                 <Field
                   label="Date of Birth"
                   icon={Calendar}
-                  error={
-                    errors.dateOfBirth
-                  }
+                  error={errors.dateOfBirth}
                   required
                 >
-
                   <input
                     type="date"
-                    value={
-                      data.dateOfBirth
-                    }
+                    value={data.dateOfBirth}
                     onChange={(e) =>
                       update(
                         'dateOfBirth',
@@ -1079,46 +1006,36 @@ export default function ApplyNowModal({
                   <p className="text-xs text-slate-400 mt-1">
                     You must be between 18 and 60 years old.
                   </p>
-
                 </Field>
 
-                {/* PASSPORT */}
+                {/* Passport */}
                 <div className="grid sm:grid-cols-2 gap-4">
 
                   <Field
                     label="Valid Passport?"
                     icon={FileCheck}
-                    error={
-                      errors.hasPassport
-                    }
+                    error={errors.hasPassport}
                     required
                   >
-
                     <YesNo
-                      value={
-                        data.hasPassport
-                      }
-                      onChange={(value) => {
-
+                      value={data.hasPassport}
+                      onChange={(v) => {
                         update(
                           'hasPassport',
-                          value
+                          v
                         );
 
-                        if (!value) {
+                        if (!v) {
                           update(
                             'passportNumber',
                             ''
                           );
                         }
-
                       }}
                     />
-
                   </Field>
 
                   {data.hasPassport && (
-
                     <Field
                       label="Passport Number"
                       icon={FileCheck}
@@ -1127,7 +1044,6 @@ export default function ApplyNowModal({
                       }
                       required
                     >
-
                       <input
                         type="text"
                         value={
@@ -1144,33 +1060,25 @@ export default function ApplyNowModal({
                           !!errors.passportNumber
                         )}
                       />
-
                     </Field>
-
                   )}
-
                 </div>
 
-                {/* RESUME */}
+                {/* Resume */}
                 <Field
                   label="Resume Upload (PDF/DOC/DOCX, max 2MB)"
                   icon={Upload}
                   error={errors.resume}
                   required
                 >
-
                   <label className="flex items-center gap-3 px-4 py-3 rounded-2xl border-2 border-dashed border-slate-200 hover:border-blue-400 cursor-pointer transition-colors">
 
                     <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 flex-shrink-0">
-
                       <Upload className="w-5 h-5" />
-
                     </div>
 
                     {data.resume ? (
-
                       <div className="flex items-center gap-2 flex-1 min-w-0">
-
                         <FileText className="w-4 h-4 text-emerald-600 flex-shrink-0" />
 
                         <span className="text-sm text-slate-700 font-medium truncate">
@@ -1182,16 +1090,12 @@ export default function ApplyNowModal({
                           {(
                             data.resume.size /
                             1024
-                          ).toFixed(0)}
-                          {' '}KB)
+                          ).toFixed(0)}{' '}
+                          KB)
                         </span>
-
                       </div>
-
                     ) : (
-
                       <div className="flex-1 min-w-0">
-
                         <p className="text-sm text-slate-500">
                           Click to upload your resume
                         </p>
@@ -1199,9 +1103,7 @@ export default function ApplyNowModal({
                         <p className="text-xs text-slate-400">
                           PDF, DOC, or DOCX — max 2MB
                         </p>
-
                       </div>
-
                     )}
 
                     <input
@@ -1215,17 +1117,14 @@ export default function ApplyNowModal({
                         )
                       }
                     />
-
                   </label>
-
                 </Field>
 
-                {/* MESSAGE */}
+                {/* Message */}
                 <Field
                   label="Additional Message (optional)"
                   icon={MessageSquare}
                 >
-
                   <textarea
                     value={data.message}
                     onChange={(e) =>
@@ -1241,10 +1140,9 @@ export default function ApplyNowModal({
                       ' resize-none'
                     }
                   />
-
                 </Field>
 
-                {/* SUBMIT BUTTON */}
+                {/* Submit */}
                 <button
                   type="submit"
                   disabled={
@@ -1252,39 +1150,28 @@ export default function ApplyNowModal({
                   }
                   className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:shadow-xl hover:shadow-blue-500/30 text-white font-bold py-4 rounded-2xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-
                   {status === 'loading' ? (
-
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
                       Submitting...
                     </>
-
                   ) : (
-
                     <>
                       Submit Application
                       <ArrowRight className="w-5 h-5" />
                     </>
-
                   )}
-
                 </button>
 
               </form>
-
             </div>
           )}
-
         </div>
       </div>
     </div>
   );
 }
 
-/*
- * INPUT CLASS
- */
 function inputCls(
   hasError: boolean
 ) {
@@ -1295,9 +1182,6 @@ function inputCls(
   } focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-900 text-sm`;
 }
 
-/*
- * FIELD COMPONENT
- */
 function Field({
   label,
   icon: Icon,
@@ -1313,9 +1197,7 @@ function Field({
 }) {
   return (
     <div>
-
       <label className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-2">
-
         <Icon className="w-4 h-4 text-blue-500" />
 
         {label}
@@ -1325,7 +1207,6 @@ function Field({
             *
           </span>
         )}
-
       </label>
 
       {children}
@@ -1335,31 +1216,23 @@ function Field({
           {error}
         </p>
       )}
-
     </div>
   );
 }
 
-/*
- * YES / NO COMPONENT
- */
 function YesNo({
   value,
   onChange,
 }: {
   value: boolean | null;
-  onChange: (
-    value: boolean
-  ) => void;
+  onChange: (v: boolean) => void;
 }) {
   return (
     <div className="flex gap-2">
 
       <button
         type="button"
-        onClick={() =>
-          onChange(true)
-        }
+        onClick={() => onChange(true)}
         className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
           value === true
             ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
@@ -1371,9 +1244,7 @@ function YesNo({
 
       <button
         type="button"
-        onClick={() =>
-          onChange(false)
-        }
+        onClick={() => onChange(false)}
         className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
           value === false
             ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
