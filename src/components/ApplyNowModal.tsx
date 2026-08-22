@@ -28,7 +28,8 @@ interface ApplyNowModalProps {
 
 interface FormData {
   fullName: string;
-  email: string;
+  emailUsername: string;
+  emailDomain: string;
   countryCode: string;
   phone: string;
   position: string;
@@ -150,7 +151,8 @@ const EMAIL_DOMAINS = [
 
 const EMPTY: FormData = {
   fullName: '',
-  email: '',
+  emailUsername: '',
+  emailDomain: '@gmail.com',
   countryCode: '+91',
   phone: '',
   position: '',
@@ -256,26 +258,16 @@ export default function ApplyNowModal({
       });
   };
 
-  const handleApplyDomain = (domain: string) => {
-    const current = data.email.trim();
-    if (!current) {
-      update('email', domain);
-      return;
+  const getFullEmail = (): string => {
+    const username = data.emailUsername.trim();
+    if (!username) return '';
+    if (data.emailDomain === 'custom') {
+      return username;
     }
-    const username = current.includes('@')
-      ? current.split('@')[0]
-      : current;
-    update('email', username + domain);
-  };
-
-  const getEmailSuggestions = () => {
-    const current = data.email.trim();
-    if (!current) return [];
-    const username = current.includes('@')
-      ? current.split('@')[0]
-      : current;
-    if (!username) return [];
-    return EMAIL_DOMAINS.map((domain) => username + domain);
+    const cleanUser = username.includes('@')
+      ? username.split('@')[0]
+      : username;
+    return `${cleanUser}${data.emailDomain}`;
   };
 
   useEffect(() => {
@@ -371,11 +363,12 @@ export default function ApplyNowModal({
       e.fullName = 'Please enter your full name.';
     }
 
-    /* Email */
-    if (!data.email.trim()) {
-      e.email = 'Please enter your email address.';
+    /* Email with Domain */
+    const fullEmail = getFullEmail();
+    if (!data.emailUsername.trim()) {
+      e.email = 'Please enter your email username.';
     } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())
+      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fullEmail)
     ) {
       e.email = 'Please enter a valid email address.';
     }
@@ -552,10 +545,11 @@ export default function ApplyNowModal({
 
     /* Step 4: Insert record */
     const formattedPhone = `${data.countryCode} ${data.phone.trim()}`;
+    const formattedEmail = getFullEmail();
 
     const { error } = await supabase.from('applications').insert({
       full_name: data.fullName.trim(),
-      email: data.email.trim(),
+      email: formattedEmail,
       phone: formattedPhone,
       position: data.position,
       experience_years: Number(data.experience),
@@ -675,62 +669,86 @@ export default function ApplyNowModal({
                   </div>
 
                   <div className="space-y-3.5">
-                    {/* FULL NAME */}
-                    <Field
-                      label="Full Name"
-                      icon={User}
-                      error={errors.fullName}
-                      required
-                    >
-                      <input
-                        type="text"
-                        value={data.fullName}
-                        onChange={(e) => update('fullName', e.target.value)}
-                        placeholder="e.g. Rahul Sharma"
-                        className={inputCls(!!errors.fullName)}
-                      />
-                    </Field>
+                    {/* FULL NAME + EMAIL WITH DROPDOWN */}
+                    <div className="grid sm:grid-cols-2 gap-3.5">
+                      <Field
+                        label="Full Name"
+                        icon={User}
+                        error={errors.fullName}
+                        required
+                      >
+                        <input
+                          type="text"
+                          value={data.fullName}
+                          onChange={(e) => update('fullName', e.target.value)}
+                          placeholder="e.g. Rahul Sharma"
+                          className={inputCls(!!errors.fullName)}
+                        />
+                      </Field>
 
-                    {/* EMAIL ADDRESS WITH DOMAIN AUTOCOMPLETE & CHIPS */}
-                    <Field
-                      label="Email Address"
-                      icon={Mail}
-                      error={errors.email}
-                      required
-                    >
-                      <input
-                        type="email"
-                        list="email-domain-suggestions"
-                        value={data.email}
-                        onChange={(e) => update('email', e.target.value)}
-                        placeholder="username@gmail.com"
-                        className={inputCls(!!errors.email)}
-                      />
+                      {/* EMAIL WITH INTEGRATED DOMAIN DROPDOWN */}
+                      <Field
+                        label="Email Address"
+                        icon={Mail}
+                        error={errors.email}
+                        required
+                      >
+                        <div
+                          className={`flex items-center w-full rounded-2xl border ${
+                            errors.email
+                              ? 'border-rose-300 bg-rose-50/40 ring-1 ring-rose-200'
+                              : 'border-slate-200 bg-white hover:border-slate-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100'
+                          } transition-all overflow-hidden`}
+                        >
+                          {/* Username input */}
+                          <input
+                            type="text"
+                            value={data.emailUsername}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              if (val.includes('@')) {
+                                const [user, domain] = val.split('@');
+                                const matched = EMAIL_DOMAINS.find(
+                                  (d) =>
+                                    d.toLowerCase() ===
+                                    `@${domain.toLowerCase()}`
+                                );
+                                if (matched) {
+                                  update('emailUsername', user);
+                                  update('emailDomain', matched);
+                                  return;
+                                }
+                              }
+                              update('emailUsername', val);
+                            }}
+                            placeholder="username"
+                            className="flex-1 bg-transparent px-3 py-2.5 sm:py-3 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none min-w-0"
+                          />
 
-                      {/* Browser suggestion dropdown list */}
-                      <datalist id="email-domain-suggestions">
-                        {getEmailSuggestions().map((suggestion) => (
-                          <option key={suggestion} value={suggestion} />
-                        ))}
-                      </datalist>
-
-                      {/* Quick Domain Clickable Badges */}
-                      <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                        <span className="text-[11px] font-semibold text-slate-400">
-                          Select domain:
-                        </span>
-                        {EMAIL_DOMAINS.map((domain) => (
-                          <button
-                            key={domain}
-                            type="button"
-                            onClick={() => handleApplyDomain(domain)}
-                            className="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-blue-100 hover:text-blue-700 text-slate-600 text-[11px] font-medium transition-colors cursor-pointer active:scale-95"
-                          >
-                            {domain}
-                          </button>
-                        ))}
-                      </div>
-                    </Field>
+                          {/* Domain dropdown on the right */}
+                          <div className="relative flex items-center bg-slate-50 border-l border-slate-200 hover:bg-slate-100 transition-colors shrink-0">
+                            <select
+                              value={data.emailDomain}
+                              onChange={(e) =>
+                                update('emailDomain', e.target.value)
+                              }
+                              aria-label="Email Domain"
+                              className="appearance-none bg-transparent py-2.5 sm:py-3 pl-2.5 pr-6 text-xs sm:text-sm font-semibold text-slate-800 outline-none cursor-pointer"
+                            >
+                              {EMAIL_DOMAINS.map((domain) => (
+                                <option key={domain} value={domain}>
+                                  {domain}
+                                </option>
+                              ))}
+                              <option value="custom">Other</option>
+                            </select>
+                            <span className="pointer-events-none absolute right-1.5 text-slate-400 text-[10px]">
+                              ▼
+                            </span>
+                          </div>
+                        </div>
+                      </Field>
+                    </div>
 
                     {/* SINGLE UNIFIED PHONE INPUT BOX + COMPACT DOB */}
                     <div className="grid sm:grid-cols-2 gap-3.5">
@@ -749,7 +767,7 @@ export default function ApplyNowModal({
                           } transition-all overflow-hidden`}
                         >
                           {/* Country Code Picker integrated seamlessly */}
-                          <div className="relative flex items-center bg-slate-50 border-r border-slate-200 hover:bg-slate-100 transition-colors">
+                          <div className="relative flex items-center bg-slate-50 border-r border-slate-200 hover:bg-slate-100 transition-colors shrink-0">
                             <select
                               value={data.countryCode}
                               onChange={(e) =>
@@ -785,7 +803,7 @@ export default function ApplyNowModal({
                               update('phone', digits);
                             }}
                             placeholder="10-digit mobile number"
-                            className="flex-1 bg-transparent px-3 py-2.5 sm:py-3 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none"
+                            className="flex-1 bg-transparent px-3 py-2.5 sm:py-3 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none min-w-0"
                           />
                         </div>
                         <p className="text-[11px] text-slate-400 mt-1">
