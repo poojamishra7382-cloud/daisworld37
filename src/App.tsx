@@ -22,6 +22,8 @@ export default function App() {
           <Route path="/country/:slug" element={<CountryDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/clients" element={<ClienterPage />} />
+          <Route path="/apply" element={<HomePage />} />
+          <Route path="/apply-now" element={<HomePage />} />
         </Route>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<HomePage />} />

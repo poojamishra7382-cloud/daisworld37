@@ -16,6 +16,9 @@ import {
   GraduationCap,
   FileCheck,
   MessageSquare,
+  Share2,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -132,17 +135,69 @@ export default function ApplyNowModal({
   >('idle');
 
   const [submitError, setSubmitError] = useState('');
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (open) {
-      setData(EMPTY);
+      let initialPos = '';
+      try {
+        const searchParams = new URLSearchParams(window.location.search);
+        const posParam =
+          searchParams.get('position') ||
+          searchParams.get('role') ||
+          searchParams.get('pos');
+        if (posParam) {
+          const lower = posParam.toLowerCase().trim();
+          const match = POSITIONS.find(
+            (p) =>
+              p.toLowerCase() === lower || p.toLowerCase().includes(lower)
+          );
+          initialPos = match || posParam;
+        }
+      } catch {
+        // ignore
+      }
+
+      setData({
+        ...EMPTY,
+        position: initialPos,
+      });
       setErrors({});
       setStatus('idle');
       setSubmitError('');
+      setCopiedLink(false);
     }
   }, [open]);
+
+  const handleCopyDirectLink = () => {
+    const origin = window.location.origin;
+    let url = `${origin}/apply`;
+    if (data.position) {
+      url += `?position=${encodeURIComponent(data.position)}`;
+    }
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+      })
+      .catch(() => {
+        try {
+          const input = document.createElement('input');
+          input.value = url;
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          document.body.removeChild(input);
+          setCopiedLink(true);
+          setTimeout(() => setCopiedLink(false), 2500);
+        } catch {
+          // ignore
+        }
+      });
+  };
 
   useEffect(() => {
     if (errors._scrollTo && scrollRef.current) {
@@ -719,6 +774,26 @@ export default function ApplyNowModal({
 
           {/* HEADER */}
           <div className="relative bg-gradient-to-br from-blue-600 to-cyan-500 p-6 text-center">
+
+            {/* DIRECT SHARE/COPY LINK BUTTON */}
+            <button
+              type="button"
+              onClick={handleCopyDirectLink}
+              title="Copy direct Apply Now link to share"
+              className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-full text-xs font-semibold backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm"
+            >
+              {copiedLink ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-300" />
+                  <span className="text-emerald-100">Link Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Copy Link</span>
+                </>
+              )}
+            </button>
 
             <button
               onClick={onClose}
