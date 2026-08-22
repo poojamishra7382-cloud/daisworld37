@@ -261,13 +261,10 @@ export default function ApplyNowModal({
   const getFullEmail = (): string => {
     const username = data.emailUsername.trim();
     if (!username) return '';
-    if (data.emailDomain === 'custom') {
-      return username;
-    }
     const cleanUser = username.includes('@')
       ? username.split('@')[0]
       : username;
-    return `${cleanUser}${data.emailDomain}`;
+    return `${cleanUser}${data.emailDomain || '@gmail.com'}`;
   };
 
   useEffect(() => {
@@ -740,7 +737,6 @@ export default function ApplyNowModal({
                                   {domain}
                                 </option>
                               ))}
-                              <option value="custom">Other</option>
                             </select>
                             <span className="pointer-events-none absolute right-1.5 text-slate-400 text-[10px]">
                               ▼
