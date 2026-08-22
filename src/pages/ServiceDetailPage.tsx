@@ -27,14 +27,14 @@ export default function ServiceDetailPage() {
   const Icon = service.icon;
 
   return (
-    <div className="pt-24 bg-white">
+    <div className="w-full">
 
       {/* =========================================================
           HERO
       ========================================================= */}
 
       <section
-        className="relative min-h-[560px] sm:min-h-[600px] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+        className="relative pt-28 sm:pt-32 pb-16 min-h-[560px] sm:min-h-[600px] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: `url(${service.image})`,
         }}

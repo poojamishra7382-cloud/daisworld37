@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       {/* 1. Header (Navbar) — rendered by Layout */}
-      {/* 2. Hero Section (with 3D animation & interactive visuals) */}
+      {/* 2. Hero Section */}
       <HeroSection />
 
       {/* 3. About Section */}

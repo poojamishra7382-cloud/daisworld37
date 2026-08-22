@@ -12,9 +12,9 @@ export default function CountryDetailPage() {
   if (!country) return <Navigate to="/home" replace />;
 
   return (
-    <div className="pt-24">
+    <div className="w-full">
       {/* Hero */}
-      <section className={`relative py-20 bg-gradient-to-br ${country.color} overflow-hidden`}>
+      <section className={`relative pt-28 sm:pt-32 pb-20 bg-gradient-to-br ${country.color} overflow-hidden`}>
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-4 animate-float"><Flag code={country.flagCode} className="w-20 h-14 shadow-lg rounded" /></div>

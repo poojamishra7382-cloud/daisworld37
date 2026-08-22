@@ -6,6 +6,9 @@ import {
   Instagram,
   Youtube,
   Heart,
+  ArrowRight,
+  ChevronRight,
+  Sparkles,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -13,23 +16,17 @@ const footerLinks = {
   Company: [
     { label: 'About Us', to: '/about' },
     { label: 'Contact', to: '/contact' },
-    { label: 'Our Services', to: '/services/language' },
-    { label: 'Countries', to: '/country/netherlands' },
+    { label: 'Our Services', to: '/services' },
+    { label: 'Clients & Partners', to: '/clients' },
   ],
 
-  // Services: [
-  //   { label: 'Healthcare', to: '/services/healthcare' },
-  //   { label: 'Hospitality', to: '/services/visa' },
-  //   { label: 'Construction', to: '/services/nurse' },
-  //   { label: 'Oil & Gas', to: '/services/support' },
-  // ],
-
   Services: [
-  { label: 'Healthcare', to: '/services/healthcare' },
-  { label: 'Hospitality', to: '/services/hospitality' },
-  { label: 'Construction', to: '/services/construction' },
-  { label: 'Oil & Gas', to: '/services/oil-and-gas' },
-],
+    { label: 'Healthcare', to: '/services/healthcare' },
+    { label: 'Hospitality', to: '/services/hospitality' },
+    { label: 'Construction', to: '/services/construction' },
+    { label: 'Oil & Gas', to: '/services/oil-and-gas' },
+    { label: 'Beauty & Care', to: '/services/beauty-and-care' },
+  ],
 
   Countries: [
     { label: 'Netherlands', to: '/country/netherlands' },
@@ -44,30 +41,27 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="w-full max-w-full overflow-x-hidden bg-[#050e1f] text-white">
+    <footer className="w-full max-w-full overflow-x-hidden bg-[#050e1f] text-white relative">
+      {/* Background glow effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* =====================================================
           CTA BANNER
       ====================================================== */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-cyan-500">
-        <div
-          className="
-            w-full max-w-7xl mx-auto
-            px-4 sm:px-6 lg:px-8
-            py-8 sm:py-10 lg:py-12
-            flex flex-col lg:flex-row
-            items-center justify-between
-            gap-6
-            text-center lg:text-left
-          "
-        >
+      <div className="relative w-full bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-600 overflow-hidden shadow-2xl">
+        <div className="absolute inset-0 bg-hero-pattern opacity-20" />
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-center lg:text-left">
           <div className="w-full min-w-0">
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white">
-              Ready to Start Your Career?
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-sm text-xs font-semibold uppercase tracking-wider mb-2">
+              <Sparkles className="w-3 h-3 text-cyan-200" />
+              <span>Take Your Career Global</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
+              Ready to Start Your International Journey?
             </h3>
-
-            <p className="text-white/90 mt-2 text-sm sm:text-base leading-relaxed">
-              Join 500+ professionals who transformed their careers with Dais World.
+            <p className="text-white/90 mt-1 text-xs sm:text-sm max-w-2xl leading-relaxed">
+              Join 500+ skilled Indian professionals placed across Healthcare, Hospitality, Construction, and Energy worldwide.
             </p>
           </div>
 
@@ -75,26 +69,10 @@ export default function Footer() {
             onClick={() =>
               window.dispatchEvent(new CustomEvent('open-apply-modal'))
             }
-            className="
-              shrink-0
-              inline-flex
-              items-center
-              justify-center
-              bg-white
-              text-blue-700
-              font-bold
-              px-7 sm:px-8
-              py-3.5 sm:py-4
-              rounded-2xl
-              hover:bg-blue-50
-              transition-colors
-              shadow-lg
-              text-sm sm:text-base
-              w-full sm:w-auto
-              max-w-[220px]
-            "
+            className="shrink-0 inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-blue-700 font-bold px-7 py-3 rounded-xl hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base group"
           >
-            Apply Now
+            <span>Apply Now</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
@@ -102,173 +80,94 @@ export default function Footer() {
       {/* =====================================================
           MAIN FOOTER
       ====================================================== */}
-      <div
-        className="
-          w-full max-w-7xl mx-auto
-          px-4 sm:px-6 lg:px-8
-          py-10 sm:py-12 lg:py-16
-        "
-      >
-
-        {/* ===================================================
-            FOOTER COLUMNS
-        ==================================================== */}
-        <div
-          className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-5
-            gap-8
-            lg:gap-10
-            mb-10 sm:mb-12
-          "
-        >
-
-          {/* =================================================
-              BRAND
-          ================================================== */}
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+        {/* FOOTER COLUMNS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-8">
+          {/* BRAND COLUMN */}
           <div className="sm:col-span-2 lg:col-span-2 min-w-0">
-
-            <Link
-              to="/home"
-              className="inline-block mb-4 max-w-full"
-            >
+            <Link to="/home" className="inline-block mb-3">
               <img
                 src="/logo3.png"
-                alt="Dias World"
-                className="
-                  h-10
-                  sm:h-12
-                  w-auto
-                  max-w-[190px]
-                  object-contain
-                "
+                alt="Dais World"
+                className="h-14 sm:h-16 w-auto max-w-[260px] object-contain"
               />
             </Link>
 
-            <p
-              className="
-                text-white/60
-                text-sm
-                leading-relaxed
-                mb-6
-                max-w-sm
-                break-words
-              "
-            >
-              India’s trusted global recruitment partner.
-We connect skilled Indian professionals with world-class opportunities across Healthcare, Hospitality, Construction, and Oil & Gas in Europe, the Middle East, Canada, Australia, and beyond.
+            <div className="mb-3">
+              <h4 className="text-white font-bold text-lg tracking-wide">
+                Dais World Endeavor Private Limited
+              </h4>
+              <p className="text-cyan-400 font-medium text-xs tracking-wider uppercase mt-0.5">
+                Overseas Manpower & Recruitment Consultancy
+              </p>
+            </div>
+
+            <p className="text-slate-400 text-sm leading-relaxed mb-4 max-w-sm">
+              India’s trusted recruitment partner connecting skilled professionals with world-class opportunities across Healthcare, Hospitality, Construction, and Oil & Gas globally.
             </p>
 
-            <p
-              className="
-                text-white
-                font-bold
-                italic
-                text-base sm:text-lg
-                mb-6
-                leading-relaxed
-                break-words
-              "
-            >
-              "We Care. We Train. We Place. You Grow."
-            </p>
+            {/* Mission Quote Pill */}
+            <div className="inline-block bg-white/[0.04] border border-white/10 rounded-xl px-3.5 py-2.5 mb-4 max-w-sm">
+              <p className="text-slate-200 font-medium italic text-xs sm:text-sm">
+                "We Care. We Train. We Place. You Grow."
+              </p>
+            </div>
 
             {/* Social Media */}
-            <div className="flex flex-wrap gap-3">
-
-              {/* Instagram */}
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://www.instagram.com/dais_world_?igsh=a3ljcDFhamh3cjRr"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="
-                  w-10 h-10
-                  shrink-0
-                  bg-white/10
-                  hover:bg-pink-600
-                  rounded-xl
-                  flex items-center justify-center
-                  transition-colors
-                "
+                className="w-9 h-9 bg-white/5 border border-white/10 hover:border-pink-500 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
               >
-                <Instagram className="w-5 h-5 text-white" />
+                <Instagram className="w-4 h-4 text-white" />
               </a>
 
-              {/* Facebook */}
               <a
                 href="https://www.facebook.com/share/1DYs7V9D6o/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="
-                  w-10 h-10
-                  shrink-0
-                  bg-white/10
-                  hover:bg-blue-600
-                  rounded-xl
-                  flex items-center justify-center
-                  transition-colors
-                "
+                className="w-9 h-9 bg-white/5 border border-white/10 hover:border-blue-500 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
               >
-                <Facebook className="w-5 h-5 text-white" />
+                <Facebook className="w-4 h-4 text-white" />
               </a>
 
-              {/* YouTube */}
               <a
                 href="https://www.youtube.com/@DaisWorld-d2y"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="
-                  w-10 h-10
-                  shrink-0
-                  bg-white/10
-                  hover:bg-red-600
-                  rounded-xl
-                  flex items-center justify-center
-                  transition-colors
-                "
+                className="w-9 h-9 bg-white/5 border border-white/10 hover:border-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
               >
-                <Youtube className="w-5 h-5 text-white" />
+                <Youtube className="w-4 h-4 text-white" />
               </a>
-
             </div>
           </div>
 
-          {/* =================================================
-              LINK COLUMNS
-          ================================================== */}
+          {/* LINK COLUMNS */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div
-              key={title}
-              className="min-w-0"
-            >
-              <h4 className="font-bold text-white mb-4 text-base">
-                {title}
-              </h4>
+            <div key={title} className="min-w-0">
+              <div className="flex items-center gap-2 mb-3.5">
+                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                <h4 className="font-bold text-white text-xs tracking-wider uppercase">
+                  {title}
+                </h4>
+              </div>
 
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {links.map((link) => (
-                  <li
-                    key={link.label}
-                    className="min-w-0"
-                  >
+                  <li key={link.label} className="min-w-0">
                     <Link
                       to={link.to}
-                      className="
-                        inline-block
-                        max-w-full
-                        text-white/60
-                        hover:text-cyan-400
-                        text-sm
-                        transition-colors
-                        break-words
-                      "
+                      className="group flex items-center gap-1.5 text-slate-400 hover:text-cyan-400 text-sm transition-all duration-200"
                     >
-                      {link.label}
+                      <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-cyan-400" />
+                      <span className="group-hover:translate-x-0.5 transition-transform">
+                        {link.label}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -278,192 +177,69 @@ We connect skilled Indian professionals with world-class opportunities across He
         </div>
 
         {/* ===================================================
-            CONTACT INFORMATION
+            CONTACT CARDS
         ==================================================== */}
-        <div
-          className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            gap-6
-            py-8
-            border-t
-            border-white/10
-          "
-        >
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-6 pb-6 border-t border-white/10">
           {/* PHONE */}
           <a
             href="tel:8976697001"
-            className="
-              flex
-              items-start
-              gap-3
-              min-w-0
-              w-full
-              text-white/70
-              hover:text-white
-              transition-colors
-            "
+            className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/40 hover:bg-white/[0.07] transition-all duration-300 group"
           >
-            <Phone
-              className="
-                w-5 h-5
-                shrink-0
-                text-cyan-400
-                mt-0.5
-              "
-            />
-
-            <span
-              className="
-                min-w-0
-                flex-1
-                break-words
-                whitespace-normal
-                text-sm sm:text-base
-                leading-relaxed
-              "
-            >
-              8976697001
-            </span>
+            <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+              <Phone className="w-4 h-4 text-cyan-400 group-hover:text-slate-950 transition-colors" />
+            </div>
+            <div>
+              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Call Us</p>
+              <p className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                +91 89766 97001
+              </p>
+            </div>
           </a>
 
           {/* EMAIL */}
           <a
             href="mailto:aditya.s@daisworld.com"
-            className="
-              flex
-              items-start
-              gap-3
-              min-w-0
-              w-full
-              text-white/70
-              hover:text-white
-              transition-colors
-            "
+            className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-white/[0.07] transition-all duration-300 group"
           >
-            <Mail
-              className="
-                w-5 h-5
-                shrink-0
-                text-cyan-400
-                mt-0.5
-              "
-            />
-
-            <span
-              className="
-                min-w-0
-                flex-1
-                break-words
-                whitespace-normal
-                overflow-wrap-anywhere
-                text-sm sm:text-base
-                leading-relaxed
-              "
-            >
-              aditya.s@daisworld.com / sanchit.r@daisworld.com
-            </span>
+            <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+              <Mail className="w-4 h-4 text-blue-400 group-hover:text-white transition-colors" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Email Us</p>
+              <p className="text-xs sm:text-sm font-bold text-white group-hover:text-blue-300 transition-colors truncate">
+                aditya.s@daisworld.com
+              </p>
+            </div>
           </a>
 
           {/* ADDRESS */}
-          <div
-            className="
-              flex
-              items-start
-              gap-3
-              min-w-0
-              w-full
-              text-white/70
-            "
-          >
-            <MapPin
-              className="
-                w-5 h-5
-                shrink-0
-                text-cyan-400
-                mt-0.5
-              "
-            />
-
-            <span
-              className="
-                min-w-0
-                flex-1
-                break-words
-                whitespace-normal
-                overflow-wrap-anywhere
-                text-sm sm:text-base
-                leading-relaxed
-              "
-            >
-              Malad West, Mumbai, Maharashtra, India
-            </span>
+          <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-500/40 hover:bg-white/[0.07] transition-all duration-300 group sm:col-span-2 lg:col-span-1">
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-colors">
+              <MapPin className="w-4 h-4 text-emerald-400 group-hover:text-slate-950 transition-colors" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Head Office</p>
+              <p className="text-xs sm:text-sm font-medium text-white leading-snug">
+                1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai
+              </p>
+            </div>
           </div>
-
         </div>
 
         {/* ===================================================
             BOTTOM BAR
         ==================================================== */}
-        <div
-          className="
-            pt-8
-            border-t
-            border-white/10
-            flex
-            flex-col
-            sm:flex-row
-            items-center
-            justify-between
-            gap-4
-            min-w-0
-          "
-        >
-
+        <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           {/* Copyright */}
-          <p
-            className="
-              text-white/40
-              text-xs sm:text-sm
-              text-center
-              sm:text-left
-              break-words
-            "
-          >
-            © {new Date().getFullYear()} Dais World.
-            All rights reserved.
+          <p className="text-center sm:text-left">
+            © {new Date().getFullYear()} <span className="text-slate-200 font-semibold">Dais World Endeavor Private Limited</span>. All rights reserved.
           </p>
 
           {/* Made With */}
-          <div
-            className="
-              flex
-              items-center
-              justify-center
-              gap-1
-              text-white/40
-              text-xs sm:text-sm
-              text-center
-              flex-wrap
-            "
-          >
-            <span>Made with</span>
-
-            <Heart
-              className="
-                w-4 h-4
-                shrink-0
-                text-rose-500
-                fill-rose-500
-              "
-            />
-
-            <span>for Indian Nurses</span>
+          <div className="flex items-center justify-center gap-1.5">
+            <span>Empowering careers worldwide</span>
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
           </div>
-
         </div>
       </div>
     </footer>

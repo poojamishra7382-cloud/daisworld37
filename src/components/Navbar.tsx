@@ -181,32 +181,32 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             LOGO
         ====================================================== */}
 
-<div className="flex flex-col items-start flex-shrink-0">
+        <div className="flex flex-col items-start flex-shrink-0">
 
-  <Link
-    to="/home"
-    className="flex items-center group flex-shrink-0"
-  >
-    <img
-      src="/logo3.png"
-      alt="DAIS World"
-      className="
+          <Link
+            to="/home"
+            className="flex items-center group flex-shrink-0"
+          >
+            <img
+              src="/logo3.png"
+              alt="DAIS World"
+              className="
         w-auto
         object-contain
         group-hover:opacity-90
         transition-opacity duration-300
       "
-      style={{
-        width: '170px',
-        margin: '-15px',
-      }}
-    />
-  </Link>
+              style={{
+                width: '170px',
+                margin: '-15px',
+              }}
+            />
+          </Link>
 
-  {/* Slogan */}
-  <Link
-    to="/home"
-    className="
+          {/* Slogan */}
+          <Link
+            to="/home"
+            className="
       block
       -mt-1
       ml-1
@@ -219,19 +219,19 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
       hover:text-white
       transition-colors
     "
-  //    style={{
-  //   fontFamily: 'Via, sans-serif',
-  // }}
-    style={{
-    fontFamily: 'VIA, sans-serif',
-    fontWeight: 400,
-    letterSpacing: '0.08em',
-  }}
-  >
-    We Care • We Train • We Place • You Grow
-  </Link>
+            //    style={{
+            //   fontFamily: 'Via, sans-serif',
+            // }}
+            style={{
+              fontFamily: 'VIA, sans-serif',
+              fontWeight: 400,
+              letterSpacing: '0.08em',
+            }}
+          >
+            We Care • We Train • We Place • You Grow
+          </Link>
 
-</div>
+        </div>
 
 
         {/* =====================================================
@@ -309,10 +309,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 className={`
                   w-4 h-4
                   transition-transform duration-300
-                  ${
-                    desktopServicesOpen
-                      ? 'rotate-180'
-                      : ''
+                  ${desktopServicesOpen
+                    ? 'rotate-180'
+                    : ''
                   }
                 `}
               />
@@ -328,10 +327,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 w-64
                 origin-top-left
                 transition-all duration-300
-                ${
-                  desktopServicesOpen
-                    ? 'opacity-100 scale-100 pointer-events-auto'
-                    : 'opacity-0 scale-95 pointer-events-none'
+                ${desktopServicesOpen
+                  ? 'opacity-100 scale-100 pointer-events-auto'
+                  : 'opacity-0 scale-95 pointer-events-none'
                 }
               `}
             >
@@ -487,10 +485,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 className={`
                   w-4 h-4
                   transition-transform duration-300
-                  ${
-                    desktopCountriesOpen
-                      ? 'rotate-180'
-                      : ''
+                  ${desktopCountriesOpen
+                    ? 'rotate-180'
+                    : ''
                   }
                 `}
               />
@@ -506,10 +503,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 w-72
                 origin-top-right
                 transition-all duration-300
-                ${
-                  desktopCountriesOpen
-                    ? 'opacity-100 scale-100 pointer-events-auto'
-                    : 'opacity-0 scale-95 pointer-events-none'
+                ${desktopCountriesOpen
+                  ? 'opacity-100 scale-100 pointer-events-auto'
+                  : 'opacity-0 scale-95 pointer-events-none'
                 }
               `}
             >
@@ -729,10 +725,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           bottom-0
           z-40
           transition-all duration-300
-          ${
-            open
-              ? 'opacity-100 pointer-events-auto'
-              : 'opacity-0 pointer-events-none'
+          ${open
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
           }
         `}
       >
@@ -745,10 +740,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             bg-black/50
             backdrop-blur-sm
             transition-opacity duration-300
-            ${
-              open
-                ? 'opacity-100'
-                : 'opacity-0'
+            ${open
+              ? 'opacity-100'
+              : 'opacity-0'
             }
           `}
           onClick={() => setOpen(false)}
@@ -768,10 +762,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             max-h-[100vh]
             scrollbar-hide
             transition-transform duration-300
-            ${
-              open
-                ? 'translate-y-0'
-                : '-translate-y-full'
+            ${open
+              ? 'translate-y-0'
+              : '-translate-y-full'
             }
           `}
         >
@@ -902,10 +895,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                   className={`
                     w-5 h-5
                     transition-transform duration-300
-                    ${
-                      mobileServicesOpen
-                        ? 'rotate-180'
-                        : ''
+                    ${mobileServicesOpen
+                      ? 'rotate-180'
+                      : ''
                     }
                   `}
                 />
@@ -916,10 +908,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 className={`
                   overflow-hidden
                   transition-all duration-300
-                  ${
-                    mobileServicesOpen
-                      ? 'max-h-[500px] opacity-100'
-                      : 'max-h-0 opacity-0'
+                  ${mobileServicesOpen
+                    ? 'max-h-[500px] opacity-100'
+                    : 'max-h-0 opacity-0'
                   }
                 `}
               >
@@ -1046,10 +1037,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                   className={`
                     w-5 h-5
                     transition-transform duration-300
-                    ${
-                      mobileCountriesOpen
-                        ? 'rotate-180'
-                        : ''
+                    ${mobileCountriesOpen
+                      ? 'rotate-180'
+                      : ''
                     }
                   `}
                 />
@@ -1060,10 +1050,9 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 className={`
                   overflow-hidden
                   transition-all duration-300
-                  ${
-                    mobileCountriesOpen
-                      ? 'max-h-[600px] opacity-100'
-                      : 'max-h-0 opacity-0'
+                  ${mobileCountriesOpen
+                    ? 'max-h-[600px] opacity-100'
+                    : 'max-h-0 opacity-0'
                   }
                 `}
               >
@@ -1184,4 +1173,3 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
 
 
-            

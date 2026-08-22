@@ -7,7 +7,7 @@ export default function ServicesSection() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-white to-blue-50/30">
+    <section id="services" className="pt-12 pb-12 bg-gradient-to-b from-white to-blue-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Heading */}
@@ -28,8 +28,8 @@ export default function ServicesSection() {
           </h2>
 
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            End-to-end recruitment solutions across healthcare, hospitality,
-            construction and oil & gas industries.
+            End-to-end international recruitment solutions across healthcare, hospitality,
+            construction, oil & gas, and beauty & care industries.
           </p>
         </div>
 

@@ -81,9 +81,9 @@ const successRate = Math.round((testimonials.filter((t) => t.rating >= 4).length
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="pt-12 pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3"></p>
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
             Hear From Our <span className="text-gradient">Candidates</span>

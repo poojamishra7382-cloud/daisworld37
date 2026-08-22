@@ -8,11 +8,11 @@ export default function CountriesSection() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section id="countries" className="py-24 bg-white">
+    <section id="countries" className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}
-          className={`text-center mb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`text-center mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
           <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Destinations</p>
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
@@ -28,9 +28,8 @@ export default function CountriesSection() {
             <Link
               key={c.slug}
               to={`/country/${c.slug}`}
-              className={`group relative rounded-3xl overflow-hidden card-hover ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+              className={`group relative rounded-3xl overflow-hidden card-hover ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <div className={`bg-gradient-to-br ${c.color} p-6 text-white h-full relative overflow-hidden`}>

@@ -1,15 +1,13 @@
 import { Target, Heart, Lightbulb, Award, Users, Globe, TrendingUp, Shield } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 
 export default function AboutPage() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   return (
-    <div className="pt-24">
+    <div className="w-full">
       {/* Hero */}
-      <section className="relative py-20 bg-[#050e1f] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 pb-20 bg-[#050e1f] overflow-hidden">
         <div className="absolute inset-0 bg-hero-pattern" />
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -19,80 +17,95 @@ export default function AboutPage() {
             <span className="text-gradient">Overseas</span>{' '}
             Recruitment Partner
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Dais World is a premier international manpower recruitment consultancy based in Mumbai, India. We connect skilled Indian professionals with leading employers across Healthcare, Hospitality, Construction, and Oil & Gas worldwide. </p>
+          <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Dais World Endeavor Private Limited is a premier international manpower recruitment consultancy based in Mumbai, India. We connect skilled Indian professionals with leading employers across Healthcare, Hospitality, Construction, and Oil & Gas worldwide.
+          </p>
         </div>
       </section>
 
       {/* Story */}
-      <section className="py-24 bg-white">
+      <section className="pt-16 pb-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={ref} className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <img
-                  src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Nurses working in Europe"
-                  className="w-full h-[500px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/80 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="glassmorphism rounded-2xl p-5">
-                    <p className="text-white font-bold text-xl italic">"We Care. We Train. We Place. You Grow."</p>
-                    <p className="text-white/70 text-sm mt-1">— DIAS WORLD Mission</p>
+          <div ref={ref} className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div className="relative max-w-lg mx-auto lg:max-w-none w-full">
+                <div className="relative rounded-3xl overflow-hidden shadow-xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
+                    alt="Global workforce team"
+                    className="w-full h-[360px] sm:h-[400px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/80 to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="glassmorphism rounded-2xl p-4">
+                      <p className="text-white font-bold text-lg italic">"We Care. We Train. We Place. You Grow."</p>
+                      <p className="text-white/70 text-xs mt-1">— DAIS WORLD MISSION</p>
+                    </div>
                   </div>
                 </div>
+                <div className="absolute -top-4 -left-4 w-20 h-20 bg-blue-600/20 rounded-3xl -z-10 rotate-12" />
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-cyan-500/10 rounded-3xl -z-10 -rotate-6" />
               </div>
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-600/20 rounded-3xl -z-10 rotate-12" />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-cyan-500/10 rounded-3xl -z-10 -rotate-6" />
+
+              <div>
+                <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Dais World</p>
+                <h2 className="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-6">
+                  Our <span className="text-gradient">Story</span>
+                </h2>
+                <div className="space-y-4 text-slate-600 text-base leading-relaxed mb-8">
+                  <p>
+                    Dais World is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas worldwide.
+                  </p>
+                  <p>
+                    With over a decade of experience, we have helped hundreds of skilled professionals build international careers across Healthcare, Hospitality, Construction, and Oil & Gas. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6">Our Story</h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                With over a decade of experience, we have helped hundreds of skilled professionals build successful international careers across Healthcare, Hospitality, Construction, and Oil & Gas. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-8">
-                We specialize in connecting skilled Indian professionals with leading international employers across Healthcare, Hospitality, Construction, and Oil & Gas. Our mission is to empower professionals with global opportunities, reliable career support, and pathways to build successful careers abroad.    </p>
-
-              <div className="grid sm:grid-cols-3 gap-6">
-                {[
-                  { 
-  icon: Target, 
-  title: 'Mission', 
-  desc: 'Connecting skilled talent with global opportunities and trusted employers.', 
-  color: 'bg-blue-50 text-blue-600' 
-},
-
-{ 
-  icon: Heart, 
-  title: 'Values', 
-  desc: 'Integrity, transparency, care, and commitment in everything we do.', 
-  color: 'bg-rose-50 text-rose-600' 
-},
-
-{ 
-  icon: Lightbulb, 
-  title: 'Vision', 
-  desc: 'To become a trusted global bridge between talent and leading industries.', 
-  color: 'bg-amber-50 text-amber-600' 
-},].map(({ icon: Icon, title, desc, color }) => (
-                  <div key={title} className="text-center">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${color} mb-3`}>
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-bold text-slate-900 mb-2">{title}</h4>
-                    <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+            {/* Mission, Values, Vision row below */}
+            <div className="grid sm:grid-cols-3 gap-8 mt-12">
+              {[
+                {
+                  icon: Target,
+                  title: 'Our Mission',
+                  desc: 'Connecting skilled talent with global opportunities and trusted employers.',
+                  iconBg: 'bg-blue-50 text-blue-600',
+                  borderHover: 'hover:border-blue-200'
+                },
+                {
+                  icon: Heart,
+                  title: 'Our Values',
+                  desc: 'Integrity, transparency, care, and commitment in everything we do.',
+                  iconBg: 'bg-rose-50 text-rose-600',
+                  borderHover: 'hover:border-rose-200'
+                },
+                {
+                  icon: Lightbulb,
+                  title: 'Our Vision',
+                  desc: 'To become a trusted global bridge between talent and leading industries.',
+                  iconBg: 'bg-amber-50 text-amber-600',
+                  borderHover: 'hover:border-amber-200'
+                },
+              ].map(({ icon: Icon, title, desc, iconBg, borderHover }) => (
+                <div
+                  key={title}
+                  className={`group text-center p-8 rounded-3xl bg-slate-50/80 border border-slate-100 ${borderHover} hover:bg-white hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300`}
+                >
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${iconBg} mb-5 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-7 h-7" />
                   </div>
-                ))}
-              </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="py-20 bg-gradient-to-b from-blue-50/30 to-white">
+      <section className="py-12 bg-gradient-to-b from-blue-50/30 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -114,9 +127,9 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-white">
+      <section className="pt-12 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Why Choose Us</p>
             <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
               The <span className="text-gradient">Dais World</span> Advantage
@@ -125,16 +138,11 @@ export default function AboutPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: Shield, title: 'Trusted & Reliable', desc: 'Transparent processes, honest communication, and reliable solutions you can count on.' },
-
-{ icon: Award, title: 'Industry Expertise', desc: 'Experienced professionals with strong knowledge across healthcare, hospitality, construction, and oil & gas.' },
-
-{ icon: Users, title: 'Personalized Support', desc: 'Dedicated support at every stage, from initial consultation to successful placement and beyond.' },
-
-{ icon: Globe, title: 'Global Opportunities', desc: 'Connecting skilled professionals with trusted employers and opportunities across international markets.' },
-
-{ icon: TrendingUp, title: 'Career & Business Growth', desc: 'Helping professionals build successful careers and organizations find the right talent for long-term growth.' },
-
-{ icon: Heart, title: 'End-to-End Service', desc: 'From recruitment and documentation to onboarding and ongoing support, we make the entire journey simple.' },
+              { icon: Award, title: 'Industry Expertise', desc: 'Experienced professionals with strong knowledge across healthcare, hospitality, construction, and oil & gas.' },
+              { icon: Users, title: 'Personalized Support', desc: 'Dedicated support at every stage, from initial consultation to successful placement and beyond.' },
+              { icon: Globe, title: 'Global Opportunities', desc: 'Connecting skilled professionals with trusted employers and opportunities across international markets.' },
+              { icon: TrendingUp, title: 'Career & Business Growth', desc: 'Helping professionals build successful careers and organizations find the right talent for long-term growth.' },
+              { icon: Heart, title: 'End-to-End Service', desc: 'From recruitment and documentation to onboarding and ongoing support, we make the entire journey simple.' },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="group bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -145,17 +153,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-cyan-500">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-white/90 text-lg mb-8">Join 500+ professionals who started their global careers with Dais World.</p>
-          <Link to="/home" className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl hover:bg-blue-50 transition-colors">
-            Back to Home <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </section>
     </div>

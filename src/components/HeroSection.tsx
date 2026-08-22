@@ -20,8 +20,8 @@ const slides: Slide[] = [
     image: 'health3.png',
     badge: 'Now Hiring — across globe 2026',
     heading: 'We Are Hiring',
-    highlight: 'Nurses',
-    subtext: 'Build your career across global.',
+    highlight: 'Medical Staff',
+    subtext: 'Connecting Doctors, Nurses, Ayurvedic Experts, Yoga Therapists, Dietitians, Phlebotomists & Medical Staff globally.',
   },
   {
     image: 'hotel7.png',
@@ -45,7 +45,7 @@ const slides: Slide[] = [
     heading: 'A Better Future',
     highlight: 'Awaits You',
     subtext:
-      'Take the next step in your nursing career with salaries up to €5,500/month.',
+      'Take the next step in your global healthcare and professional career with salaries up to €5,500/month.',
   },
 ];
 
@@ -558,10 +558,9 @@ export default function HeroSection() {
                 rounded-full
                 transition-all
                 duration-300
-                ${
-                  i === current
-                    ? 'w-7 bg-cyan-300'
-                    : 'w-2 bg-white/40'
+                ${i === current
+                  ? 'w-7 bg-cyan-300'
+                  : 'w-2 bg-white/40'
                 }
               `}
             />

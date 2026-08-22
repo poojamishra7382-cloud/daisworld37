@@ -3,6 +3,7 @@ import {
   Hotel,
   HardHat,
   Fuel,
+  Sparkles,
 } from 'lucide-react';
 
 import type { LucideIcon } from 'lucide-react';
@@ -34,50 +35,61 @@ export const services: ServiceItem[] = [
     icon: Stethoscope,
 
     short:
-      'International healthcare recruitment and career opportunities',
+      'International medical & holistic healthcare recruitment across Doctors, Nurses, Dietitians, Phlebotomists, Ayurveda & Yoga',
 
     description:
-      'We connect qualified healthcare professionals with leading hospitals, clinics, and healthcare institutions across international markets. From recruitment to documentation and placement, we support candidates throughout their journey.',
+      'We connect qualified healthcare and holistic medical professionals — including Specialist Doctors, Registered Nurses, Ayurvedic Practitioners (BAMS), Certified Yoga Instructors & Therapists, Clinical Dietitians & Nutritionists, Phlebotomists, and Medical Laboratory Technologists — with leading international hospitals, diagnostic centers, wellness retreats, and medical facilities.',
 
     overview:
-      'Our healthcare recruitment services connect qualified and experienced healthcare professionals with trusted hospitals, clinics, medical centers, and healthcare institutions across international markets. We support candidates throughout the recruitment journey, from profile assessment and documentation to job matching, interviews, and placement.',
+      'Our healthcare recruitment services connect qualified medical and holistic wellness professionals across all clinical disciplines with trusted hospitals, clinics, diagnostic centers, Ayurvedic wellness resorts, yoga retreats, and healthcare institutions internationally. From Doctors and Registered Nurses to Ayurvedic Doctors (BAMS), Certified Yoga Therapists, Clinical Dietitians, Certified Phlebotomists, Laboratory Technicians, and Allied Health staff, we support candidates throughout licensing, documentation, interviews, visa processing, and relocation.',
 
     features: [
-      'Healthcare professional recruitment',
-      'Nurse and medical staff placement',
-      'Credential verification & documentation',
-      'International job placement',
-      'Career guidance & placement support',
+      'Specialist Doctors & Medical Consultants Recruitment',
+      'Registered Nurses, Staff Nurses & ICU Specialists',
+      'Ayurvedic Doctors (BAMS/MD) & Panchakarma Specialists',
+      'Certified Yoga Instructors, Therapists & Masters',
+      'Clinical Dietitians, Nutritionists & Wellness Experts',
+      'Phlebotomists, Blood Bank Staff & Lab Technicians',
+      'Credential Verification, Licensing & Eligibility Support',
+      'International Hospital, Clinic & Wellness Placement',
     ],
 
     roles: [
-      'Registered Nurses',
-      'Staff Nurses',
-      'Nursing Assistants',
-      'Healthcare Assistants',
-      'Medical Technicians',
-      'Laboratory Technicians',
-      'Radiology Technicians',
-      'Medical Professionals',
+      'Specialist Doctors & General Physicians',
+      'Registered Nurses & Staff Nurses',
+      'Ayurvedic Doctors & Practitioners (BAMS / MD)',
+      'Certified Yoga Instructors & Yoga Therapists',
+      'Dietitians & Clinical Nutritionists',
+      'Panchakarma & Ayurvedic Therapists',
+      'Phlebotomists (Blood Collection Specialists)',
+      'Medical Laboratory Technicians (MLT / DMLT)',
+      'Radiology & Imaging Technicians (X-Ray / MRI)',
+      'Physiotherapists & Rehabilitation Specialists',
+      'Operation Theatre (OT) Technicians',
+      'Pharmacists & Pharmacy Technicians',
+      'Healthcare Assistants & Caregivers',
     ],
 
     industries: [
-      'Hospitals',
-      'Private Clinics',
-      'Medical Centers',
-      'Nursing Homes',
-      'Rehabilitation Centers',
-      'Specialized Healthcare Facilities',
+      'Government & Private Hospitals',
+      'Ayurveda Hospitals & Wellness Resorts',
+      'Yoga Retreats & Holistic Healing Centers',
+      'Diagnostic Centers & Pathology Labs',
+      'Nutrition & Wellness Clinics',
+      'Specialized Medical Centers',
+      'Nursing Homes & Elderly Care',
+      'Rehabilitation & Physiotherapy Centers',
+      'Blood Banks & Clinical Research Facilities',
       'Long-Term Care Facilities',
     ],
 
     benefits: [
-      'International healthcare career opportunities',
-      'Professional job placement',
-      'Documentation guidance',
-      'Interview coordination',
-      'Career guidance and placement support',
-      'International placement assistance',
+      'Competitive international salaries (€2,800 to €8,000+/month)',
+      'Direct employment contracts with accredited hospitals, clinics & wellness centers',
+      'Complete licensing, credentialing & document apostille support',
+      'Free or subsidized medical language training assistance',
+      '100% visa processing & relocation guidance',
+      'Long-term residency & international career advancement',
     ],
 
     color: 'from-blue-600 to-cyan-500',
@@ -106,13 +118,13 @@ export const services: ServiceItem[] = [
       'Our hospitality recruitment services connect skilled and experienced professionals with hotels, resorts, restaurants, and hospitality organizations across international markets. We focus on matching candidates according to their skills, experience, qualifications, and employer requirements.',
 
     features: [
-      'Hotel & resort recruitment',
-      'Chefs & kitchen staff placement',
-      'Housekeeping staff recruitment',
-      'Front office recruitment',
-      'Restaurant & food service recruitment',
-      'Food & beverage staffing',
-      'International job placement support',
+      'Hotel & Resort Workforce Recruitment',
+      'Executive Chefs & Kitchen Staff Placement',
+      'Housekeeping & Facility Staff Recruitment',
+      'Front Office & Guest Relations Staffing',
+      'Restaurant & Food Service Recruitment',
+      'Food & Beverage Staffing Solutions',
+      'International Placement & Relocation Support',
     ],
 
     roles: [
@@ -153,7 +165,7 @@ export const services: ServiceItem[] = [
 
     color: 'from-indigo-600 to-blue-500',
 
-image: '/download5.jpg',
+    image: '/download5.jpg',
   },
 
 
@@ -176,13 +188,13 @@ image: '/download5.jpg',
       'Our construction recruitment services help international employers find skilled and experienced professionals for residential, commercial, infrastructure, and industrial projects. We match candidates according to their technical skills, experience, qualifications, and project requirements.',
 
     features: [
-      'Skilled construction worker recruitment',
-      'Civil & building professionals',
-      'Electricians & plumbers',
-      'Welders & technicians',
-      'Engineers & supervisors',
-      'Heavy equipment operators',
-      'International workforce placement',
+      'Skilled Construction Worker Recruitment',
+      'Civil & Building Engineering Professionals',
+      'Certified Electricians & Plumbers Recruitment',
+      'Expert Welders, Fitters & Fabricators Placement',
+      'Site Engineers & Project Supervisors',
+      'Heavy Equipment & Crane Operators',
+      'International Workforce & Trade Placement',
     ],
 
     roles: [
@@ -248,13 +260,13 @@ image: '/download5.jpg',
       'Our oil and gas recruitment services connect experienced professionals with international employers and energy projects. We provide recruitment support for engineering, technical, operational, maintenance, and skilled workforce requirements while focusing on qualifications, experience, and project needs.',
 
     features: [
-      'Oil & gas workforce recruitment',
-      'Engineers & technical professionals',
-      'Operators & maintenance staff',
-      'Skilled technicians & workers',
-      'Project-based manpower solutions',
-      'Technical candidate screening',
-      'International placement & documentation support',
+      'Oil & Gas Specialized Workforce Recruitment',
+      'Engineers & Technical Professionals Staffing',
+      'Plant Operators & Maintenance Staff Placement',
+      'Certified Welders, Riggers & Pipe Fitters',
+      'Project-Based Manpower Solutions',
+      'Technical Candidate Verification & Screening',
+      'International Placement & Visa Processing Support',
     ],
 
     roles: [
@@ -297,7 +309,74 @@ image: '/download5.jpg',
     
     color: 'from-cyan-600 to-teal-500',
 
-      image: 
-  'https://images.openai.com/static-rsc-4/d9KX9WrZF_8aeIxbdpX0rCO7tZunJ4_tYxiifAnjEw0AdEliwY1qLmI5aX8MYf6PRrdJh4QZkNQg6emMjboy-_dNwQBn0ZjJQx3djugvjftZCQDYCYILrQXiPaegMbkdVRrCowEhiEU0M0QeBsNxB4UZUb_cJ7yWobbxEK7M7BkICCq6LlzV2K7m2ZKZnjVn?purpose=fullsize',
+    image: 
+      'https://images.openai.com/static-rsc-4/d9KX9WrZF_8aeIxbdpX0rCO7tZunJ4_tYxiifAnjEw0AdEliwY1qLmI5aX8MYf6PRrdJh4QZkNQg6emMjboy-_dNwQBn0ZjJQx3djugvjftZCQDYCYILrQXiPaegMbkdVRrCowEhiEU0M0QeBsNxB4UZUb_cJ7yWobbxEK7M7BkICCq6LlzV2K7m2ZKZnjVn?purpose=fullsize',
+  },
+
+
+  // =====================================================
+  // BEAUTY & CARE
+  // =====================================================
+
+  {
+    slug: 'beauty-and-care',
+    title: 'Beauty & Care',
+    icon: Sparkles,
+
+    short:
+      'Certified beauty, wellness, spa, and aesthetic professionals for global brands',
+
+    description:
+      'We recruit and place certified beauty therapists, cosmetologists, hair stylists, spa professionals, and skin care specialists with luxury salons, 5-star hotel spas, wellness retreats, and aesthetic clinics across international markets.',
+
+    overview:
+      'Our Beauty & Care recruitment services bridge certified Indian beauty and wellness professionals with premier luxury spas, wellness resorts, aesthetic clinics, and high-end beauty salons across the Middle East, Europe, and worldwide. We ensure thorough skill assessment, international trade certification, documentation, and personalized career support for long-term growth abroad.',
+
+    features: [
+      'Luxury Spa & Wellness Resort Staffing',
+      'Certified Cosmetologists & Aesthetician Recruitment',
+      'Professional Hair Stylists & Salon Artists',
+      'Nail Technicians & Makeup Artists Placement',
+      'Hands-On Trade & Practical Skill Evaluation',
+      'Documentation, Licensing & Visa Processing',
+      'Luxury Hospitality & Service Standard Orientation',
+      'International Contract & Relocation Assistance',
+    ],
+
+    roles: [
+      'Spa Therapists & Masseurs',
+      'Cosmetologists & Aestheticians',
+      'Skin Care Specialists',
+      'Hair Stylists & Colorists',
+      'Nail Technicians & Nail Artists',
+      'Professional Makeup Artists',
+      'Laser & Beauty Technicians',
+      'Salon & Spa Managers',
+    ],
+
+    industries: [
+      '5-Star Luxury Hotel Spas',
+      'High-End Beauty Salons',
+      'Aesthetic & Dermatology Clinics',
+      'Wellness & Ayurvedic Resorts',
+      'International Cruise Liners',
+      'Medi-Spas & Laser Centers',
+      'Bridal & Fashion Studios',
+      'Luxury Wellness Retreats',
+    ],
+
+    benefits: [
+      'Lucrative international tax-free salaries & service incentives',
+      'Placement with top global luxury brands and 5-star resorts',
+      'Comprehensive documentation & visa clearance support',
+      'Flight tickets, accommodation & health insurance provided',
+      'Professional skill advancement & global career exposure',
+      'Transparent and reliable overseas placement process',
+    ],
+
+    color: 'from-pink-500 to-rose-500',
+
+    image:
+      'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=1200&q=80',
   },
 ];

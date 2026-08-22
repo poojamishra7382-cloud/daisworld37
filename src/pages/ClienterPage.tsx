@@ -10,6 +10,7 @@ export default function ClienterPage() {
     "Hospitality",
     "Construction",
     "Oil & Gas",
+    "Beauty & Care",
   ];
 
   const filteredPartners =
@@ -20,39 +21,40 @@ export default function ClienterPage() {
         );
 
   return (
-    <div className="pt-24">
+    <div className="w-full">
 
-     {/* ================= HERO ================= */}
-<section
-  className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-24 md:py-28"
-  style={{
-    backgroundImage: "url('/download4.jpg')",
-  }}
->
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-[#020b20]/60" />
+      {/* ================= HERO ================= */}
+      <section
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat pt-28 sm:pt-32 pb-20 md:pb-24"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')",
+        }}
+      >
+        {/* Dark Multi-layer Gradient Overlay for rich readability & contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050e1f]/90 via-[#071938]/80 to-[#050e1f]/90" />
+        <div className="absolute inset-0 bg-hero-pattern opacity-20" />
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[450px] h-[450px] bg-cyan-500/15 rounded-full blur-3xl" />
 
-  {/* Hero Content */}
-  <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+        {/* Hero Content */}
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+          <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+            Global Network & Partners
+          </p>
 
-    <p className="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-blue-400">
-      Global Network
-    </p>
+          <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl">
+            Trusted by Global{" "}
+            <span className="text-gradient">
+              Industry Leaders
+            </span>
+          </h1>
 
-    <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-      Global{" "}
-      <span className="text-blue-400">
-        Industry Leaders
-      </span>
-    </h1>
-
-    <p className="mx-auto max-w-3xl text-base leading-7 text-white/90 sm:text-lg md:text-xl">
-      Explore leading organizations across healthcare,
-      hospitality, construction and oil & gas industries.
-    </p>
-
-  </div>
-</section>
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/85 sm:text-lg">
+            Explore world-class partner hospitals, luxury hospitality groups, premier infrastructure enterprises, and energy corporations across Europe, Middle East, Australia, and beyond.
+          </p>
+        </div>
+      </section>
       {/* ================= FILTER ================= */}
       <section className="bg-white py-8 md:py-10">
 

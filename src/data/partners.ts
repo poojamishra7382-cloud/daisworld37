@@ -216,4 +216,30 @@ export const partnersData: Partner[] = [
     image:
       "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1200&q=80",
   },
+
+  // ================= BEAUTY & CARE =================
+
+  {
+    id: 17,
+    name: "L'Oréal Luxury Salon & Spa Network",
+    category: "Beauty & Care",
+    country: "France",
+    city: "Paris",
+    description:
+      "Global leader in beauty and cosmetics operating premier luxury hair salons, skin care institutes and aesthetic wellness retreats.",
+    image:
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80",
+  },
+
+  {
+    id: 18,
+    name: "Babor Aesthetic & Wellness Spas",
+    category: "Beauty & Care",
+    country: "Germany",
+    city: "Aachen",
+    description:
+      "Renowned German luxury skincare and aesthetic institute delivering premium spa therapies, medical wellness and certified aesthetic care worldwide.",
+    image:
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
+  },
 ];
