@@ -146,7 +146,6 @@ const EMAIL_DOMAINS = [
   '@outlook.com',
   '@yahoo.com',
   '@hotmail.com',
-  '@icloud.com',
 ];
 
 const EMPTY: FormData = {
