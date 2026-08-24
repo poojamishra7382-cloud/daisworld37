@@ -25,11 +25,13 @@ const WELCOME: Message = {
 };
 
 const QUICK_REPLIES = [
-  'Pricing',
-  'Contact',
-  'Countries',
-  'Services',
-  'Apply',
+  '💼 Salary & Pricing',
+  '🌍 Countries',
+  '🏥 Jobs & Roles',
+  '🎓 Free Training',
+  '📄 Documents Needed',
+  '📞 Contact Us',
+  '✨ How to Apply',
 ];
 
 interface Rule {
@@ -38,91 +40,236 @@ interface Rule {
 }
 
 const RULES: Rule[] = [
+  // 1. GREETINGS & CASUAL
   {
     match: [
-      'price',
-      'pricing',
-      'cost',
-      'fees',
-      'fee',
-      'charge',
-      'charges',
-      'salary',
-      'pay',
+      'hello', 'hi', 'hey', 'namaste', 'namaskar', 'halo', 'hola', 'hie',
+      'good morning', 'good afternoon', 'good evening', 'kaise ho', 'kaisa hai',
+      'whats up', 'whatsup', 'sup', 'yo'
     ],
     reply:
-      "You can check our pricing and salary details on the Services page. Tap 'Services' in the menu to see package options and salary comparisons for each country.",
+      "Hello! 😊 Welcome to Dais World. I am your AI career assistant. How can I help you today? You can ask me about international job vacancies, salary packages, European/Middle Eastern countries, free language training, or how to apply!",
+  },
+
+  // 2. COMPANY OVERVIEW & LOCATION
+  {
+    match: [
+      'about dais world', 'who are you', 'what is dais world', 'company',
+      'knooviq', 'dais world', 'founder', 'office', 'where are you located',
+      'address', 'mumbai office', 'malad', 'location', 'genuine', 'trust',
+      'fraud', 'real', 'reviews'
+    ],
+    reply:
+      "🏢 Dais World Endeavor Private Limited is a premier international recruitment, corporate housing, and overseas career consultancy headquartered in Mumbai, India.\n\n📍 Office: 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra.\n\n✅ 500+ successful overseas placements across Europe & Middle East with 100% legal visa compliance and structured candidate support.",
+  },
+
+  // 3. SALARY, EARNINGS & COMPENSATION
+  {
+    match: [
+      'salary', 'salaries', 'pay', 'income', 'earning', 'earnings', 'package',
+      'kitna milega', 'salary kitni', 'paisa', 'wage', 'wages', 'per month',
+      'euro', 'aed', 'sar', 'dinar', 'stipend'
+    ],
+    reply:
+      "💰 International Salary Ranges:\n\n• 🇳🇱 Netherlands: €3,200 – €5,200 / month (₹2.8L – ₹4.6L)\n• 🇩🇪 Germany: €3,000 – €4,800 / month (₹2.6L – ₹4.2L)\n• 🇧🇪 Belgium & Nordics: €3,100 – €5,500 / month\n• 🇦🇪 UAE / Middle East: 8,000 – 18,000 AED / month (Tax-Free)\n\n🎁 Plus benefits: Overtime pay, healthcare insurance, paid annual leave, and pension contributions.",
+  },
+
+  // 4. PRICING, FEES & CHARGES
+  {
+    match: [
+      'price', 'pricing', 'cost', 'fees', 'fee', 'charge', 'charges',
+      'expenses', 'kharcha', 'kitna paisa', 'free hai kya', 'is it free',
+      'payment', 'registration fee'
+    ],
+    reply:
+      "✨ Transparent & Candidate-Friendly Policy:\n\n• 🎓 Language training (Dutch / German B1-B2) is provided 100% FREE for selected candidates.\n• ✈️ Full visa filing, embassy attestation, and employer sponsorship support are included.\n• 💼 No hidden costs. Check our Services page or contact our counselors for complete transparent breakdown for your specific destination.",
+  },
+
+  // 5. COUNTRIES & DESTINATIONS
+  {
+    match: [
+      'country', 'countries', 'where', 'destinations', 'abroad', 'overseas',
+      'konse country', 'kon si country', 'europe', 'middle east', 'gulf'
+    ],
+    reply:
+      "🌍 We actively place professionals across 10+ global destinations:\n\n🇪🇺 Europe: Netherlands, Germany, Belgium, Norway, Denmark, Sweden, Finland, Switzerland, Poland, Ireland\n🇦🇪 Middle East: UAE (Dubai/Abu Dhabi), Saudi Arabia, Qatar, Kuwait, Oman, Bahrain\n\nTap on the 'Countries' tab in the menu to explore job roles and salaries for each country!",
+  },
+
+  // 6. SPECIFIC COUNTRIES: NETHERLANDS, GERMANY, UAE, SAUDI
+  {
+    match: ['netherlands', 'holland', 'dutch', 'amsterdam', 'rotterdam'],
+    reply:
+      "🇳🇱 Netherlands Opportunities:\n• Positions: Registered Nurses, ICU/OT Specialists, Healthcare Assistants, Hospitality Staff\n• Salary: €3,200 – €5,200/month\n• Language: Dutch (Free 4-6 months B1 training provided by Dais World!)\n• High quality of life, 36-hour work week & PR pathway.",
   },
   {
-    match: ['contact', 'email', 'phone', 'call', 'reach', 'support'],
+    match: ['germany', 'german', 'berlin', 'munich', 'frankfurt', 'deutschland'],
     reply:
-      "You can contact us at aditya.s@daisworld.com or call 8976697001. We're available Mon–Sat, 9am–7pm IST. You can also use the Contact page to send us a message directly.",
+      "🇩🇪 Germany Opportunities:\n• Positions: Nurses (Pflegefachkraft), Doctors, Engineers, Technicians\n• Salary: €3,000 – €4,800/month\n• Language: German B1/B2 level (Training support provided)\n• Permanent Residency (PR) eligibility after 3 years.",
   },
   {
-    match: ['hello', 'hi', 'hey', 'namaste', 'namaskar'],
+    match: ['uae', 'dubai', 'abu dhabi', 'saudi', 'arabia', 'qatar', 'kuwait', 'oman', 'bahrain', 'gulf'],
     reply:
-      "Hello! 😊 How can I assist you? I can tell you about our services, pricing, countries we offer, or help you apply.",
+      "🇦🇪 Middle East / Gulf Opportunities:\n• Positions: Healthcare, 5-Star Hospitality, Construction, Oil & Gas Engineers, Beauty & Wellness\n• Salary: 8,000 – 18,000 AED/SAR (100% Tax-Free)\n• Fast visa turnaround (3-6 weeks) with furnished accommodation & air tickets.",
+  },
+
+  // 7. HEALTHCARE & NURSING ROLES
+  {
+    match: [
+      'nurse', 'nursing', 'nurses', 'registered nurse', 'ot nurse', 'icu nurse',
+      'staff nurse', 'doctor', 'doctors', 'physician', 'dietitian', 'dietician',
+      'phlebotomist', 'phlebotomy', 'yoga', 'ayurveda', 'hospital', 'healthcare',
+      'medical', 'paramedical', 'care assistant'
+    ],
+    reply:
+      "🏥 Healthcare Opportunities We Offer:\n\n• Registered Nurses (BSc / GNM / Post-BSc)\n• ICU & OT Specialist Nurses\n• Doctors & Medical Specialists\n• Certified Dietitians & Clinical Nutritionists\n• Phlebotomists & Lab Technicians\n• Yoga & Ayurveda Wellness Practitioners\n• Healthcare Assistants (HCAs)\n\nWe provide complete registration, license verification (BIG / Approbation / DHA), and hospital placements.",
+  },
+
+  // 8. HOSPITALITY, CONSTRUCTION, OIL & GAS, BEAUTY
+  {
+    match: [
+      'hotel', 'hospitality', 'chef', 'chefs', 'cook', 'waiter', 'front desk',
+      'housekeeping', 'restaurant', 'food and beverage', 'f&b'
+    ],
+    reply:
+      "🏨 Hospitality Careers:\nWe recruit for luxury 5-star hotel chains, international resorts, and fine dining groups across Europe & Middle East for Executive Chefs, F&B Managers, Front Office, Housekeeping, and Culinary Specialists with accommodation included.",
   },
   {
-    match: ['country', 'countries', 'where', 'location', 'europe'],
+    match: [
+      'construction', 'engineer', 'engineering', 'civil', 'electrician',
+      'plumber', 'welder', 'welding', 'pipefitter', 'carpenter', 'mason',
+      'infrastructure', 'site engineer'
+    ],
     reply:
-      'We help nurses relocate to 8 European countries: Netherlands, Germany, Belgium, Norway, Denmark, Sweden, Finland, and Switzerland. Check the Countries page for details on each.',
+      "🏗️ Construction & Engineering Careers:\nWe place Civil Engineers, MEP Technicians, Certified Welders, Master Electricians, and Heavy Machinery Operators in major infrastructure projects with high safety standards and visa sponsorship.",
   },
   {
-    match: ['service', 'services', 'what do you do', 'help', 'offer'],
+    match: [
+      'oil', 'gas', 'petroleum', 'rig', 'refinery', 'drilling', 'offshore',
+      'safety officer', 'hse', 'pipeline'
+    ],
     reply:
-      "We offer 5 core services: Language training (Dutch/German), Visa processing, IT skills training, Nursing licensing & job placement, and full relocation support. Visit the Services page to learn more.",
+      "⛽ Oil & Gas Industry Careers:\nWe place Petroleum Engineers, Offshore Technicians, Pipeline Welders, HSE Safety Officers, and Maintenance Specialists in premier energy corporations across Middle East and Europe.",
   },
   {
-    match: ['apply', 'application', 'apply now', 'job', 'register', 'sign up'],
+    match: [
+      'beauty', 'care', 'salon', 'spa', 'hair stylist', 'cosmetologist',
+      'beautician', 'nail artist', 'massage therapist', 'wellness'
+    ],
     reply:
-      "You can apply by clicking the 'Apply Now' button anywhere on the site. Fill in your details and upload your resume — our team will contact you within 48 hours.",
+      "💅 Beauty & Wellness Careers:\nOpportunities for Licensed Cosmetologists, Hair Stylists, Spa Therapists, Aesthetic Specialists, and Nail Technicians in luxury wellness centers and high-end salon brands.",
   },
+
+  // 9. CORPORATE HOUSING & B2B
   {
-    match: ['resume', 'cv', 'upload'],
+    match: [
+      'housing', 'corporate housing', 'accommodation', 'b2b', 'partnership',
+      'employer', 'client', 'hire workforce', 'staffing solution', 'business housing'
+    ],
     reply:
-      "You can upload your resume (PDF, DOC, or DOCX) directly in the Apply Now form. Just click any 'Apply Now' button on the site.",
+      "🏢 Corporate Housing & B2B Employer Partnerships:\nWe offer turnkey employee housing, municipal lease management, and high-volume workforce staffing for international hospital networks, hotel conglomerates, and infrastructure builders. Visit the 'Partners / B2B' page to submit a corporate proposal.",
   },
+
+  // 10. LANGUAGE TRAINING (DUTCH / GERMAN)
   {
-    match: ['passport', 'documents', 'document'],
+    match: [
+      'language', 'dutch training', 'german training', 'learn dutch', 'course',
+      'training', 'b1', 'b2', 'classes', 'online class', 'batch', 'duration'
+    ],
     reply:
-      "You'll need a valid passport, nursing qualification certificates, and a resume. Our team will guide you through any additional documents needed for your specific country.",
+      "🎓 Language Training Program:\n\n• Dutch (B1 level) & German (B1/B2 level)\n• Duration: 4–6 months (Structured daily classes + medical vocabulary)\n• Certified Native & Expert Trainers\n• Small batch sizes with 100% exam preparation\n• FREE of cost for selected candidates!",
   },
+
+  // 11. ELIGIBILITY & REQUIREMENTS
   {
-    match: ['language', 'dutch', 'german', 'training'],
+    match: [
+      'eligible', 'eligibility', 'qualification', 'qualifications', 'degree',
+      'diploma', 'bsc', 'gnm', 'experience', 'fresher', 'freshers', 'age limit',
+      'age', 'criteria', 'kya chahiye', 'document', 'documents', 'passport'
+    ],
     reply:
-      "We provide free Dutch and German language training from A1 to B2 level, including medical vocabulary and exam preparation. It's part of our service package.",
+      "📋 General Eligibility Requirements:\n\n1. Qualification: Relevant Degree or Diploma (e.g. BSc Nursing, GNM, Engineering, Hospitality)\n2. Experience: 0 to 2+ years (Freshers are also eligible for select training & placement tracks!)\n3. Passport: Valid international passport\n4. Language: Willingness to complete language training (Dutch/German if applying for Europe)\n5. Age: Generally 20 – 45 years.",
   },
+
+  // 12. VISA & IMMIGRATION PROCESS
   {
-    match: ['visa', 'work permit', 'mvv'],
+    match: [
+      'visa', 'work permit', 'mvv', 'immigration', 'embassy', 'attestation',
+      'apostille', 'permit', 'sponsorship', 'residence permit'
+    ],
     reply:
-      'We handle the complete visa process — documentation, embassy interview prep, attestation, MVV and work permit processing. Check the Services page for details.',
+      "🛂 100% Legal Visa & Work Permit Support:\n\n• Dais World handles the complete end-to-end visa paperwork:\n• Employer sponsorship verification\n• Document attestation & Apostille\n• Embassy appointment & interview guidance\n• MVV / Single Permit processing\n• Relocation & airport reception support.",
   },
+
+  // 13. TIMELINE / DURATION
   {
-    match: ['thank', 'thanks', 'thank you', 'great', 'awesome', 'perfect'],
+    match: [
+      'timeline', 'how long', 'how much time', 'kitna time', 'kitne din',
+      'process time', 'duration', 'when will i go', 'joining'
+    ],
     reply:
-      "You're welcome! 😊 If you have any more questions, feel free to ask. You can also apply directly by clicking 'Apply Now'.",
+      "⏱️ Placement Timeline:\n\n• Screening & Selection: 1 – 2 Weeks\n• Language Training (Europe): 4 – 6 Months\n• Licensing & Document Verification: Parallel with training\n• Visa Processing & Work Permit: 4 – 8 Weeks\n• Departure & Joining: Total 5 – 7 months from application to landing abroad!",
   },
+
+  // 14. HOW TO APPLY & RESUME
   {
-    match: ['bye', 'goodbye', 'see you', 'later'],
+    match: [
+      'apply', 'application', 'apply now', 'register', 'sign up', 'form',
+      'resume', 'cv', 'kaise apply', 'where to apply', 'upload'
+    ],
     reply:
-      "Goodbye! 👋 We're always here if you need help. Click 'Apply Now' anytime to start your journey.",
+      "📝 How to Apply:\n\n1. Click the 'Apply Now' button on our website.\n2. Fill in your basic details (Name, Contact, Profession & Desired Country).\n3. Upload your Resume / CV (PDF, DOC, DOCX).\n4. Our senior recruitment counselor will contact you within 24–48 hours for a free profile assessment!",
+  },
+
+  // 15. CONTACT, PHONE, EMAIL, WHATSAPP
+  {
+    match: [
+      'contact', 'email', 'phone', 'call', 'number', 'mobile', 'reach',
+      'support', 'whatsapp', 'helpline', ' baat karni hai', 'contact number'
+    ],
+    reply:
+      "📞 Connect With Us Directly:\n\n• Phone: 8976697001\n• WhatsApp: +91 8976697001\n• Email: info@daisworld.com / aditya.s@daisworld.com\n• Hours: Monday – Saturday (11:00 AM – 8:00 PM IST)\n• Address: 1210, One World by Sanjar, Malad West, Mumbai, India.\n\nFeel free to call or WhatsApp us anytime!",
+  },
+
+  // 16. GRATITUDE & THANKS
+  {
+    match: [
+      'thank', 'thanks', 'thank you', 'dhanyawad', 'shukriya', 'great',
+      'awesome', 'perfect', 'helpful', 'good', 'nice', 'ok', 'okay', 'theek hai'
+    ],
+    reply:
+      "You're most welcome! 😊 It is our pleasure to guide you. If you have any more questions, feel free to ask anytime. Whenever you're ready, click 'Apply Now' to begin your overseas journey!",
+  },
+
+  // 17. GOODBYE & FAREWELL
+  {
+    match: ['bye', 'goodbye', 'see you', 'later', 'alvida', 'tata', 'good night'],
+    reply:
+      "Goodbye! 👋 Have a wonderful day ahead. Whenever you are ready to take your career global, Dais World is here to support you every step of the way. Click 'Apply Now' anytime!",
   },
 ];
 
-const FALLBACK =
-  "Sorry, I didn't understand that. 😕 You can try asking about: pricing, contact, services, countries, or how to apply. Or click 'Apply Now' to get started!";
+// Fallback response for out-of-box / unknown queries
+const FALLBACK_REPLY =
+  "I apologize, I might not have the exact information for that specific query right now! 🙏\n\nI am specially trained to assist you with:\n• 🏥 International Job Vacancies (Healthcare, Hospitality, Construction, Oil & Gas)\n• ✈️ Free Language Training, Visa & Relocation Support\n• 💰 Salary Packages & Country Requirements\n• 🏢 Corporate Housing & Employer Partnerships\n\n📞 For personalized guidance, you can speak directly with our expert team at 8976697001 or email info@daisworld.com.\n\nOr click 'Apply Now' to submit your profile for a free consultation!";
 
 function getBotReply(input: string): string {
-  const text = input.toLowerCase().trim();
+  const clean = input
+    .toLowerCase()
+    .replace(/[^\w\s]/gi, ' ')
+    .trim();
 
+  if (!clean) {
+    return "Hi there! How can I help you today? Feel free to ask about our global jobs, countries, salaries, or application process.";
+  }
+
+  // Find matching rule with highest keyword specificity
   for (const rule of RULES) {
-    if (rule.match.some((kw) => text.includes(kw))) {
+    if (rule.match.some((kw) => clean.includes(kw))) {
       return rule.reply;
     }
   }
 
-  return FALLBACK;
+  return FALLBACK_REPLY;
 }
 
 function loadHistory(): Message[] {
@@ -291,10 +438,9 @@ export default function ChatbotWidget() {
           transition-[background,transform]
           duration-300
           flex items-center justify-center
-          ${
-            open
-              ? 'bg-slate-700 scale-90'
-              : 'bg-gradient-to-br from-blue-600 to-cyan-500 hover:scale-110 animate-pulse-ring'
+          ${open
+            ? 'bg-slate-700 scale-90'
+            : 'bg-gradient-to-br from-blue-600 to-cyan-500 hover:scale-110 animate-pulse-ring'
           }`}
       >
         {open ? (
@@ -312,15 +458,17 @@ export default function ChatbotWidget() {
 
       {/* =====================================
           FIXED SIZE CHAT WINDOW
+      {/* =====================================
+          FIXED SIZE CHAT WINDOW
           ===================================== */}
       {open && (
         <div
           className="
             fixed
             z-[90]
-            left-4
-            right-4
-            bottom-20
+            left-3
+            right-3
+            bottom-[72px]
 
             sm:left-auto
             sm:right-5
@@ -330,15 +478,8 @@ export default function ChatbotWidget() {
             animate-fadeInUp
           "
           style={{
-            width: 'auto',
-            maxWidth: '384px',
-
-            /*
-             * FIXED HEIGHT
-             * Chatbot will NOT grow/shrink
-             * when question/answer changes.
-             */
-            height: 'min(520px, calc(100dvh - 110px))',
+            maxWidth: '100%',
+            height: 'min(520px, calc(100dvh - 90px))',
           }}
         >
           <div
@@ -649,9 +790,8 @@ function MessageBubble({
 
   return (
     <div
-      className={`flex items-end gap-2 ${
-        isBot ? 'justify-start' : 'justify-end'
-      }`}
+      className={`flex items-end gap-2 ${isBot ? 'justify-start' : 'justify-end'
+        }`}
     >
       {isBot && (
         <div
@@ -672,24 +812,21 @@ function MessageBubble({
       )}
 
       <div
-        className={`max-w-[78%] ${
-          isBot ? '' : 'items-end'
-        }`}
+        className={`max-w-[78%] ${isBot ? '' : 'items-end'
+          }`}
       >
         <div
-          className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
-            isBot
+          className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-line ${isBot
               ? 'bg-white text-slate-800 rounded-bl-md border border-slate-100'
               : 'bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-br-md'
-          }`}
+            }`}
         >
           {msg.text}
         </div>
 
         <p
-          className={`text-[10px] text-slate-400 mt-1 ${
-            isBot ? 'text-left' : 'text-right'
-          }`}
+          className={`text-[10px] text-slate-400 mt-1 ${isBot ? 'text-left' : 'text-right'
+            }`}
         >
           {time}
         </p>

@@ -81,56 +81,58 @@ const successRate = Math.round((testimonials.filter((t) => t.rating >= 4).length
 
 export default function TestimonialsSection() {
   return (
-    <section className="pt-12 pb-20 bg-white">
+    <section className="pt-12 pb-16 sm:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3"></p>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
+        <div className="text-center mb-10 sm:mb-12">
+          <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">Candidate Success Stories</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 sm:mb-5">
             Hear From Our <span className="text-gradient">Candidates</span>
           </h2>
-          <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-          500+ professionals placed. 500+ careers transformed. Here are a few of their stories.
+          <p className="text-slate-500 text-sm sm:text-lg max-w-2xl mx-auto">
+            500+ professionals placed. 500+ careers transformed. Here are a few of their stories.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {testimonials.map(({ name, role, image, rating, text }) => (
-            <div key={name} className="relative bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100">
-              <Quote className="absolute top-6 right-6 w-10 h-10 text-blue-100" />
-              <div className="flex items-center gap-4 mb-5">
-                <img src={image} alt={name} className="w-14 h-14 rounded-full object-cover ring-2 ring-blue-200" />
-                <div>
-                  <h4 className="font-bold text-slate-900">{name}</h4>
-                  <p className="text-blue-600 text-sm font-medium">{role}</p>
+            <div key={name} className="relative bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col justify-between">
+              <Quote className="absolute top-5 right-5 sm:top-6 sm:right-6 w-8 h-8 sm:w-10 sm:h-10 text-blue-100" />
+              <div>
+                <div className="flex items-center gap-3.5 sm:gap-4 mb-4 sm:mb-5">
+                  <img src={image} alt={name} className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-blue-200" />
+                  <div className="min-w-0 pr-8">
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-base truncate">{name}</h4>
+                    <p className="text-blue-600 text-xs sm:text-sm font-medium truncate">{role}</p>
+                  </div>
                 </div>
+                <div className="flex gap-1 mb-3 sm:mb-4">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${i < rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200 fill-slate-200'}`}
+                    />
+                  ))}
+                </div>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed italic">"{text}"</p>
               </div>
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${i < rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200 fill-slate-200'}`}
-                  />
-                ))}
-              </div>
-              <p className="text-slate-600 leading-relaxed italic">"{text}"</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-8 items-center">
+        <div className="mt-12 flex flex-wrap justify-center gap-6 sm:gap-8 items-center">
           <div className="text-center">
-            <div className="text-4xl font-black text-blue-600">{avgRating}/5</div>
-            <div className="text-slate-400 text-sm">Average Rating</div>
+            <div className="text-3xl sm:text-4xl font-black text-blue-600">{avgRating}/5</div>
+            <div className="text-slate-400 text-xs sm:text-sm">Average Rating</div>
           </div>
-          <div className="w-px h-12 bg-slate-200" />
+          <div className="hidden sm:block w-px h-12 bg-slate-200" />
           <div className="text-center">
-            <div className="text-4xl font-black text-emerald-600">{happyNurses}+</div>
-            <div className="text-slate-400 text-sm">Happy Nurses</div>
+            <div className="text-3xl sm:text-4xl font-black text-emerald-600">{happyNurses}+</div>
+            <div className="text-slate-400 text-xs sm:text-sm">Happy Nurses</div>
           </div>
-          <div className="w-px h-12 bg-slate-200" />
+          <div className="hidden sm:block w-px h-12 bg-slate-200" />
           <div className="text-center">
-            <div className="text-4xl font-black text-amber-600">{successRate}%</div>
-            <div className="text-slate-400 text-sm">Success Rate</div>
+            <div className="text-3xl sm:text-4xl font-black text-amber-600">{successRate}%</div>
+            <div className="text-slate-400 text-xs sm:text-sm">Success Rate</div>
           </div>
         </div>
       </div>

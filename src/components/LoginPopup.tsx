@@ -115,32 +115,32 @@ export default function LoginPopup() {
   const remaining = Math.max(0, MAX_TIMES - shownCountRef.current);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-[#050e1f]/80 backdrop-blur-md" onClick={close} />
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div className="fixed inset-0 bg-[#050e1f]/80 backdrop-blur-md" onClick={close} />
 
-      <div className="relative w-full max-w-md animate-fadeInUp">
-        <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
+      <div className="relative w-full max-w-md animate-fadeInUp my-auto">
+        <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
           <button
             onClick={close}
-            className="absolute top-4 right-4 z-20 w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20 w-8 h-8 sm:w-9 sm:h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          <div className="relative bg-gradient-to-br from-blue-600 to-cyan-500 p-8 text-center overflow-hidden">
+          <div className="relative bg-gradient-to-br from-blue-600 to-cyan-500 p-6 sm:p-8 text-center overflow-hidden">
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full" />
             <div className="absolute -bottom-12 -left-12 w-44 h-44 bg-white/10 rounded-full" />
             <div className="relative">
-              <h2 className="text-2xl font-black text-white mb-1">
+              <h2 className="text-xl sm:text-2xl font-black text-white mb-1">
                 {mode === 'login' ? 'Welcome Back!' : 'Create Account'}
               </h2>
-              <p className="text-white/90 text-sm">
+              <p className="text-white/90 text-xs sm:text-sm">
                 {mode === 'login' ? 'Sign in to access your dashboard.' : 'Sign up to start your European career journey.'}
               </p>
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-5 sm:p-8">
             {status === 'success' ? (
               <div className="text-center py-4">
                 <div className="inline-flex w-16 h-16 bg-emerald-100 rounded-full items-center justify-center mb-4 animate-pulse-ring">

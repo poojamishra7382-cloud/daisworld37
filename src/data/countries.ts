@@ -10,6 +10,7 @@ export interface CountryItem {
   description: string;
   highlights: string[];
   color: string;
+  region?: 'europe' | 'middle-east' | 'other';
 }
 
 export const countries: CountryItem[] = [
@@ -311,5 +312,14 @@ export const countries: CountryItem[] = [
       'International work environment',
     ],
     color: 'from-red-500 to-red-800',
+    region: 'middle-east',
   },
 ];
+
+export const europeCountries = countries.filter((c) =>
+  ['france', 'germany', 'netherlands', 'switzerland', 'belgium', 'uk'].includes(c.slug)
+);
+
+export const middleEastCountries = countries.filter((c) =>
+  ['uae', 'qatar', 'saudi-arabia', 'bahrain'].includes(c.slug)
+);

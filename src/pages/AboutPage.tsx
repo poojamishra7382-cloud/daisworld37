@@ -64,7 +64,7 @@ export default function AboutPage() {
             </div>
 
             {/* Mission, Values, Vision row below */}
-            <div className="grid sm:grid-cols-3 gap-8 mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 mt-10 sm:mt-12">
               {[
                 {
                   icon: Target,
@@ -90,13 +90,13 @@ export default function AboutPage() {
               ].map(({ icon: Icon, title, desc, iconBg, borderHover }) => (
                 <div
                   key={title}
-                  className={`group text-center p-8 rounded-3xl bg-slate-50/80 border border-slate-100 ${borderHover} hover:bg-white hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300`}
+                  className={`group text-center p-6 sm:p-8 rounded-3xl bg-slate-50/80 border border-slate-100 ${borderHover} hover:bg-white hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300`}
                 >
-                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${iconBg} mb-5 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-7 h-7" />
+                  <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${iconBg} mb-4 sm:mb-5 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3">{title}</h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{desc}</p>
                 </div>
               ))}
             </div>
@@ -105,21 +105,21 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12 bg-gradient-to-b from-blue-50/30 to-white">
+      <section className="py-10 sm:py-12 bg-gradient-to-b from-blue-50/30 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
             {[
               { icon: Users, value: '500+', label: 'Nurses Placed', color: 'from-blue-600 to-cyan-500' },
               { icon: Award, value: '10+', label: 'Years Experience', color: 'from-emerald-600 to-teal-500' },
               { icon: Globe, value: '10+', label: 'Countries', color: 'from-indigo-600 to-blue-500' },
               { icon: TrendingUp, value: '98%', label: 'Success Rate', color: 'from-amber-500 to-orange-500' },
             ].map(({ icon: Icon, value, label, color }) => (
-              <div key={label} className="text-center bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${color} mb-4`}>
-                  <Icon className="w-7 h-7 text-white" />
+              <div key={label} className="text-center bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100/80">
+                <div className={`inline-flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${color} mb-3 sm:mb-4`}>
+                  <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                 </div>
-                <div className="text-4xl font-black text-slate-900 mb-1">{value}</div>
-                <div className="text-slate-500 text-sm">{label}</div>
+                <div className="text-2xl sm:text-4xl font-black text-slate-900 mb-1">{value}</div>
+                <div className="text-slate-500 text-xs sm:text-sm">{label}</div>
               </div>
             ))}
           </div>
@@ -127,15 +127,15 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="pt-12 pb-20 bg-white">
+      <section className="pt-10 sm:pt-12 pb-16 sm:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Why Choose Us</p>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">Why Choose Us</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 sm:mb-5">
               The <span className="text-gradient">Dais World</span> Advantage
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {[
               { icon: Shield, title: 'Trusted & Reliable', desc: 'Transparent processes, honest communication, and reliable solutions you can count on.' },
               { icon: Award, title: 'Industry Expertise', desc: 'Experienced professionals with strong knowledge across healthcare, hospitality, construction, and oil & gas.' },
@@ -144,12 +144,12 @@ export default function AboutPage() {
               { icon: TrendingUp, title: 'Career & Business Growth', desc: 'Helping professionals build successful careers and organizations find the right talent for long-term growth.' },
               { icon: Heart, title: 'End-to-End Service', desc: 'From recruitment and documentation to onboarding and ongoing support, we make the entire journey simple.' },
             ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="group bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6 text-white" />
+              <div key={title} className="group bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-6 sm:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-black text-slate-900 mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+                <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2">{title}</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>

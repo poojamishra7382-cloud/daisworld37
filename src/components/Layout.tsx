@@ -63,7 +63,7 @@ export default function Layout() {
     <>
       <ScrollToTop />
       <Navbar onApplyClick={() => setApplyOpen(true)} />
-      <main>
+      <main className="flex-1 w-full max-w-full">
         <Outlet />
       </main>
       <Footer />

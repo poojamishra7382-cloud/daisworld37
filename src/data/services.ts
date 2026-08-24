@@ -94,8 +94,7 @@ export const services: ServiceItem[] = [
 
     color: 'from-blue-600 to-cyan-500',
 
-    image:
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+    image: '/service-healthcare-hero.jpg',
   },
 
 
@@ -165,7 +164,7 @@ export const services: ServiceItem[] = [
 
     color: 'from-indigo-600 to-blue-500',
 
-    image: '/download5.jpg',
+    image: '/service-hospitality-hero.jpg',
   },
 
 
@@ -236,8 +235,7 @@ export const services: ServiceItem[] = [
     
     color: 'from-blue-500 to-indigo-600',
 
-    image:
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+    image: '/service-construction-hero.jpg',
   },
 
 
@@ -309,8 +307,7 @@ export const services: ServiceItem[] = [
     
     color: 'from-cyan-600 to-teal-500',
 
-    image: 
-      'https://images.openai.com/static-rsc-4/d9KX9WrZF_8aeIxbdpX0rCO7tZunJ4_tYxiifAnjEw0AdEliwY1qLmI5aX8MYf6PRrdJh4QZkNQg6emMjboy-_dNwQBn0ZjJQx3djugvjftZCQDYCYILrQXiPaegMbkdVRrCowEhiEU0M0QeBsNxB4UZUb_cJ7yWobbxEK7M7BkICCq6LlzV2K7m2ZKZnjVn?purpose=fullsize',
+    image: '/service-oil-hero.jpg',
   },
 
 
@@ -376,7 +373,6 @@ export const services: ServiceItem[] = [
 
     color: 'from-pink-500 to-rose-500',
 
-    image:
-      'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=1200&q=80',
+    image: '/service-beauty-hero.jpg',
   },
 ];

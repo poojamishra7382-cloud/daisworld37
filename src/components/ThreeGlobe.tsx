@@ -406,39 +406,39 @@ export default function ThreeGlobe({ selectedCountry, onSelectCountry }: ThreeGl
   };
 
   return (
-    <div className="relative w-full h-full min-h-[440px] sm:min-h-[500px] flex items-center justify-center select-none">
+    <div className="relative w-full h-full min-h-[360px] sm:min-h-[460px] flex items-center justify-center select-none overflow-hidden">
       {/* 3D Canvas Mount */}
       <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       {/* Floating Info Overlay on Globe */}
       {activeHub && (
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 pointer-events-auto">
-          <div className="glassmorphism bg-[#071938]/85 border border-cyan-500/30 rounded-2xl p-4 sm:p-5 shadow-2xl backdrop-blur-xl max-w-xs transition-all duration-300 animate-fadeIn">
-            <div className="flex items-center gap-2.5 mb-2">
-              <span className="text-2xl">{activeHub.flag}</span>
-              <div>
-                <h4 className="text-white font-black text-base">{activeHub.name}</h4>
-                <p className="text-cyan-400 text-xs font-semibold">{activeHub.vacancies}</p>
+        <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-20 pointer-events-auto">
+          <div className="glassmorphism bg-[#071938]/90 border border-cyan-500/30 rounded-2xl p-3 sm:p-5 shadow-2xl backdrop-blur-xl max-w-[240px] sm:max-w-xs transition-all duration-300 animate-fadeIn">
+            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+              <span className="text-xl sm:text-2xl">{activeHub.flag}</span>
+              <div className="min-w-0">
+                <h4 className="text-white font-black text-xs sm:text-base truncate">{activeHub.name}</h4>
+                <p className="text-cyan-400 text-[10px] sm:text-xs font-semibold truncate">{activeHub.vacancies}</p>
               </div>
             </div>
-            <p className="text-white/80 text-xs leading-relaxed mb-3">
+            <p className="text-white/80 text-[10px] sm:text-xs leading-relaxed mb-2.5 sm:mb-3 line-clamp-2 sm:line-clamp-none">
               {activeHub.roles}
             </p>
-            <div className="flex items-center justify-between text-[11px] font-bold text-white/60 border-t border-white/10 pt-2">
-              <span>Origin: Mumbai, India 🇮🇳</span>
-              <span className="text-emerald-400 font-semibold">● Active Flight Arc</span>
+            <div className="flex items-center justify-between text-[9px] sm:text-[11px] font-bold text-white/60 border-t border-white/10 pt-1.5 sm:pt-2">
+              <span>Origin: Mumbai 🇮🇳</span>
+              <span className="text-emerald-400 font-semibold">● Active Arc</span>
             </div>
           </div>
         </div>
       )}
 
       {/* Quick Country Pills at Bottom */}
-      <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 pointer-events-auto flex flex-wrap items-center justify-center gap-2">
+      <div className="absolute bottom-3 left-2 right-2 sm:bottom-6 sm:left-6 sm:right-6 z-20 pointer-events-auto flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
         {HUBS.map((hub) => (
           <button
             key={hub.code}
             onClick={() => handleCountryClick(hub)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+            className={`flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold transition-all duration-300 ${
               activeHub?.code === hub.code
                 ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 scale-105'
                 : 'glassmorphism bg-white/10 text-white/90 hover:bg-white/20 border border-white/15'
@@ -451,7 +451,7 @@ export default function ThreeGlobe({ selectedCountry, onSelectCountry }: ThreeGl
       </div>
 
       {/* Interactive Helper Hint */}
-      <div className="absolute top-4 right-4 z-10 pointer-events-none hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-500/20 text-[11px] text-cyan-300 font-medium">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 pointer-events-none hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-500/20 text-[11px] text-cyan-300 font-medium">
         <span>🖱️ Drag to rotate 3D Globe</span>
       </div>
     </div>

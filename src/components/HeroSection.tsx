@@ -299,7 +299,7 @@ export default function HeroSection() {
                       inline-flex
                       max-w-full
                       items-center
-                      gap-2
+                      gap-1.5 sm:gap-2
                       bg-white/10
                       backdrop-blur-md
                       border
@@ -307,14 +307,14 @@ export default function HeroSection() {
                       text-white
                       px-3
                       sm:px-4
-                      py-2
+                      py-1.5 sm:py-2
                       rounded-full
-                      text-[10px]
+                      text-[9px] min-[360px]:text-[10px]
                       sm:text-sm
                       font-semibold
                       tracking-wide
                       uppercase
-                      mb-5
+                      mb-4 sm:mb-5
                     "
                   >
 
@@ -329,7 +329,7 @@ export default function HeroSection() {
                       "
                     />
 
-                    <span className="whitespace-nowrap">
+                    <span className="truncate max-w-[260px] min-[360px]:max-w-none">
                       {slide.badge}
                     </span>
 
@@ -342,14 +342,14 @@ export default function HeroSection() {
 
                   <h1
                     className="
-                      text-[42px]
-                      leading-[0.98]
+                      text-3xl min-[360px]:text-4xl min-[420px]:text-[42px]
+                      leading-[1.05] min-[360px]:leading-[0.98]
                       sm:text-6xl
                       sm:leading-[1.02]
                       lg:text-7xl
                       font-black
                       text-white
-                      mb-5
+                      mb-4 sm:mb-5
                       tracking-tight
                     "
                   >
@@ -381,11 +381,10 @@ export default function HeroSection() {
                   <p
                     className="
                       text-white/85
-                      text-[15px]
-                      sm:text-lg
+                      text-xs min-[360px]:text-[14px] sm:text-lg
                       leading-relaxed
-                      mb-7
-                      max-w-[350px]
+                      mb-6 sm:mb-7
+                      max-w-[340px]
                       sm:max-w-lg
                     "
                   >
@@ -538,7 +537,7 @@ export default function HeroSection() {
             absolute
             left-0
             right-0
-            bottom-[88px]
+            bottom-[72px] min-[360px]:bottom-[76px]
             z-20
             flex
             justify-center
@@ -583,7 +582,7 @@ export default function HeroSection() {
             w-full
             border-t
             border-white/15
-            bg-[#06122a]/90
+            bg-[#06122a]/95
             backdrop-blur-md
           "
         >
@@ -593,11 +592,9 @@ export default function HeroSection() {
               w-full
               max-w-7xl
               mx-auto
-              px-3
-              sm:px-8
+              px-2 sm:px-8
               lg:px-12
-              py-3
-              sm:py-4
+              py-2.5 sm:py-3.5
             "
           >
 
@@ -613,7 +610,7 @@ export default function HeroSection() {
                 sm:gap-x-6
                 sm:gap-y-2
                 text-white/90
-                text-[10px]
+                text-[9px] min-[360px]:text-[10px] min-[400px]:text-xs
                 sm:text-sm
                 md:text-base
               "
@@ -629,19 +626,17 @@ export default function HeroSection() {
                       sm:flex-row
                       items-center
                       justify-center
-                      gap-1
-                      sm:gap-2
+                      gap-0.5 sm:gap-2
                       text-center
                       min-w-0
+                      px-0.5
                     "
                   >
 
                     <Icon
                       className="
-                        w-4
-                        h-4
-                        sm:w-5
-                        sm:h-5
+                        w-3.5 h-3.5
+                        sm:w-5 sm:h-5
                         text-cyan-300
                         flex-shrink-0
                       "
@@ -649,9 +644,10 @@ export default function HeroSection() {
 
                     <span
                       className="
-                        font-medium
+                        font-semibold sm:font-medium
                         leading-tight
-                        whitespace-nowrap
+                        truncate sm:whitespace-nowrap
+                        max-w-full
                       "
                     >
                       {label}

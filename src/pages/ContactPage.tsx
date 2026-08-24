@@ -20,11 +20,11 @@ const quickCards = [
     href: 'https://wa.me/918976697001', color: 'from-emerald-600 to-emerald-500',
   },
   {
-    icon: Mail, label: 'Email', value: 'aditya.s@daisworld.com', sub: 'Reply within 24h',
-    href: 'mailto:aditya.s@daisworld.com', color: 'from-cyan-600 to-cyan-500',
+    icon: Mail, label: 'Email', value: 'info@daisworld.com', sub: 'Reply within 24h',
+    href: 'mailto:info@daisworld.com', color: 'from-cyan-600 to-cyan-500',
   },
   {
-    icon: Calendar, label: 'Book Consultation', value: 'Schedule a call', sub: 'Free 30-min session',
+    icon: Calendar, label: 'Schedule a call', value: 'Book Consultation', sub: 'Free 30-min session',
     href: 'https://wa.me/918976697001?text=Hi%2C%20I%27d%20like%20to%20book%20a%20consultation.', color: 'from-amber-500 to-orange-500',
   },
 ];
@@ -89,28 +89,32 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-20">
+    <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0a1628] via-blue-900 to-cyan-800">
-        <div className="absolute inset-0 bg-hero-pattern" />
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-cyan-400/15 rounded-full blur-3xl animate-float-delay" />
+      <section
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat pt-24 sm:pt-28 pb-10 sm:pb-14"
+        style={{
+          backgroundImage: "url('/contact-hero.jpg')",
+        }}
+      >
+        {/* Clean subtle dark overlay without blue shade */}
+        <div className="absolute inset-0 bg-black/40" />
+
         <div
           ref={heroRef}
-          className={`relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center transition-all duration-700 ${
-            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className={`relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 text-center transition-all duration-700 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
         >
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 border border-white/20">
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md rounded-full px-4 py-1 mb-4 border border-white/20">
             <Sparkles className="w-4 h-4 text-cyan-300" />
-            <p className="text-cyan-300 font-semibold text-sm uppercase tracking-widest">
+            <p className="text-cyan-300 font-semibold text-xs sm:text-sm uppercase tracking-widest">
               Let's Talk
             </p>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight">
             We're Here to <span className="text-gradient-gold">Help You</span> Succeed
           </h1>
-          <p className="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/90 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
             We're here to help you start your overseas healthcare career. Get in touch with our
             team for guidance and support.
           </p>
@@ -118,15 +122,14 @@ export default function ContactPage() {
           {/* Trust stats */}
           <div
             ref={statsRef}
-            className={`mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto transition-all duration-700 delay-300 ${
-              statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+            className={`mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto transition-all duration-700 delay-300 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
           >
             {trustStats.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-                <Icon className="w-6 h-6 text-cyan-300 mx-auto mb-2" />
-                <p className="text-2xl font-black text-white">{value}</p>
-                <p className="text-white/60 text-xs font-semibold uppercase tracking-wider mt-1">{label}</p>
+              <div key={label} className="bg-black/30 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-white/15">
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-300 mx-auto mb-1 sm:mb-1.5" />
+                <p className="text-lg sm:text-2xl font-black text-white">{value}</p>
+                <p className="text-white/80 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mt-0.5">{label}</p>
               </div>
             ))}
           </div>
@@ -134,26 +137,28 @@ export default function ContactPage() {
       </section>
 
       {/* Quick Contact Cards */}
-      <section className="py-16 bg-[#f0f6ff]">
+      <section className="py-12 sm:py-16 bg-[#f0f6ff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {quickCards.map(({ icon: Icon, label, value, sub, href, color }, i) => (
               <a
                 key={label}
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="group bg-white rounded-3xl p-7 shadow-lg shadow-blue-100/50 hover:shadow-2xl hover:shadow-blue-200 transition-all duration-300 hover:-translate-y-2 border border-blue-50"
+                className="group bg-white rounded-3xl p-5 sm:p-7 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-blue-50 flex flex-col justify-between"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div
-                  className={`inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br ${color} items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon className="w-7 h-7" />
+                <div>
+                  <div
+                    className={`inline-flex w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${color} items-center justify-center text-white mb-4 sm:mb-5 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                  </div>
+                  <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-1">{label}</p>
+                  <p className="text-slate-900 font-black text-base sm:text-lg mb-1 break-words">{value}</p>
                 </div>
-                <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-1">{label}</p>
-                <p className="text-slate-900 font-black text-lg mb-1 break-words">{value}</p>
-                <p className="text-slate-400 text-xs">{sub}</p>
+                <p className="text-slate-400 text-xs mt-2">{sub}</p>
               </a>
             ))}
           </div>
@@ -195,7 +200,7 @@ export default function ContactPage() {
                 </a>
 
                 <a
-                  href="mailto:aditya.s@diasworld.com"
+                  href="mailto:info@daisworld.com"
                   className="flex items-center gap-4 group"
                 >
                   <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-cyan-50 group-hover:bg-cyan-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
@@ -204,7 +209,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Email</p>
                     <p className="text-slate-900 font-bold group-hover:text-cyan-600 transition-colors break-all">
-                      aditya.s@daisworld.com/sanchit.r@daisworld.com
+                      info@daisworld.com
                     </p>
                   </div>
                 </a>
@@ -403,53 +408,53 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      <section className="py-20 bg-[#f0f6ff]">
+      <section className="py-14 sm:py-20 bg-[#f0f6ff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">
+          <div className="text-center mb-8 sm:mb-10">
+            <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">
               Find Us
             </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 mb-2.5 sm:mb-3">
               Our <span className="text-gradient">Location</span>
             </h2>
-            <p className="text-slate-500 text-base max-w-2xl mx-auto flex items-center justify-center gap-2">
-              <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0" />
-              1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai
+            <p className="text-slate-500 text-xs sm:text-base max-w-2xl mx-auto flex items-center justify-center gap-2">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+              <span>1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai</span>
             </p>
           </div>
 
-          <div className="rounded-3xl overflow-hidden shadow-2xl shadow-blue-200 border border-white">
+          <div className="rounded-3xl overflow-hidden shadow-xl shadow-blue-200 border border-white">
             <iframe
               title="DIAS WORLD — Malad West, Mumbai"
               src="https://www.google.com/maps?q=Malad+West,+Mumbai,+Maharashtra&output=embed"
-              className="w-full h-[420px] border-0"
+              className="w-full h-[280px] sm:h-[360px] md:h-[420px] border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
 
-          <div className="mt-8 grid sm:grid-cols-3 gap-4">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <a
               href="https://www.google.com/maps/dir/?api=1&destination=Malad+West+Mumbai+Maharashtra"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-white text-blue-600 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+              className="flex items-center justify-center gap-2 bg-white text-blue-600 font-bold px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 text-xs sm:text-sm"
             >
-              <Navigation className="w-5 h-5" /> Get Directions
+              <Navigation className="w-4 h-4 sm:w-5 sm:h-5" /> Get Directions
             </a>
             <a
               href="tel:8976697001"
-              className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+              className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 text-xs sm:text-sm"
             >
-              <Phone className="w-5 h-5 text-blue-600" /> Call the Office
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" /> Call the Office
             </a>
             <a
               href="https://wa.me/918976697001"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+              className="flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 text-xs sm:text-sm"
             >
-              <MessageCircle className="w-5 h-5 text-emerald-600" /> WhatsApp Us
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" /> WhatsApp Us
             </a>
           </div>
         </div>

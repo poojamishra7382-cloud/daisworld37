@@ -15,9 +15,10 @@ import { Link } from 'react-router-dom';
 const footerLinks = {
   Company: [
     { label: 'About Us', to: '/about' },
-    { label: 'Contact', to: '/contact' },
+    { label: 'Vacancies', to: '/vacancies' },
     { label: 'Our Services', to: '/services' },
     { label: 'Clients & Partners', to: '/clients' },
+    { label: 'Contact', to: '/contact' },
   ],
 
   Services: [
@@ -198,7 +199,7 @@ export default function Footer() {
 
           {/* EMAIL */}
           <a
-            href="mailto:aditya.s@daisworld.com"
+            href="mailto:info@daisworld.com"
             className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-white/[0.07] transition-all duration-300 group"
           >
             <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-colors">
@@ -207,7 +208,7 @@ export default function Footer() {
             <div className="min-w-0">
               <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Email Us</p>
               <p className="text-xs sm:text-sm font-bold text-white group-hover:text-blue-300 transition-colors truncate">
-                aditya.s@daisworld.com
+                info@daisworld.com
               </p>
             </div>
           </a>

@@ -59,22 +59,22 @@ export default function ServiceDetailPage() {
           <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
 
             {/* Icon */}
-            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/15 backdrop-blur-md border border-white/25 rounded-3xl flex items-center justify-center mb-7 shadow-2xl">
-              <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+            <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white/15 backdrop-blur-md border border-white/25 rounded-3xl flex items-center justify-center mb-5 sm:mb-7 shadow-2xl">
+              <Icon className="w-8 h-8 sm:w-12 sm:h-12 text-white" />
             </div>
 
             {/* Small Heading */}
-            <p className="text-cyan-300 font-bold text-sm sm:text-base uppercase tracking-[0.25em] mb-4">
+            <p className="text-cyan-300 font-bold text-xs sm:text-base uppercase tracking-[0.2em] sm:tracking-[0.25em] mb-3 sm:mb-4">
               Global Recruitment Solutions
             </p>
 
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+            <h1 className="text-3xl min-[380px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-4 sm:mb-6">
               {service.title}
             </h1>
 
             {/* Description */}
-            <p className="text-white/90 text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
+            <p className="text-white/90 text-sm sm:text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
               {service.short}
             </p>
 

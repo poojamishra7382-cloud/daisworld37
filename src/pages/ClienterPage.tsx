@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { partnersData } from "@/data/partners";
+import BusinessHousingSection from "@/components/BusinessHousingSection";
 
 export default function ClienterPage() {
   const [filter, setFilter] = useState("All");
@@ -40,7 +41,7 @@ export default function ClienterPage() {
         {/* Hero Content */}
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
           <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-            Global Network & Partners
+            Global Network & Employer Solutions
           </p>
 
           <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl">
@@ -50,9 +51,20 @@ export default function ClienterPage() {
             </span>
           </h1>
 
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/85 sm:text-lg">
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/85 sm:text-lg mb-8">
             Explore world-class partner hospitals, luxury hospitality groups, premier infrastructure enterprises, and energy corporations across Europe, Middle East, Australia, and beyond.
           </p>
+
+          {/* Quick CTA to Business Housing & Partnership */}
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            <a
+              href="#partnership-housing"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-full text-sm shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105"
+            >
+              <span>🏢 Business Housing & Partnership Solutions</span>
+              <span>↓</span>
+            </a>
+          </div>
         </div>
       </section>
       {/* ================= FILTER ================= */}
@@ -76,6 +88,15 @@ export default function ClienterPage() {
                 {category}
               </button>
             ))}
+
+            {/* Direct button to Partnership & Housing */}
+            <a
+              href="#partnership-housing"
+              className="rounded-full border border-cyan-500 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-800 font-bold px-5 py-2.5 text-sm transition-all duration-300 hover:bg-blue-600 hover:text-white shadow-sm flex items-center gap-1.5"
+            >
+              <span>🏢 Business Housing & Partnership</span>
+              <span className="text-xs">↓</span>
+            </a>
 
           </div>
 
@@ -191,24 +212,8 @@ export default function ClienterPage() {
         </div>
       </section>
 
-
-      {/* ================= CTA ================= */}
-      <section className="bg-[#050e1f] py-16 md:py-20">
-
-        <div className="mx-auto max-w-3xl px-6 text-center">
-
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Explore Global Opportunities
-          </h2>
-
-          <p className="mt-4 leading-7 text-white/60">
-            Discover opportunities across healthcare, hospitality,
-            construction and oil & gas industries.
-          </p>
-
-        </div>
-
-      </section>
+      {/* ================= BUSINESS HOUSING & PARTNERSHIP SECTION ================= */}
+      <BusinessHousingSection />
 
     </div>
   );
