@@ -35,59 +35,71 @@ export default function ServicesSection() {
         {/* Services */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
 
-          {services.map((s, i) => (
-            <Link
-              key={s.slug}
-              to={`/services/${s.slug}`}
-              className={`group relative h-72 sm:h-80 overflow-hidden rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${visible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
-                }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
+          {services.map((s, i) => {
+            const targetUrl =
+              s.slug === 'healthcare'
+                ? '/services/healthcare/doctors-physicians'
+                : s.slug === 'hospitality'
+                ? '/services/hospitality/front-office'
+                : s.slug === 'construction'
+                ? '/services/construction/civil-structural'
+                : s.slug === 'oil-and-gas'
+                ? '/services/oil-and-gas/exploration-geology'
+                : s.slug === 'beauty-and-care'
+                ? '/services/beauty-and-care/hair-styling'
+                : `/services/${s.slug}`;
 
-              {/* Background Image */}
-              <img
-                src={s.image}
-                alt={s.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+            return (
+              <Link
+                key={s.slug}
+                to={targetUrl}
+                className={`group relative h-72 sm:h-80 overflow-hidden rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${visible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-8'
+                  }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                {/* Background Image */}
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
 
-              {/* Blue Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/60 to-blue-800/20" />
+                {/* Blue Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/60 to-blue-800/20" />
 
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-blue-600/30 transition-all duration-500" />
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-blue-600/30 transition-all duration-500" />
 
-              {/* Content */}
-              <div className="relative z-10 h-full flex flex-col justify-end p-6 sm:p-8">
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-end p-6 sm:p-8">
+                  {/* Icon */}
+                  <div
+                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-4 sm:mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <s.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
 
-                {/* Icon */}
-                <div
-                  className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-4 sm:mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <s.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
+                    {s.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-white/80 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
+                    {s.short}
+                  </p>
+
+                  {/* Learn More */}
+                  <div className="flex items-center gap-2 text-white font-bold text-xs sm:text-sm group-hover:gap-3 transition-all">
+                    Learn More
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
-                  {s.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/80 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
-                  {s.short}
-                </p>
-
-                {/* Learn More */}
-                <div className="flex items-center gap-2 text-white font-bold text-xs sm:text-sm group-hover:gap-3 transition-all">
-                  Learn More
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
 
           {/* CTA Card */}
           <div

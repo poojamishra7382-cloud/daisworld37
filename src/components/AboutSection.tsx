@@ -37,10 +37,10 @@ export default function AboutSection() {
             </h2>
             <div className="space-y-3.5 text-slate-600 text-sm sm:text-base leading-relaxed mb-7">
               <p>
-                Dais World Endeavor Private Limited is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas worldwide.
+                Dais World Endeavor Private Limited is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas etc.
               </p>
               <p>
-                With over a decade of experience, we have helped hundreds of skilled professionals build international careers across Healthcare, Hospitality, Construction, and Oil & Gas. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
+                With over a decade of experience, we have helped hundreds of skilled professionals build international careers across Healthcare, Hospitality, Construction, and Oil & Gas etc. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
               </p>
             </div>
 

@@ -150,6 +150,49 @@ export default function ApplyPage() {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+// Blocked fake / dummy email usernames
+const BLOCKED_EMAIL_USERNAMES = new Set([
+  'test', 'testing', 'test1', 'test123', 'tester', 'testuser',
+  'admin', 'administrator', 'root', 'webmaster', 'support',
+  'asdf', 'asdfgh', 'asdfghjkl', 'asdf123', 'asdfasdf',
+  'qwerty', 'qwertyuiop', 'qwert',
+  'zxcv', 'zxcvbnm',
+  'fake', 'fakeemail', 'fakemail',
+  'dummy', 'dummyemail',
+  'noreply', 'no-reply', 'noemail', 'null', 'undefined', 'none', 'na',
+  'abc', 'abcd', 'abcde', 'abcdef', 'xyz', 'xyz123',
+  'sample', 'sampleemail', 'temp', 'temporary', 'tempuser',
+  'unknown', 'anonymous', 'user', 'username', 'demo', 'demouser',
+  '12345', '123456', '1234567', '12345678', '123456789', '1234567890',
+  '00000', '000000', '11111', '111111', '99999', '999999',
+  'email', 'mail', 'myemail', 'contact', 'info',
+]);
+
+// Blocked disposable / temporary email domains
+const BLOCKED_EMAIL_DOMAINS = new Set([
+  'tempmail.com', '10minutemail.com', 'mailinator.com', 'guerrillamail.com',
+  'throwawaymail.com', 'yopmail.com', 'trashmail.com', 'sharklasers.com',
+  'dispostable.com', 'getairmail.com', 'fakeinbox.com', 'tempr.email',
+  'mohmal.com', 'crazymailing.com', 'emailondeck.com', 'burnermail.io',
+  'dropmail.me', 'inboxkitten.com', 'mytemp.email', 'temp-mail.org',
+  'fake.com', 'test.com', 'example.com', 'sample.com', 'invalid.com',
+  'domain.com', 'email.com', 'xyz.com', 'abc.com', 'testmail.com',
+]);
+
+// Blocked known dummy phone numbers
+const BLOCKED_DUMMY_PHONES = new Set([
+  '1234567890', '0123456789', '2345678901', '3456789012',
+  '9876543210', '8765432109', '7654321098', '6543210987',
+  '9876543211', '0987654321', '9123456789', '6123456789',
+  '7123456789', '8123456789', '9000000000', '8000000000',
+  '7000000000', '6000000000', '9898989898', '9988776655',
+  '9191919191', '9090909090', '9876598765', '1231231234',
+  '1212121212', '9876500000', '9999900000', '8888800000',
+  '7777700000', '6666600000', '9999999999', '8888888888',
+  '7777777777', '6666666666', '5555555555', '4444444444',
+  '3333333333', '2222222222', '1111111111', '0000000000',
+]);
+
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
 
@@ -159,28 +202,67 @@ export default function ApplyPage() {
       errs.fullName = 'Name must be at least 2 characters';
     }
 
-    if (!formData.email.trim()) {
+    // Email validation
+    const rawEmail = formData.email.trim().toLowerCase();
+    if (!rawEmail) {
       errs.email = 'Email address is required';
     } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const fullEmail =
-        formData.emailProvider === 'custom'
-          ? formData.email.trim()
-          : `${formData.email.trim()}${formData.emailProvider}`;
+      let username = '';
+      let domain = '';
 
-      if (!emailRegex.test(fullEmail)) {
-        errs.email = 'Please enter a valid email address';
+      if (formData.emailProvider === 'custom') {
+        if (!rawEmail.includes('@')) {
+          errs.email = "Email must contain '@' (e.g. name@domain.com)";
+        } else {
+          const parts = rawEmail.split('@');
+          username = parts[0];
+          domain = parts[1];
+          if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/.test(rawEmail)) {
+            errs.email = 'Please enter a valid email address';
+          } else if (BLOCKED_EMAIL_DOMAINS.has(domain)) {
+            errs.email = 'Disposable or test email domains are not allowed';
+          }
+        }
+      } else {
+        username = rawEmail;
+        domain = formData.emailProvider.replace('@', '');
+        if (username.length < 3) {
+          errs.email = 'Email username must be at least 3 characters';
+        } else if (!/^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*$/.test(username)) {
+          errs.email = 'Email username contains invalid characters';
+        }
+      }
+
+      const cleanUsername = username.replace(/[._%+-]/g, '');
+      if (BLOCKED_EMAIL_USERNAMES.has(cleanUsername) || BLOCKED_EMAIL_USERNAMES.has(username)) {
+        errs.email = 'Dummy or test email addresses are not allowed';
+      } else if (/^([a-z0-9])\1{3,}$/i.test(cleanUsername)) {
+        errs.email = 'Please enter a genuine, active email address';
       }
     }
 
+    // Phone validation
     const cleanPhone = formData.phone.replace(/\D/g, '');
     if (!cleanPhone) {
       errs.phone = 'Phone number is required';
-    } else if (
-      formData.phoneCountryCode === '+91' &&
-      !/^[6-9]\d{9}$/.test(cleanPhone)
-    ) {
-      errs.phone = 'Enter a valid 10-digit Indian mobile number';
+    } else if (BLOCKED_DUMMY_PHONES.has(cleanPhone)) {
+      errs.phone = 'Please enter a valid, active phone number (test numbers not allowed)';
+    } else if (/^(\d)\1+$/.test(cleanPhone)) {
+      errs.phone = 'Invalid phone number: all digits cannot be identical';
+    } else if (/^(\d{2})\1{4,}$/.test(cleanPhone)) {
+      errs.phone = 'Invalid phone number: repeating pattern detected';
+    } else if ('0123456789012345'.includes(cleanPhone) || '9876543210987654'.includes(cleanPhone)) {
+      errs.phone = 'Sequential test numbers are not allowed';
+    } else {
+      const uniqueDigits = new Set(cleanPhone.split('')).size;
+      if (cleanPhone.length >= 10 && uniqueDigits < 4) {
+        errs.phone = 'Please enter a genuine phone number with valid digit variation';
+      } else if (
+        formData.phoneCountryCode === '+91' &&
+        (!/^[6-9]\d{9}$/.test(cleanPhone) || cleanPhone.length !== 10)
+      ) {
+        errs.phone = 'Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9';
+      }
     }
 
     if (formData.hasPassport === 'Yes' && !formData.passportNumber.trim()) {

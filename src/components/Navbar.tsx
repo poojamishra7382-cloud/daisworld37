@@ -8,9 +8,19 @@ import {
   ChevronLeft,
   ArrowRight,
   Phone,
+  Stethoscope,
+  UtensilsCrossed,
+  HardHat,
+  Fuel,
+  Sparkles,
 } from 'lucide-react';
 
 import { services } from '@/data/services';
+import { healthcareDepartments } from '@/data/healthcareDepartments';
+import { hospitalityDepartments } from '@/data/hospitalityDepartments';
+import { constructionDepartments } from '@/data/constructionDepartments';
+import { oilAndGasDepartments } from '@/data/oilAndGasDepartments';
+import { beautyAndCareDepartments } from '@/data/beautyAndCareDepartments';
 import { countries, europeCountries, middleEastCountries } from '@/data/countries';
 import Flag from '@/components/Flag';
 
@@ -28,6 +38,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
   // DESKTOP DROPDOWNS
   // =========================
   const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
+  const [desktopActiveService, setDesktopActiveService] = useState<'healthcare' | 'hospitality' | 'construction' | 'oil-and-gas' | 'beauty-and-care' | null>(null);
   const [desktopCountriesOpen, setDesktopCountriesOpen] = useState(false);
   const [desktopActiveRegion, setDesktopActiveRegion] = useState<'europe' | 'middle-east' | null>(null);
 
@@ -35,6 +46,11 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
   // MOBILE DROPDOWNS
   // =========================
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileHealthcareOpen, setMobileHealthcareOpen] = useState(false);
+  const [mobileHospitalityOpen, setMobileHospitalityOpen] = useState(false);
+  const [mobileConstructionOpen, setMobileConstructionOpen] = useState(false);
+  const [mobileOilAndGasOpen, setMobileOilAndGasOpen] = useState(false);
+  const [mobileBeautyAndCareOpen, setMobileBeautyAndCareOpen] = useState(false);
   const [mobileCountriesOpen, setMobileCountriesOpen] = useState(false);
   const [mobileEuropeOpen, setMobileEuropeOpen] = useState(false);
   const [mobileMiddleEastOpen, setMobileMiddleEastOpen] = useState(false);
@@ -58,10 +74,16 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
     setOpen(false);
 
     setDesktopServicesOpen(false);
+    setDesktopActiveService(null);
     setDesktopCountriesOpen(false);
     setDesktopActiveRegion(null);
 
     setMobileServicesOpen(false);
+    setMobileHealthcareOpen(false);
+    setMobileHospitalityOpen(false);
+    setMobileConstructionOpen(false);
+    setMobileOilAndGasOpen(false);
+    setMobileBeautyAndCareOpen(false);
     setMobileCountriesOpen(false);
     setMobileEuropeOpen(false);
     setMobileMiddleEastOpen(false);
@@ -79,6 +101,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
         !servicesRef.current.contains(target)
       ) {
         setDesktopServicesOpen(false);
+        setDesktopActiveService(null);
       }
 
       if (
@@ -123,9 +146,11 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
     setOpen(false);
 
     setDesktopServicesOpen(false);
+    setDesktopActiveService(null);
     setDesktopCountriesOpen(false);
 
     setMobileServicesOpen(false);
+    setMobileHealthcareOpen(false);
     setMobileCountriesOpen(false);
 
     // Navigate
@@ -358,7 +383,6 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 }
               `}
             >
-
               <div
                 className="
                   bg-[#0a1628]/95
@@ -371,88 +395,516 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                   p-2
                 "
               >
-
-                {services.map((service) => {
-                  const ServiceIcon = service.icon;
-
-                  return (
+                {/* VIEW 1: MAIN SERVICES LIST */}
+                {!desktopActiveService ? (
+                  <div className="flex flex-col gap-1">
+                    {/* Option 1: Healthcare with drilldown */}
                     <button
                       type="button"
-                      key={service.slug}
-                      onClick={() =>
-                        go(
-                          `/services/${service.slug}`
-                        )
-                      }
+                      onClick={() => setDesktopActiveService('healthcare')}
                       className="
-                        w-full
-                        flex items-center gap-3
-                        px-4 py-3
-                        rounded-xl
-                        hover:bg-white/10
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
                         transition-all duration-200
-                        group
-                        text-left
+                        group cursor-pointer
                       "
                     >
-
-                      <div
-                        className={`
-                          w-9 h-9
-                          rounded-lg
-                          bg-gradient-to-br
-                          ${service.color}
-                          flex items-center
-                          justify-center
-                          flex-shrink-0
-                        `}
-                      >
-                        <ServiceIcon
-                          className="w-4 h-4 text-white"
-                        />
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <Stethoscope className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Healthcare</p>
+                        </div>
                       </div>
 
-                      <div className="text-left flex-1">
-
-                        <div
-                          className="
-                            text-white
-                            text-sm
-                            font-semibold
-                            group-hover:text-cyan-400
-                            transition-colors
-                          "
-                        >
-                          {service.title}
-                        </div>
-
-                        <div
-                          className="
-                            text-white/40
-                            text-xs
-                          "
-                        >
-                          {service.short}
-                        </div>
-
-                      </div>
-
-                      <ArrowRight
-                        className="
-                          w-4 h-4
-                          text-white/30
-                          group-hover:text-cyan-400
-                          group-hover:translate-x-1
-                          transition-all
-                        "
-                      />
-
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                     </button>
-                  );
-                })}
 
+                    {/* Option 2: Hospitality with drilldown */}
+                    <button
+                      type="button"
+                      onClick={() => setDesktopActiveService('hospitality')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-amber-600 hover:to-orange-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <UtensilsCrossed className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Hospitality</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
+
+                    {/* Option 3: Construction with drilldown */}
+                    <button
+                      type="button"
+                      onClick={() => setDesktopActiveService('construction')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-amber-700 hover:to-yellow-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-600 to-yellow-500 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <HardHat className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Construction</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
+
+                    {/* Option 4: Oil & Gas with drilldown */}
+                    <button
+                      type="button"
+                      onClick={() => setDesktopActiveService('oil-and-gas')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-blue-700 hover:to-indigo-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <Fuel className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Oil & Gas</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
+
+                    {/* Option 5: Beauty & Care with drilldown */}
+                    <button
+                      type="button"
+                      onClick={() => setDesktopActiveService('beauty-and-care')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <Sparkles className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Beauty & Care</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
+                  </div>
+                ) : desktopActiveService === 'healthcare' ? (
+                  /* VIEW 2A: HEALTHCARE DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-cyan-400 hover:text-cyan-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Healthcare
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {healthcareDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-cyan-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : desktopActiveService === 'hospitality' ? (
+                  /* VIEW 2B: HOSPITALITY DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-amber-400 hover:text-amber-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Hospitality
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {hospitalityDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-amber-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : desktopActiveService === 'construction' ? (
+                  /* VIEW 2C: CONSTRUCTION DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-yellow-400 hover:text-yellow-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Construction
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {constructionDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-yellow-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : desktopActiveService === 'oil-and-gas' ? (
+                  /* VIEW 2D: OIL & GAS DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-indigo-400 hover:text-indigo-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Oil & Gas
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {oilAndGasDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-indigo-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  /* VIEW 2E: BEAUTY & CARE DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-pink-400 hover:text-pink-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Beauty & Care
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {beautyAndCareDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-pink-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
-
             </div>
 
           </div>
@@ -1047,77 +1499,232 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                   overflow-hidden
                   transition-all duration-300
                   ${mobileServicesOpen
-                    ? 'max-h-[500px] opacity-100'
+                    ? 'max-h-[800px] opacity-100'
                     : 'max-h-0 opacity-0'
                   }
                 `}
               >
-
-                <div className="pl-3 flex flex-col gap-1 py-1">
-
-                  {services.map((service) => {
-                    const ServiceIcon = service.icon;
-
-                    return (
-                      <button
-                        type="button"
-                        key={service.slug}
-                        onClick={() =>
-                          go(
-                            `/services/${service.slug}`
-                          )
-                        }
-                        className="
-                          relative
-                          z-50
-                          w-full
-                          flex items-center gap-3
-                          px-4 py-3
-                          text-left
-                          text-white/80
-                          hover:text-white
-                          hover:bg-white/10
-                          rounded-xl
-                          transition-all
-                          active:scale-[0.98]
-                          cursor-pointer
-                        "
-                      >
-
-                        <div
-                          className={`
-                            w-8 h-8
-                            rounded-lg
-                            bg-gradient-to-br
-                            ${service.color}
-                            flex items-center
-                            justify-center
-                            flex-shrink-0
-                          `}
-                        >
-                          <ServiceIcon
-                            className="w-4 h-4 text-white"
-                          />
+                <div className="pl-3 pr-1 py-1 space-y-2">
+                  {/* 1. Healthcare Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileHealthcareOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                          <Stethoscope className="w-3.5 h-3.5 text-white" />
                         </div>
+                        <span>Healthcare</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-cyan-400 transition-transform duration-300 ${
+                          mobileHealthcareOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
 
-                        <span className="text-sm font-medium">
-                          {service.title}
-                        </span>
+                    {mobileHealthcareOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Healthcare Departments */}
+                        {healthcareDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
 
-                        <ArrowRight
-                          className="
-                            ml-auto
-                            w-4 h-4
-                            text-white/30
-                          "
-                        />
+                  {/* 2. Hospitality Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileHospitalityOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0">
+                          <UtensilsCrossed className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Hospitality</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-amber-400 transition-transform duration-300 ${
+                          mobileHospitalityOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
 
-                      </button>
-                    );
-                  })}
+                    {mobileHospitalityOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Hospitality Departments */}
+                        {hospitalityDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
 
+                  {/* 3. Construction Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileConstructionOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-amber-600 to-yellow-500 flex items-center justify-center flex-shrink-0">
+                          <HardHat className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Construction</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-yellow-400 transition-transform duration-300 ${
+                          mobileConstructionOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileConstructionOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Construction Departments */}
+                        {constructionDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Oil & Gas Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileOilAndGasOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                          <Fuel className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Oil & Gas</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-indigo-400 transition-transform duration-300 ${
+                          mobileOilAndGasOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileOilAndGasOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Oil & Gas Departments */}
+                        {oilAndGasDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Beauty & Care Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileBeautyAndCareOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center flex-shrink-0">
+                          <Sparkles className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Beauty & Care</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-pink-400 transition-transform duration-300 ${
+                          mobileBeautyAndCareOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileBeautyAndCareOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Beauty & Care Departments */}
+                        {beautyAndCareDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                 </div>
-
               </div>
 
             </div>

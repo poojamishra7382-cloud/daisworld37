@@ -18,7 +18,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     image: 'health3.png',
-    badge: 'Now Hiring — across globe 2026',
+    badge: 'Now Hiring — across globe',
     heading: 'We Are Hiring',
     highlight: 'Medical Staff',
     subtext: 'Connecting Doctors, Nurses, Ayurvedic Experts, Yoga Therapists, Dietitians, Phlebotomists & Medical Staff globally.',

@@ -5,6 +5,7 @@ import {
   Facebook,
   Instagram,
   Youtube,
+  Linkedin,
   Heart,
   ArrowRight,
   ChevronRight,
@@ -22,11 +23,11 @@ const footerLinks = {
   ],
 
   Services: [
-    { label: 'Healthcare', to: '/services/healthcare' },
-    { label: 'Hospitality', to: '/services/hospitality' },
-    { label: 'Construction', to: '/services/construction' },
-    { label: 'Oil & Gas', to: '/services/oil-and-gas' },
-    { label: 'Beauty & Care', to: '/services/beauty-and-care' },
+    { label: 'Healthcare', to: '/services/healthcare/doctors-physicians' },
+    { label: 'Hospitality', to: '/services/hospitality/front-office' },
+    { label: 'Construction', to: '/services/construction/civil-structural' },
+    { label: 'Oil & Gas', to: '/services/oil-and-gas/exploration-geology' },
+    { label: 'Beauty & Care', to: '/services/beauty-and-care/hair-styling' },
   ],
 
   Countries: [
@@ -144,6 +145,16 @@ export default function Footer() {
                 className="w-9 h-9 bg-white/5 border border-white/10 hover:border-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
               >
                 <Youtube className="w-4 h-4 text-white" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/company/dais-world"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-9 h-9 bg-white/5 border border-white/10 hover:border-blue-500 hover:bg-[#0077b5] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
+              >
+                <Linkedin className="w-4 h-4 text-white" />
               </a>
             </div>
           </div>

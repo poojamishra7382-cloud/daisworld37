@@ -25,6 +25,7 @@ interface PartnershipForm {
   phone: string;
   country: string;
   industry: string;
+  otherIndustry: string;
   partnershipType: string;
   positionsCount: string;
   message: string;
@@ -38,6 +39,7 @@ const INITIAL_FORM: PartnershipForm = {
   phone: '',
   country: '',
   industry: 'Healthcare',
+  otherIndustry: '',
   partnershipType: 'Workforce Staffing & Corporate Housing',
   positionsCount: '10 - 50 positions',
   message: '',
@@ -142,6 +144,11 @@ export default function BusinessHousingSection() {
       errs.country = 'Please enter a valid country/city name.';
     }
 
+    // 6. Other Industry validation
+    if (form.industry === 'Other' && !form.otherIndustry.trim()) {
+      errs.otherIndustry = 'Please specify your industry / enterprise sector.';
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -185,6 +192,10 @@ export default function BusinessHousingSection() {
       const cleanPhone = sanitizeInput(form.phone);
       const cleanCountry = sanitizeInput(form.country) || 'International';
       const cleanMessage = sanitizeInput(form.message);
+      const finalIndustry =
+        form.industry === 'Other' && form.otherIndustry.trim()
+          ? sanitizeInput(form.otherIndustry)
+          : form.industry;
 
       const payload = {
         full_name: `${cleanCompany} (Contact: ${cleanContact})`,
@@ -192,8 +203,8 @@ export default function BusinessHousingSection() {
         phone: cleanPhone,
         position: `🏢 B2B Partnership: ${form.partnershipType}`,
         current_country: cleanCountry,
-        qualification: `Industry: ${form.industry}`,
-        message: `Positions Count: ${form.positionsCount}\nIndustry: ${form.industry}\nPartnership Type: ${form.partnershipType}\nCountry: ${cleanCountry}\nNotes: ${cleanMessage}`,
+        qualification: `Industry: ${finalIndustry}`,
+        message: `Positions Count: ${form.positionsCount}\nIndustry: ${finalIndustry}\nPartnership Type: ${form.partnershipType}\nCountry: ${cleanCountry}\nNotes: ${cleanMessage}`,
         status: 'new',
       };
 
@@ -213,7 +224,7 @@ export default function BusinessHousingSection() {
         email: cleanEmail,
         phone: cleanPhone,
         country: cleanCountry,
-        industry: form.industry,
+        industry: finalIndustry,
         partnershipType: form.partnershipType,
         positionsCount: form.positionsCount,
         message: cleanMessage,
@@ -299,7 +310,7 @@ export default function BusinessHousingSection() {
         {/* =========================================================================
             B2B PARTNERSHIP INQUIRY FORM & LIGHT BLUE CALLOUT
         ========================================================================= */}
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch bg-white border border-blue-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-blue-900/5">
+        <div id="b2b-inquiry-form" className="grid lg:grid-cols-12 gap-8 items-stretch bg-white border border-blue-100 rounded-3xl p-6 sm:p-10 shadow-xl shadow-blue-900/5 scroll-mt-24">
           
           {/* Left Column: Elegant Light Blue / Sky Gradient Combination Card */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50/60 border border-blue-200/80 text-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
@@ -532,7 +543,15 @@ export default function BusinessHousingSection() {
                     </label>
                     <select
                       value={form.industry}
-                      onChange={(e) => setForm({ ...form, industry: e.target.value })}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setForm({
+                          ...form,
+                          industry: val,
+                          otherIndustry: val === 'Other' ? form.otherIndustry : '',
+                        });
+                        if (errors.otherIndustry) setErrors({ ...errors, otherIndustry: '' });
+                      }}
                       className="w-full bg-white border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none transition-all cursor-pointer"
                     >
                       <option value="Healthcare">Healthcare & Hospitals</option>
@@ -545,6 +564,32 @@ export default function BusinessHousingSection() {
                     </select>
                   </div>
                 </div>
+
+                {/* Other Enterprise Sector Expansion Field */}
+                {form.industry === 'Other' && (
+                  <div className="p-3.5 rounded-xl bg-gradient-to-r from-blue-50/90 to-cyan-50/40 border border-blue-200/90 shadow-2xs animate-fadeIn">
+                    <label className="block text-xs font-bold text-blue-900 mb-1">
+                      Specify Your Enterprise Sector <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Aviation, Renewable Energy, IT & Cloud, Heavy Manufacturing, Marine, Agriculture, etc."
+                      value={form.otherIndustry}
+                      onChange={(e) => {
+                        setForm({ ...form, otherIndustry: e.target.value });
+                        if (errors.otherIndustry) setErrors({ ...errors, otherIndustry: '' });
+                      }}
+                      className={`w-full bg-white border rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder-slate-400 outline-none transition-all ${
+                        errors.otherIndustry
+                          ? 'border-rose-400 focus:ring-2 focus:ring-rose-100'
+                          : 'border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                      }`}
+                    />
+                    {errors.otherIndustry && (
+                      <p className="mt-1 text-[11px] text-rose-600 font-semibold">{errors.otherIndustry}</p>
+                    )}
+                  </div>
+                )}
 
                 <div className="grid sm:grid-cols-2 gap-3.5">
                   <div>

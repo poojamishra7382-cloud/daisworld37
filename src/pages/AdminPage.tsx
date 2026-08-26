@@ -3,7 +3,7 @@ import {
   Lock, LogOut, Loader2, Download, Search, Eye, EyeOff, Trash2, X,
   User, Mail, Phone, MapPin, Flag, Briefcase, GraduationCap,
   Calendar, FileCheck, FileText, MessageSquare, ShieldCheck, AlertCircle,
-  ChevronLeft, ChevronRight, Inbox, Filter, CheckCircle, Building2,
+  ChevronLeft, ChevronRight, Inbox, Filter, CheckCircle, Building2, RotateCcw,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -303,6 +303,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [countryFilter, setCountryFilter] = useState('all');
+  const [positionFilter, setPositionFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState<'all' | 'candidates' | 'partnerships'>('all');
   const [selected, setSelected] = useState<Application | null>(null);
   const [page, setPage] = useState(0);
@@ -360,6 +362,24 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   useEffect(() => { loadApps(); }, [loadApps]);
 
+  // Extract unique countries from submissions
+  const availableCountries = Array.from(
+    new Set(
+      apps
+        .map((a) => a.current_country?.trim())
+        .filter((c): c is string => Boolean(c))
+    )
+  ).sort((a, b) => a.localeCompare(b));
+
+  // Extract unique positions from submissions
+  const availablePositions = Array.from(
+    new Set(
+      apps
+        .map((a) => a.position?.trim())
+        .filter((p): p is string => Boolean(p))
+    )
+  ).sort((a, b) => a.localeCompare(b));
+
   const filtered = apps.filter((a) => {
     const isPartnership = a.position?.includes('Partnership');
     const matchesType =
@@ -371,10 +391,36 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       a.full_name?.toLowerCase().includes(search.toLowerCase()) ||
       a.email?.toLowerCase().includes(search.toLowerCase()) ||
       a.phone?.includes(search) ||
-      a.position?.toLowerCase().includes(search.toLowerCase());
+      a.position?.toLowerCase().includes(search.toLowerCase()) ||
+      a.current_country?.toLowerCase().includes(search.toLowerCase()) ||
+      a.qualification?.toLowerCase().includes(search.toLowerCase());
+
     const matchesStatus = statusFilter === 'all' || a.status === statusFilter;
-    return matchesType && matchesSearch && matchesStatus;
+
+    const matchesCountry =
+      countryFilter === 'all' ||
+      (a.current_country && a.current_country.trim().toLowerCase() === countryFilter.toLowerCase());
+
+    const matchesPosition =
+      positionFilter === 'all' ||
+      (a.position && a.position.trim().toLowerCase() === positionFilter.toLowerCase());
+
+    return matchesType && matchesSearch && matchesStatus && matchesCountry && matchesPosition;
   });
+
+  const hasActiveFilters =
+    search !== '' ||
+    statusFilter !== 'all' ||
+    countryFilter !== 'all' ||
+    positionFilter !== 'all';
+
+  const resetFilters = () => {
+    setSearch('');
+    setStatusFilter('all');
+    setCountryFilter('all');
+    setPositionFilter('all');
+    setPage(0);
+  };
 
   const pageCount = Math.ceil(filtered.length / PAGE_SIZE);
   const paged = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -559,30 +605,170 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           </button>
         </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 mb-6 flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-              placeholder="Search by company name, candidate name, email, phone, or requirement..."
-              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-sm text-slate-900"
-            />
+        {/* Filters & Search Toolbar */}
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 mb-6 space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3">
+            {/* Search Input */}
+            <div className="relative lg:col-span-4">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+                placeholder="Search name, email, phone, details..."
+                className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-xs sm:text-sm text-slate-900 placeholder:text-slate-400"
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => { setSearch(''); setPage(0); }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  title="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* Country Filter Dropdown */}
+            <div className="relative lg:col-span-3">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-500 pointer-events-none" />
+              <select
+                value={countryFilter}
+                onChange={(e) => { setCountryFilter(e.target.value); setPage(0); }}
+                className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-xs sm:text-sm text-slate-900 bg-white appearance-none cursor-pointer truncate"
+              >
+                <option value="all">🌍 All Countries ({apps.length})</option>
+                {availableCountries.map((c) => {
+                  const count = apps.filter((a) => a.current_country?.trim().toLowerCase() === c.toLowerCase()).length;
+                  return (
+                    <option key={c} value={c}>
+                      {c} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                ▼
+              </div>
+            </div>
+
+            {/* Position Filter Dropdown */}
+            <div className="relative lg:col-span-3">
+              <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-indigo-500 pointer-events-none" />
+              <select
+                value={positionFilter}
+                onChange={(e) => { setPositionFilter(e.target.value); setPage(0); }}
+                className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-xs sm:text-sm text-slate-900 bg-white appearance-none cursor-pointer truncate"
+              >
+                <option value="all">💼 All Positions ({apps.length})</option>
+                {availablePositions.map((p) => {
+                  const count = apps.filter((a) => a.position?.trim().toLowerCase() === p.toLowerCase()).length;
+                  return (
+                    <option key={p} value={p}>
+                      {p} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                ▼
+              </div>
+            </div>
+
+            {/* Status Filter Dropdown */}
+            <div className="relative lg:col-span-2">
+              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <select
+                value={statusFilter}
+                onChange={(e) => { setStatusFilter(e.target.value); setPage(0); }}
+                className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-xs sm:text-sm text-slate-900 bg-white appearance-none cursor-pointer truncate"
+              >
+                <option value="all">All Status</option>
+                {STATUS_OPTIONS.map((s) => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
+              </select>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                ▼
+              </div>
+            </div>
           </div>
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
-            <select
-              value={statusFilter}
-              onChange={(e) => { setStatusFilter(e.target.value); setPage(0); }}
-              className="pl-11 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-sm text-slate-900 bg-white appearance-none cursor-pointer"
-            >
-              <option value="all">All Status</option>
-              {STATUS_OPTIONS.map((s) => (
-                <option key={s.value} value={s.value}>{s.label}</option>
-              ))}
-            </select>
+
+          {/* Active Filter Chips & Clear All */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-slate-500 font-semibold">
+                Showing <strong className="text-slate-900 font-bold">{filtered.length}</strong> of {apps.length} submissions
+              </span>
+
+              {countryFilter !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-medium">
+                  <MapPin className="w-3 h-3 text-blue-500" />
+                  <span>Country: <strong>{countryFilter}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => { setCountryFilter('all'); setPage(0); }}
+                    className="ml-1 hover:text-blue-900 font-bold"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+
+              {positionFilter !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-medium">
+                  <Briefcase className="w-3 h-3 text-indigo-500" />
+                  <span>Position: <strong className="truncate max-w-[200px]">{positionFilter}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => { setPositionFilter('all'); setPage(0); }}
+                    className="ml-1 hover:text-indigo-900 font-bold"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+
+              {statusFilter !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-medium">
+                  <Filter className="w-3 h-3 text-amber-500" />
+                  <span>Status: <strong>{STATUS_OPTIONS.find((s) => s.value === statusFilter)?.label}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => { setStatusFilter('all'); setPage(0); }}
+                    className="ml-1 hover:text-amber-900 font-bold"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+
+              {search && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 font-medium">
+                  <Search className="w-3 h-3 text-slate-500" />
+                  <span>Search: "<strong>{search}</strong>"</span>
+                  <button
+                    type="button"
+                    onClick={() => { setSearch(''); setPage(0); }}
+                    className="ml-1 hover:text-slate-900 font-bold"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+            </div>
+
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 font-bold hover:underline py-1 px-2 rounded-lg hover:bg-rose-50 transition-colors"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset All Filters</span>
+              </button>
+            )}
           </div>
         </div>
 

@@ -58,7 +58,16 @@ export default function ClienterPage() {
           {/* Quick CTA to Business Housing & Partnership */}
           <div className="flex flex-wrap justify-center items-center gap-4">
             <a
-              href="#partnership-housing"
+              href="#b2b-inquiry-form"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('b2b-inquiry-form');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  const input = el.querySelector('input') as HTMLInputElement;
+                  if (input) setTimeout(() => input.focus(), 600);
+                }
+              }}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-full text-sm shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105"
             >
               <span>🏢 Business Housing & Partnership Solutions</span>
@@ -89,9 +98,18 @@ export default function ClienterPage() {
               </button>
             ))}
 
-            {/* Direct button to Partnership & Housing */}
+            {/* Direct button to Partnership & Housing Form */}
             <a
-              href="#partnership-housing"
+              href="#b2b-inquiry-form"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('b2b-inquiry-form');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  const input = el.querySelector('input') as HTMLInputElement;
+                  if (input) setTimeout(() => input.focus(), 600);
+                }
+              }}
               className="rounded-full border border-cyan-500 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-800 font-bold px-5 py-2.5 text-sm transition-all duration-300 hover:bg-blue-600 hover:text-white shadow-sm flex items-center gap-1.5"
             >
               <span>🏢 Business Housing & Partnership</span>
@@ -150,8 +168,19 @@ export default function ClienterPage() {
                   {/* Dark overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-                  {/* Category */}
-                  <span className="absolute right-4 top-4 rounded-full bg-white/95 px-4 py-1.5 text-xs font-semibold text-blue-600 shadow-md">
+                  {/* Category Badge */}
+                  <span className="absolute right-4 top-4 rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-slate-800 shadow-md border border-slate-100 flex items-center gap-1.5">
+                    <span className={`w-2 h-2 rounded-full ${
+                      partner.category === 'Healthcare'
+                        ? 'bg-emerald-500'
+                        : partner.category === 'Hospitality'
+                        ? 'bg-amber-500'
+                        : partner.category === 'Oil & Gas'
+                        ? 'bg-blue-500'
+                        : partner.category === 'Construction'
+                        ? 'bg-indigo-500'
+                        : 'bg-rose-500'
+                    }`} />
                     {partner.category}
                   </span>
 
@@ -161,12 +190,13 @@ export default function ClienterPage() {
                 {/* ================= INFORMATION ================= */}
                 <div className="p-6">
 
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {partner.name}
                   </h3>
 
-                  <p className="mt-1 text-sm font-medium text-blue-600">
-                    {partner.city}, {partner.country}
+                  <p className="mt-1 text-sm font-semibold text-cyan-700 flex items-center gap-1">
+                    <span>📍</span>
+                    <span>{partner.city}, {partner.country}</span>
                   </p>
 
                   <p className="mt-4 text-sm leading-6 text-gray-600">
@@ -178,10 +208,10 @@ export default function ClienterPage() {
                     <div className="flex items-center justify-between">
 
                       <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">
-                        Industry
+                        Industry Sector
                       </span>
 
-                      <span className="text-sm font-semibold text-blue-600">
+                      <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
                         {partner.category}
                       </span>
 

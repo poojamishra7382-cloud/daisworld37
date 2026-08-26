@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MessageCircle,
   X,
@@ -6,279 +7,505 @@ import {
   Trash2,
   Bot,
   User as UserIcon,
+  Sparkles,
+  ArrowRight,
+  ExternalLink,
 } from 'lucide-react';
+
+interface ChatAction {
+  label: string;
+  url?: string;
+  query?: string;
+  isExternal?: boolean;
+}
 
 interface Message {
   id: number;
   sender: 'bot' | 'user';
   text: string;
   time: number;
+  actions?: ChatAction[];
 }
 
-const STORAGE_KEY = 'knooviq_chat_history';
+const STORAGE_KEY = 'daisworld_ai_chat_history_v5';
 
 const WELCOME: Message = {
   id: 0,
   sender: 'bot',
-  text: 'Hi 👋 How can I help you today?',
+  text: "Hello & Welcome to Dais World! 👋",
   time: Date.now(),
 };
 
 const QUICK_REPLIES = [
-  '💼 Salary & Pricing',
-  '🌍 Countries',
-  '🏥 Jobs & Roles',
+  '💼 All Vacancies',
+  '🤝 Partner With Us',
+  '🏥 Healthcare Jobs',
+  '🏨 Hospitality Roles',
+  '🏗️ Construction & Oil',
+  '💅 Beauty & Spa',
+  '💰 Salaries & Packages',
   '🎓 Free Training',
-  '📄 Documents Needed',
-  '📞 Contact Us',
   '✨ How to Apply',
+  '📞 Contact Details',
 ];
 
-interface Rule {
-  match: string[];
+interface KnowledgeRule {
+  id: string;
+  category: 'vacancies' | 'partnership' | 'training' | 'salary' | 'countries' | 'sectors' | 'process' | 'about' | 'contact' | 'greetings' | 'gratitude';
+  keywords: string[];
+  priority: number;
   reply: string;
+  actions?: ChatAction[];
 }
 
-const RULES: Rule[] = [
-  // 1. GREETINGS & CASUAL
+const KNOWLEDGE_RULES: KnowledgeRule[] = [
+  // =========================================================================
+  // 1. PARTNERSHIP / B2B COLLABORATION ("Partner banna hai", "B2B", "Tie-up")
+  // =========================================================================
   {
-    match: [
-      'hello', 'hi', 'hey', 'namaste', 'namaskar', 'halo', 'hola', 'hie',
-      'good morning', 'good afternoon', 'good evening', 'kaise ho', 'kaisa hai',
-      'whats up', 'whatsup', 'sup', 'yo'
+    id: 'partnership-b2b',
+    category: 'partnership',
+    priority: 100,
+    keywords: [
+      'partner', 'partnership', 'partner ban na hai', 'partner banna hai',
+      'partner kaise bane', 'partner kaise ban sakte hai', 'b2b', 'collaborate',
+      'collaboration', 'tie up', 'tie-up', 'tieup', 'corporate partner',
+      'business partner', 'hiring partner', 'employer partnership', 'manpower supply',
+      'staffing solution', 'staffing partner', 'corporate housing partner',
+      'college tie up', 'institutional partner', 'recruitment partner', 'client partnership',
+      'agency partner', 'franchise', 'vendor', 'become a partner', 'join as partner'
     ],
     reply:
-      "Hello! 😊 Welcome to Dais World. I am your AI career assistant. How can I help you today? You can ask me about international job vacancies, salary packages, European/Middle Eastern countries, free language training, or how to apply!",
+      "🤝 **Partner With Dais World (B2B & Employer Solutions)**\n\nWe warmly welcome international hospitals, hotel chains, construction conglomerates, recruitment agencies, and educational institutions to collaborate with us!\n\n**Our Core Partnership Avenues:**\n\n1️⃣ **Employer Staffing Partnerships:**\n• Direct access to pre-screened, certified, and language-trained (Dutch/German B1-B2) healthcare, hospitality, and engineering talent.\n• 100% legal visa compliance, credential attestation, and fast-track deployment.\n\n2️⃣ **Turnkey Corporate Housing Solutions:**\n• Complete furnished accommodation, municipal leasing, and facility management for overseas workforces.\n\n3️⃣ **Academic & Institutional Tie-ups:**\n• Collaborations with Nursing Colleges, Culinary Institutes, and Engineering Academies for direct international campus placements.\n\n4️⃣ **Global Associate Recruitment Partners:**\n• Join our verified worldwide network of overseas recruitment consultants.\n\n⭐ **Trusted Global Partners Include:**\nSiemens Healthineers, Royal Philips Healthcare, Bupa, Ramsay Health Care, Roche, Accor Hotels, Marriott Europe, and premier Dutch health networks.\n\n📍 **Submit Your Proposal or Connect Directly:**\n• Direct Partnership Helpline: **+91 8976697001**\n• Corporate Email: **info@daisworld.com** / **aditya.s@daisworld.com**\n• Head Office: 1210, One World by Sanjar, Malad West, Mumbai, India.",
+    actions: [
+      { label: '🏢 Explore B2B / Partners Page', url: '/clients' },
+      { label: '📞 Contact Partnerships Desk', url: '/contact' },
+      { label: '💬 WhatsApp Corporate Desk', url: 'https://wa.me/918976697001?text=Hello%2C%20I%20am%20interested%20in%20a%20B2B%20Partnership%20with%20Dais%20World', isExternal: true },
+    ],
   },
 
-  // 2. COMPANY OVERVIEW & LOCATION
+  // =========================================================================
+  // 2. VACANCIES & ACTIVE DRIVES (GENERAL & SPECIFIC)
+  // =========================================================================
   {
-    match: [
+    id: 'vacancies-general',
+    category: 'vacancies',
+    priority: 95,
+    keywords: [
+      'vacancy', 'vacancies', 'job', 'jobs', 'opening', 'openings', 'naukri',
+      'naukriya', 'current vacancy', 'latest vacancy', 'active hiring',
+      'kya vacancy hai', 'kon si vacancy hai', 'job list', 'positions',
+      'hiring drive', 'available jobs', 'opportunities', 'abroad job'
+    ],
+    reply:
+      "💼 **Current Active Vacancies at Dais World (August 2026 Drive)**\n\nWe are actively hiring for 150+ positions across Europe and the Middle East:\n\n🇳🇱 **Netherlands Healthcare Urgent Drive:**\n• **20 Operation Room (OT) Nurses:** €3,900 – €5,500/mo (₹3.5L – ₹5.0L)\n• **30 Healthcare Assistants & Caregivers:** €2,450 – €3,200/mo (₹2.2L – ₹2.9L)\n• **20 Registered Staff Nurses (Ward/ICU):** €3,200 – €3,775/mo (₹2.85L – ₹3.4L)\n*(Includes 100% Free Dutch B1 Training, Visa, Flight & Accommodation support)*\n\n🏨 **Hospitality Careers (Europe & UAE):**\n• 15 Executive Chefs & Sous Chefs (8,500 – 14,000 AED / €2,800 – €4,200)\n• 25 Housekeeping & Front Office Supervisors\n• Food & Beverage Stewards & Restaurant Captains\n\n🏗️ **Construction & Oil/Gas (Gulf & Europe):**\n• 20 Civil & Structural Site Engineers\n• 35 Certified Welders, Electricians & MEP Technicians\n• 15 Offshore Drilling & HSE Safety Officers\n\n💅 **Beauty & Wellness (Europe & Dubai):**\n• 15 Hair Stylists, Cosmetologists & Spa Therapists\n\n✨ All vacancies include legal employer visa sponsorship, healthcare coverage, and PR pathways!",
+    actions: [
+      { label: '📋 View All Vacancies', url: '/vacancies' },
+      { label: '📝 Apply Now', url: '/apply' },
+      { label: '🇳🇱 Netherlands Nursing Drive', query: 'Tell me about Netherlands Nursing vacancies' },
+    ],
+  },
+
+  {
+    id: 'vacancies-netherlands-nursing',
+    category: 'vacancies',
+    priority: 98,
+    keywords: [
+      'netherlands nurse', 'netherlands nursing', 'ot nurse', 'operation room nurse',
+      'caregiver netherlands', 'healthcare assistant netherlands', 'dutch nursing',
+      'nursing in netherlands', 'holland nurse', 'nurse vacancy netherlands'
+    ],
+    reply:
+      "🇳🇱 **Urgent Hiring: Netherlands Nursing & Healthcare Drive**\n\n🔥 **Active Openings:**\n1. **20 Operation Room (OT) Nurses:**\n   • Salary: €3,900 – €5,500 / month (₹3,50,000 – ₹5,00,000/mo)\n   • Eligibility: B.Sc Nursing / GNM / Post Basic with 1+ yr OT experience\n\n2. **30 Healthcare Assistants & Caregivers:**\n   • Salary: €2,450 – €3,200 / month (₹2,20,000 – ₹2,90,000/mo)\n   • Eligibility: ANM / GNM / B.Sc / Caregiving Diploma (Freshers Welcome!)\n\n3. **20 Registered Staff Nurses:**\n   • Salary: €3,200 – €3,775 / month (₹2,85,000 – ₹3,40,000/mo)\n   • Eligibility: B.Sc Nursing / GNM with Nursing Council Registration\n\n🎁 **Full Package Benefits:**\n• 100% Free Dutch Language Training up to B1 level (4–6 months)\n• 100% Work Visa, Flight Tickets & Subsidized Accommodation\n• Permanent Residency (PR) pathway in Netherlands\n• 36-hour weekly work schedule with paid overtime",
+    actions: [
+      { label: '📝 Apply for Netherlands Drive', url: '/apply' },
+      { label: '📋 View Netherlands Vacancy Details', url: '/vacancies' },
+      { label: '🎓 Free Dutch Language Details', query: 'How does the free Dutch/German training work?' },
+    ],
+  },
+
+  {
+    id: 'healthcare-general',
+    category: 'sectors',
+    priority: 90,
+    keywords: [
+      'healthcare', 'nurse', 'nursing', 'nurses', 'staff nurse', 'icu nurse',
+      'doctor', 'doctors', 'physician', 'hospital job', 'medical', 'paramedical',
+      'pharmacist', 'pharmacy', 'lab technician', 'phlebotomist', 'dietitian',
+      'dietician', 'yoga', 'ayurveda', 'physiotherapist'
+    ],
+    reply:
+      "🏥 **Healthcare & Medical Opportunities:**\n\nWe place qualified medical professionals in top hospital networks across the Netherlands, Germany, UK, Belgium, and the UAE:\n\n• **Registered & Specialist Nurses:** OT, ICU, Emergency, Pediatrics, Eldercare\n• **Doctors & Specialists:** General Practitioners, Internal Medicine, Anesthesiology\n• **Pharmacy & Laboratory:** Clinical Pharmacists, Lab Technologists, Phlebotomists\n• **Allied Health & Wellness:** Clinical Dietitians, Physiotherapists, Ayurveda & Yoga Specialists\n\n✅ Complete support with Dutch BIG / German Approbation / DHA licensing and 100% legal visa processing!",
+    actions: [
+      { label: '🏥 Healthcare Services', url: '/services/healthcare/doctors-physicians' },
+      { label: '📋 View Healthcare Vacancies', url: '/vacancies' },
+      { label: '📝 Apply Online', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'hospitality-general',
+    category: 'sectors',
+    priority: 90,
+    keywords: [
+      'hospitality', 'hotel', 'resort', 'chef', 'chefs', 'cook', 'sous chef',
+      'executive chef', 'front office', 'housekeeping', 'food and beverage',
+      'f&b', 'waiter', 'restaurant manager', 'culinary', 'catering', 'event management'
+    ],
+    reply:
+      "🏨 **Hospitality & Culinary Careers:**\n\nPartnering with 5-star hotel chains and luxury resort groups (Accor, Marriott, Hilton) across France, Netherlands, UAE, and Qatar:\n\n• **Kitchen & Culinary:** Executive Chefs, Sous Chefs, Pastry Specialists, Line Cooks (8,500 – 14,000 AED / €2,800 – €4,200)\n• **Front Office & Guest Services:** Reception Supervisors, Concierge, Night Auditors\n• **Housekeeping & Operations:** Floor Supervisors, Housekeeping Attendants\n• **F&B Service:** Banquet Captains, Bartenders, Restaurant Supervisors\n\n✨ Free duty meals, furnished staff housing, and flight tickets included!",
+    actions: [
+      { label: '🏨 Hospitality Services', url: '/services/hospitality/front-office' },
+      { label: '📋 Hospitality Vacancies', url: '/vacancies' },
+      { label: '📝 Apply for Hospitality', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'construction-general',
+    category: 'sectors',
+    priority: 90,
+    keywords: [
+      'construction', 'civil', 'structural', 'engineer', 'engineering',
+      'electrician', 'plumber', 'plumbing', 'hvac', 'welder', 'welding',
+      'pipefitter', 'carpenter', 'mason', 'site manager', 'site safety',
+      'infrastructure', 'mep'
+    ],
+    reply:
+      "🏗️ **Construction & Engineering Opportunities:**\n\nRecruiting for mega infrastructure, smart city, and commercial building projects across Europe, UAE, Saudi Arabia, and Qatar:\n\n• **Civil & Structural:** Site Engineers, Project Coordinators, CAD Draftsmen\n• **Electrical & MEP:** Master Electricians, MEP Coordinators, High-Voltage Techs\n• **Plumbing & HVAC:** Chiller Technicians, Industrial Pipefitters, HVAC Installers\n• **Skilled Finishing:** Certified 6G Welders, Formwork Carpenters, Finishing Masons\n• **HSE & Site Safety:** Certified Safety Officers and Quality Inspectors\n\nAll positions offer sponsored work visas, safety equipment, overtime pay, and lodging.",
+    actions: [
+      { label: '🏗️ Construction Services', url: '/services/construction/civil-structural' },
+      { label: '📋 Construction Vacancies', url: '/vacancies' },
+      { label: '📝 Submit Application', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'oil-and-gas-general',
+    category: 'sectors',
+    priority: 90,
+    keywords: [
+      'oil', 'gas', 'oil and gas', 'petroleum', 'rig', 'offshore', 'onshore',
+      'refinery', 'drilling', 'well operations', 'pipeline', 'hse officer',
+      'maintenance engineer', 'geology', 'exploration'
+    ],
+    reply:
+      "⛽ **Oil & Gas Industry Careers:**\n\nWe connect energy specialists with leading offshore rigs, refineries, and petrochemical corporations across the Middle East (UAE, Saudi Arabia, Qatar) and North Sea Europe:\n\n• **Exploration & Geology:** Petroleum Geologists, Reservoir Engineers\n• **Drilling & Well Operations:** Toolpushers, Derrickmen, Mud Engineers\n• **Production & Refining:** Process Operators, Plant Maintenance Engineers\n• **HSE & Safety:** Offshore Safety Officers, Environmental Compliance Leads\n\n💰 High tax-free compensation packages, 28/28 or 60/30 rotational shifts, and full offshore insurance.",
+    actions: [
+      { label: '⛽ Oil & Gas Services', url: '/services/oil-and-gas/exploration-geology' },
+      { label: '📋 Energy Vacancies', url: '/vacancies' },
+      { label: '📝 Apply Now', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'beauty-and-care-general',
+    category: 'sectors',
+    priority: 90,
+    keywords: [
+      'beauty', 'salon', 'spa', 'hair stylist', 'hairdresser', 'cosmetologist',
+      'skin aesthetician', 'aesthetics', 'nail artist', 'nail technician',
+      'massage therapist', 'wellness', 'makeup artist', 'bridal'
+    ],
+    reply:
+      "💅 **Beauty, Aesthetics & Wellness Careers:**\n\nPlacements in high-end luxury salons, aesthetic clinics, and 5-star spa resorts in Dubai, Amsterdam, Berlin, and London:\n\n• **Hair Styling & Color:** Senior Stylists, Color Masters, Hair Extension Specialists\n• **Skin Aesthetics & Laser:** Certified Aestheticians, Hydrafacial & Laser Techs\n• **Nail Art & Extensions:** Master Nail Techs, Russian Manicure Specialists\n• **Spa & Body Wellness:** Swedish/Thai Massage Therapists, Hydrotherapists\n• **Bridal & High Fashion Makeup:** Professional Makeup Artists\n\n✨ Generous service commissions, product incentives, and furnished accommodation!",
+    actions: [
+      { label: '💅 Beauty & Care Services', url: '/services/beauty-and-care/hair-styling' },
+      { label: '📋 Beauty Vacancies', url: '/vacancies' },
+      { label: '📝 Apply Online', url: '/apply' },
+    ],
+  },
+
+  // =========================================================================
+  // 3. FREE LANGUAGE TRAINING (DUTCH & GERMAN)
+  // =========================================================================
+  {
+    id: 'language-training',
+    category: 'training',
+    priority: 88,
+    keywords: [
+      'training', 'language', 'dutch language', 'german language', 'learn dutch',
+      'learn german', 'b1', 'b2', 'a1', 'a2', 'dutch course', 'german course',
+      'classes', 'free training', 'is training free', 'training cost',
+      'language institute', 'training duration', 'online training'
+    ],
+    reply:
+      "🎓 **100% Free Language Training Program (Dutch & German)**\n\nTo ensure our candidates succeed abroad, Dais World provides complete, structured language training **100% FREE OF COST** for selected candidates!\n\n**Program Highlights:**\n• **Languages:** Dutch (B1 level) & German (B1 / B2 level)\n• **Duration:** 4 to 6 Months (Fast-track intensive batches)\n• **Trainers:** Certified Native & Expert Linguistic Instructors\n• **Curriculum:** Conversational Fluency + Medical / Professional Terminology\n• **Format:** Interactive Live Online Classes + Daily Speaking Practice & Mock Tests\n• **Exam Fee Support:** Complete guidance for official Dutch CNaVT / German Goethe & TELC examinations.\n\n*Note: Training is sponsored by our healthcare & employer partners for all enrolled candidates!*",
+    actions: [
+      { label: '📝 Apply for Free Training Batch', url: '/apply' },
+      { label: '🇳🇱 View Netherlands Vacancies', url: '/vacancies' },
+      { label: '📞 Speak With Trainer / Counselor', url: '/contact' },
+    ],
+  },
+
+  // =========================================================================
+  // 4. SALARY & COMPENSATION
+  // =========================================================================
+  {
+    id: 'salary-earnings',
+    category: 'salary',
+    priority: 85,
+    keywords: [
+      'salary', 'salaries', 'pay', 'income', 'earning', 'earnings', 'package',
+      'kitna milega', 'salary kitni', 'paisa', 'wage', 'wages', 'per month',
+      'euro', 'aed', 'sar', 'inr', 'rupees', 'compensation', 'benefits'
+    ],
+    reply:
+      "💰 **International Salary Packages by Country:**\n\n• 🇳🇱 **Netherlands:** €3,200 – €5,500 / month (₹2,85,000 – ₹5,00,000/mo)\n• 🇩🇪 **Germany:** €3,000 – €4,800 / month (₹2,65,000 – ₹4,25,000/mo)\n• 🇧🇪 **Belgium & Nordics:** €3,100 – €5,200 / month (₹2,75,000 – ₹4,60,000/mo)\n• 🇦🇪 **UAE (Dubai / Abu Dhabi):** 8,000 – 18,000 AED / month (100% Tax-Free)\n• 🇸🇦 **Saudi Arabia & Gulf:** 7,500 – 16,000 SAR / month (100% Tax-Free)\n\n🎁 **Standard Benefits Included:**\n• Overtime pay (125% - 150% rate)\n• Complete Medical & Healthcare Insurance\n• 25–30 Days Paid Annual Vacation + Return Flight Allowance\n• Government Pension & Social Security Contributions",
+    actions: [
+      { label: '📋 Check Vacancy Salaries', url: '/vacancies' },
+      { label: '📝 Apply for High-Pay Roles', url: '/apply' },
+      { label: '🌍 Explore Country Details', url: '/country' },
+    ],
+  },
+
+  // =========================================================================
+  // 5. COUNTRIES & DESTINATIONS
+  // =========================================================================
+  {
+    id: 'countries-destinations',
+    category: 'countries',
+    priority: 82,
+    keywords: [
+      'country', 'countries', 'where', 'destinations', 'abroad', 'overseas',
+      'konse country', 'kon si country', 'europe', 'middle east', 'gulf',
+      'netherlands', 'germany', 'belgium', 'dubai', 'uae', 'saudi', 'qatar',
+      'kuwait', 'oman', 'uk', 'ireland', 'australia', 'switzerland', 'norway'
+    ],
+    reply:
+      "🌍 **Global Destinations Where We Place Candidates:**\n\n🇪🇺 **Western & Northern Europe:**\n• **Netherlands:** Top destination for Nurses, Caregivers, Healthcare & Tech (High quality of life, PR pathway)\n• **Germany:** Great for Registered Nurses, Doctors, Engineers, and Technicians\n• **Belgium, Switzerland, UK, Ireland, Norway, Sweden & Finland**\n\n🇦🇪 **Middle East & Gulf (100% Tax-Free Income):**\n• **UAE (Dubai / Abu Dhabi), Saudi Arabia, Qatar, Kuwait, Oman, Bahrain**\n*(Fast 3-6 week visa processing, furnished housing & air tickets)*\n\n🇦🇺 **Australia & New Zealand:** Skilled migration & healthcare positions.",
+    actions: [
+      { label: '🌍 View All Countries', url: '/country' },
+      { label: '🇳🇱 Netherlands Profile', url: '/country/netherlands' },
+      { label: '🇩🇪 Germany Profile', url: '/country/germany' },
+      { label: '📋 View All Vacancies', url: '/vacancies' },
+    ],
+  },
+
+  // =========================================================================
+  // 6. ELIGIBILITY, DOCUMENTS & HOW TO APPLY
+  // =========================================================================
+  {
+    id: 'eligibility-documents',
+    category: 'process',
+    priority: 80,
+    keywords: [
+      'eligible', 'eligibility', 'qualification', 'qualifications', 'degree',
+      'diploma', 'bsc', 'gnm', 'anm', 'experience', 'fresher', 'freshers',
+      'age limit', 'age', 'criteria', 'kya chahiye', 'document', 'documents',
+      'passport', 'requirements'
+    ],
+    reply:
+      "📋 **Eligibility & Required Documents:**\n\n1️⃣ **Qualifications:**\n• Healthcare: B.Sc Nursing, GNM, ANM, MBBS, MD, B.Pharm, DMLT, or Caregiving Certificate\n• Hospitality: Degree/Diploma in Hotel Management or culinary experience\n• Engineering & Trades: B.Tech, Diploma, ITI, or certified trade experience\n\n2️⃣ **Experience:**\n• 0 to 5+ years (Freshers eligible for select training-and-placement drives!)\n\n3️⃣ **Essential Documents Needed:**\n• Valid International Passport (min 1-year validity)\n• Updated Resume / CV\n• Educational Degree / Marksheets\n• Nursing / Professional Registration Certificate (if applicable)\n• Experience Letters / Work Certificates\n• Passport-size Photographs",
+    actions: [
+      { label: '📝 Submit Your Application', url: '/apply' },
+      { label: '📋 Browse Job Openings', url: '/vacancies' },
+      { label: '📞 Free Profile Assessment', url: '/contact' },
+    ],
+  },
+
+  {
+    id: 'how-to-apply',
+    category: 'process',
+    priority: 85,
+    keywords: [
+      'apply', 'application', 'apply now', 'register', 'registration', 'sign up',
+      'form', 'resume', 'cv', 'kaise apply', 'where to apply', 'upload resume',
+      'job apply', 'apply kaise kare', 'process kya hai', 'steps'
+    ],
+    reply:
+      "📝 **How to Apply in 4 Simple Steps:**\n\n1️⃣ **Step 1 - Online Application:** Click the 'Apply Now' button and fill in your basic details.\n2️⃣ **Step 2 - Upload Resume:** Attach your updated CV / Resume and select your preferred role & country.\n3️⃣ **Step 3 - Free Profile Assessment:** Our senior recruitment counselor will contact you within 24–48 hours to assess eligibility.\n4️⃣ **Step 4 - Training & Visa:** Start free language training (if Europe) or proceed directly to employer interview and visa filing!",
+    actions: [
+      { label: '📝 Fill Online Application', url: '/apply' },
+      { label: '📋 View All Vacancies', url: '/vacancies' },
+      { label: '📞 Request Counselor Callback', url: '/contact' },
+    ],
+  },
+
+  {
+    id: 'visa-process',
+    category: 'process',
+    priority: 80,
+    keywords: [
+      'visa', 'work permit', 'mvv', 'immigration', 'embassy', 'attestation',
+      'apostille', 'permit', 'sponsorship', 'residence permit', 'pr',
+      'permanent residency', 'timeline', 'kitna time lagta hai'
+    ],
+    reply:
+      "🛂 **100% Legal Visa & Immigration Process:**\n\n• Dais World handles the complete end-to-end legal visa processing:\n1. **Employer Sponsorship Verification** (Guaranteed legitimate contract)\n2. **Apostille & Document Attestation** (HRD, MEA & Embassy)\n3. **Licensing Equivalency** (BIG / DHA / Approbation)\n4. **Work Permit & MVV Filing**\n5. **Flight Booking & Airport Reception**\n\n⏱️ **Timeline:** Europe takes ~5–7 months (including language training), and Gulf takes ~3–6 weeks!",
+    actions: [
+      { label: '📝 Start Visa Assessment', url: '/apply' },
+      { label: '🏢 About Our Company', url: '/about' },
+      { label: '📞 Contact Support', url: '/contact' },
+    ],
+  },
+
+  // =========================================================================
+  // 7. ABOUT DAIS WORLD & CREDIBILITY
+  // =========================================================================
+  {
+    id: 'about-daisworld',
+    category: 'about',
+    priority: 80,
+    keywords: [
       'about dais world', 'who are you', 'what is dais world', 'company',
       'knooviq', 'dais world', 'founder', 'office', 'where are you located',
       'address', 'mumbai office', 'malad', 'location', 'genuine', 'trust',
-      'fraud', 'real', 'reviews'
+      'fraud', 'real', 'reviews', 'experience', 'track record'
     ],
     reply:
-      "🏢 Dais World Endeavor Private Limited is a premier international recruitment, corporate housing, and overseas career consultancy headquartered in Mumbai, India.\n\n📍 Office: 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra.\n\n✅ 500+ successful overseas placements across Europe & Middle East with 100% legal visa compliance and structured candidate support.",
+      "🏢 **About Dais World Endeavor Private Limited**\n\nWe are a premier international recruitment, corporate housing, and overseas career consultancy headquartered in Mumbai, India.\n\n✅ **Key Facts:**\n• **500+ Successful Placements** across Europe and the Middle East\n• **100% Legal & Government-Compliant** visa sponsorships\n• **Free Language Training Infrastructure** for healthcare and technical personnel\n• **Turnkey Corporate Housing** for international employers\n\n📍 **Headquarters:**\n1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra, India.\n\n📞 Phone / WhatsApp: **+91 8976697001** | Email: **info@daisworld.com**",
+    actions: [
+      { label: '🏢 About Us Page', url: '/about' },
+      { label: '🤝 Client & Partner Network', url: '/clients' },
+      { label: '📞 Visit / Contact Us', url: '/contact' },
+    ],
   },
 
-  // 3. SALARY, EARNINGS & COMPENSATION
+  // =========================================================================
+  // 8. CONTACT, HELPLINE & WHATSAPP
+  // =========================================================================
   {
-    match: [
-      'salary', 'salaries', 'pay', 'income', 'earning', 'earnings', 'package',
-      'kitna milega', 'salary kitni', 'paisa', 'wage', 'wages', 'per month',
-      'euro', 'aed', 'sar', 'dinar', 'stipend'
-    ],
-    reply:
-      "💰 International Salary Ranges:\n\n• 🇳🇱 Netherlands: €3,200 – €5,200 / month (₹2.8L – ₹4.6L)\n• 🇩🇪 Germany: €3,000 – €4,800 / month (₹2.6L – ₹4.2L)\n• 🇧🇪 Belgium & Nordics: €3,100 – €5,500 / month\n• 🇦🇪 UAE / Middle East: 8,000 – 18,000 AED / month (Tax-Free)\n\n🎁 Plus benefits: Overtime pay, healthcare insurance, paid annual leave, and pension contributions.",
-  },
-
-  // 4. PRICING, FEES & CHARGES
-  {
-    match: [
-      'price', 'pricing', 'cost', 'fees', 'fee', 'charge', 'charges',
-      'expenses', 'kharcha', 'kitna paisa', 'free hai kya', 'is it free',
-      'payment', 'registration fee'
-    ],
-    reply:
-      "✨ Transparent & Candidate-Friendly Policy:\n\n• 🎓 Language training (Dutch / German B1-B2) is provided 100% FREE for selected candidates.\n• ✈️ Full visa filing, embassy attestation, and employer sponsorship support are included.\n• 💼 No hidden costs. Check our Services page or contact our counselors for complete transparent breakdown for your specific destination.",
-  },
-
-  // 5. COUNTRIES & DESTINATIONS
-  {
-    match: [
-      'country', 'countries', 'where', 'destinations', 'abroad', 'overseas',
-      'konse country', 'kon si country', 'europe', 'middle east', 'gulf'
-    ],
-    reply:
-      "🌍 We actively place professionals across 10+ global destinations:\n\n🇪🇺 Europe: Netherlands, Germany, Belgium, Norway, Denmark, Sweden, Finland, Switzerland, Poland, Ireland\n🇦🇪 Middle East: UAE (Dubai/Abu Dhabi), Saudi Arabia, Qatar, Kuwait, Oman, Bahrain\n\nTap on the 'Countries' tab in the menu to explore job roles and salaries for each country!",
-  },
-
-  // 6. SPECIFIC COUNTRIES: NETHERLANDS, GERMANY, UAE, SAUDI
-  {
-    match: ['netherlands', 'holland', 'dutch', 'amsterdam', 'rotterdam'],
-    reply:
-      "🇳🇱 Netherlands Opportunities:\n• Positions: Registered Nurses, ICU/OT Specialists, Healthcare Assistants, Hospitality Staff\n• Salary: €3,200 – €5,200/month\n• Language: Dutch (Free 4-6 months B1 training provided by Dais World!)\n• High quality of life, 36-hour work week & PR pathway.",
-  },
-  {
-    match: ['germany', 'german', 'berlin', 'munich', 'frankfurt', 'deutschland'],
-    reply:
-      "🇩🇪 Germany Opportunities:\n• Positions: Nurses (Pflegefachkraft), Doctors, Engineers, Technicians\n• Salary: €3,000 – €4,800/month\n• Language: German B1/B2 level (Training support provided)\n• Permanent Residency (PR) eligibility after 3 years.",
-  },
-  {
-    match: ['uae', 'dubai', 'abu dhabi', 'saudi', 'arabia', 'qatar', 'kuwait', 'oman', 'bahrain', 'gulf'],
-    reply:
-      "🇦🇪 Middle East / Gulf Opportunities:\n• Positions: Healthcare, 5-Star Hospitality, Construction, Oil & Gas Engineers, Beauty & Wellness\n• Salary: 8,000 – 18,000 AED/SAR (100% Tax-Free)\n• Fast visa turnaround (3-6 weeks) with furnished accommodation & air tickets.",
-  },
-
-  // 7. HEALTHCARE & NURSING ROLES
-  {
-    match: [
-      'nurse', 'nursing', 'nurses', 'registered nurse', 'ot nurse', 'icu nurse',
-      'staff nurse', 'doctor', 'doctors', 'physician', 'dietitian', 'dietician',
-      'phlebotomist', 'phlebotomy', 'yoga', 'ayurveda', 'hospital', 'healthcare',
-      'medical', 'paramedical', 'care assistant'
-    ],
-    reply:
-      "🏥 Healthcare Opportunities We Offer:\n\n• Registered Nurses (BSc / GNM / Post-BSc)\n• ICU & OT Specialist Nurses\n• Doctors & Medical Specialists\n• Certified Dietitians & Clinical Nutritionists\n• Phlebotomists & Lab Technicians\n• Yoga & Ayurveda Wellness Practitioners\n• Healthcare Assistants (HCAs)\n\nWe provide complete registration, license verification (BIG / Approbation / DHA), and hospital placements.",
-  },
-
-  // 8. HOSPITALITY, CONSTRUCTION, OIL & GAS, BEAUTY
-  {
-    match: [
-      'hotel', 'hospitality', 'chef', 'chefs', 'cook', 'waiter', 'front desk',
-      'housekeeping', 'restaurant', 'food and beverage', 'f&b'
-    ],
-    reply:
-      "🏨 Hospitality Careers:\nWe recruit for luxury 5-star hotel chains, international resorts, and fine dining groups across Europe & Middle East for Executive Chefs, F&B Managers, Front Office, Housekeeping, and Culinary Specialists with accommodation included.",
-  },
-  {
-    match: [
-      'construction', 'engineer', 'engineering', 'civil', 'electrician',
-      'plumber', 'welder', 'welding', 'pipefitter', 'carpenter', 'mason',
-      'infrastructure', 'site engineer'
-    ],
-    reply:
-      "🏗️ Construction & Engineering Careers:\nWe place Civil Engineers, MEP Technicians, Certified Welders, Master Electricians, and Heavy Machinery Operators in major infrastructure projects with high safety standards and visa sponsorship.",
-  },
-  {
-    match: [
-      'oil', 'gas', 'petroleum', 'rig', 'refinery', 'drilling', 'offshore',
-      'safety officer', 'hse', 'pipeline'
-    ],
-    reply:
-      "⛽ Oil & Gas Industry Careers:\nWe place Petroleum Engineers, Offshore Technicians, Pipeline Welders, HSE Safety Officers, and Maintenance Specialists in premier energy corporations across Middle East and Europe.",
-  },
-  {
-    match: [
-      'beauty', 'care', 'salon', 'spa', 'hair stylist', 'cosmetologist',
-      'beautician', 'nail artist', 'massage therapist', 'wellness'
-    ],
-    reply:
-      "💅 Beauty & Wellness Careers:\nOpportunities for Licensed Cosmetologists, Hair Stylists, Spa Therapists, Aesthetic Specialists, and Nail Technicians in luxury wellness centers and high-end salon brands.",
-  },
-
-  // 9. CORPORATE HOUSING & B2B
-  {
-    match: [
-      'housing', 'corporate housing', 'accommodation', 'b2b', 'partnership',
-      'employer', 'client', 'hire workforce', 'staffing solution', 'business housing'
-    ],
-    reply:
-      "🏢 Corporate Housing & B2B Employer Partnerships:\nWe offer turnkey employee housing, municipal lease management, and high-volume workforce staffing for international hospital networks, hotel conglomerates, and infrastructure builders. Visit the 'Partners / B2B' page to submit a corporate proposal.",
-  },
-
-  // 10. LANGUAGE TRAINING (DUTCH / GERMAN)
-  {
-    match: [
-      'language', 'dutch training', 'german training', 'learn dutch', 'course',
-      'training', 'b1', 'b2', 'classes', 'online class', 'batch', 'duration'
-    ],
-    reply:
-      "🎓 Language Training Program:\n\n• Dutch (B1 level) & German (B1/B2 level)\n• Duration: 4–6 months (Structured daily classes + medical vocabulary)\n• Certified Native & Expert Trainers\n• Small batch sizes with 100% exam preparation\n• FREE of cost for selected candidates!",
-  },
-
-  // 11. ELIGIBILITY & REQUIREMENTS
-  {
-    match: [
-      'eligible', 'eligibility', 'qualification', 'qualifications', 'degree',
-      'diploma', 'bsc', 'gnm', 'experience', 'fresher', 'freshers', 'age limit',
-      'age', 'criteria', 'kya chahiye', 'document', 'documents', 'passport'
-    ],
-    reply:
-      "📋 General Eligibility Requirements:\n\n1. Qualification: Relevant Degree or Diploma (e.g. BSc Nursing, GNM, Engineering, Hospitality)\n2. Experience: 0 to 2+ years (Freshers are also eligible for select training & placement tracks!)\n3. Passport: Valid international passport\n4. Language: Willingness to complete language training (Dutch/German if applying for Europe)\n5. Age: Generally 20 – 45 years.",
-  },
-
-  // 12. VISA & IMMIGRATION PROCESS
-  {
-    match: [
-      'visa', 'work permit', 'mvv', 'immigration', 'embassy', 'attestation',
-      'apostille', 'permit', 'sponsorship', 'residence permit'
-    ],
-    reply:
-      "🛂 100% Legal Visa & Work Permit Support:\n\n• Dais World handles the complete end-to-end visa paperwork:\n• Employer sponsorship verification\n• Document attestation & Apostille\n• Embassy appointment & interview guidance\n• MVV / Single Permit processing\n• Relocation & airport reception support.",
-  },
-
-  // 13. TIMELINE / DURATION
-  {
-    match: [
-      'timeline', 'how long', 'how much time', 'kitna time', 'kitne din',
-      'process time', 'duration', 'when will i go', 'joining'
-    ],
-    reply:
-      "⏱️ Placement Timeline:\n\n• Screening & Selection: 1 – 2 Weeks\n• Language Training (Europe): 4 – 6 Months\n• Licensing & Document Verification: Parallel with training\n• Visa Processing & Work Permit: 4 – 8 Weeks\n• Departure & Joining: Total 5 – 7 months from application to landing abroad!",
-  },
-
-  // 14. HOW TO APPLY & RESUME
-  {
-    match: [
-      'apply', 'application', 'apply now', 'register', 'sign up', 'form',
-      'resume', 'cv', 'kaise apply', 'where to apply', 'upload'
-    ],
-    reply:
-      "📝 How to Apply:\n\n1. Click the 'Apply Now' button on our website.\n2. Fill in your basic details (Name, Contact, Profession & Desired Country).\n3. Upload your Resume / CV (PDF, DOC, DOCX).\n4. Our senior recruitment counselor will contact you within 24–48 hours for a free profile assessment!",
-  },
-
-  // 15. CONTACT, PHONE, EMAIL, WHATSAPP
-  {
-    match: [
+    id: 'contact-details',
+    category: 'contact',
+    priority: 85,
+    keywords: [
       'contact', 'email', 'phone', 'call', 'number', 'mobile', 'reach',
-      'support', 'whatsapp', 'helpline', ' baat karni hai', 'contact number'
+      'support', 'whatsapp', 'helpline', 'baat karni hai', 'contact number',
+      'phone number', 'address', 'office location', 'counselor number'
     ],
     reply:
-      "📞 Connect With Us Directly:\n\n• Phone: 8976697001\n• WhatsApp: +91 8976697001\n• Email: info@daisworld.com / aditya.s@daisworld.com\n• Hours: Monday – Saturday (11:00 AM – 8:00 PM IST)\n• Address: 1210, One World by Sanjar, Malad West, Mumbai, India.\n\nFeel free to call or WhatsApp us anytime!",
+      "📞 **Connect With Dais World Team:**\n\n• **Phone Helpline:** +91 8976697001\n• **WhatsApp Support:** +91 8976697001\n• **Email:** info@daisworld.com / aditya.s@daisworld.com\n• **Working Hours:** Monday – Saturday (11:00 AM – 8:00 PM IST)\n• **Headquarters Address:** 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra, India.\n\nFeel free to call or WhatsApp us anytime for immediate counselor guidance!",
+    actions: [
+      { label: '💬 Chat on WhatsApp', url: 'https://wa.me/918976697001?text=Hello%20Dais%20World%2C%20I%20have%20an%20inquiry%20regarding%20overseas%20careers', isExternal: true },
+      { label: '📞 Go to Contact Page', url: '/contact' },
+      { label: '📝 Apply Now', url: '/apply' },
+    ],
   },
 
-  // 16. GRATITUDE & THANKS
+  // =========================================================================
+  // 9. GREETINGS & CASUAL
+  // =========================================================================
   {
-    match: [
+    id: 'greetings',
+    category: 'greetings',
+    priority: 50,
+    keywords: [
+      'hello', 'hi', 'hey', 'namaste', 'namaskar', 'halo', 'hola', 'hie',
+      'good morning', 'good afternoon', 'good evening', 'kaise ho', 'kaisa hai',
+      'whats up', 'whatsup', 'sup', 'yo', 'greeting'
+    ],
+    reply:
+      "Hello! 😊 Welcome to Dais World.\n\nHow can I help you today? You can ask me about our **Job Vacancies**, **Partnership Opportunities**, **Language Training**, or **How to Apply**!",
+    actions: [
+      { label: '💼 Active Vacancies', query: 'What vacancies are available right now?' },
+      { label: '🤝 Become a Partner', query: 'I want to become a partner with Dais World' },
+      { label: '🎓 Free Training', query: 'How does the free Dutch/German training work?' },
+      { label: '📝 How to Apply', query: 'How do I apply for jobs?' },
+    ],
+  },
+
+  // =========================================================================
+  // 10. GRATITUDE & THANKS
+  // =========================================================================
+  {
+    id: 'gratitude',
+    category: 'gratitude',
+    priority: 50,
+    keywords: [
       'thank', 'thanks', 'thank you', 'dhanyawad', 'shukriya', 'great',
       'awesome', 'perfect', 'helpful', 'good', 'nice', 'ok', 'okay', 'theek hai'
     ],
     reply:
-      "You're most welcome! 😊 It is our pleasure to guide you. If you have any more questions, feel free to ask anytime. Whenever you're ready, click 'Apply Now' to begin your overseas journey!",
-  },
-
-  // 17. GOODBYE & FAREWELL
-  {
-    match: ['bye', 'goodbye', 'see you', 'later', 'alvida', 'tata', 'good night'],
-    reply:
-      "Goodbye! 👋 Have a wonderful day ahead. Whenever you are ready to take your career global, Dais World is here to support you every step of the way. Click 'Apply Now' anytime!",
+      "You are most welcome! 😊 It is our pleasure to guide you. If you have any more questions about jobs, partnerships, or visas, feel free to ask anytime. Whenever you're ready, take the first step towards your international career!",
+    actions: [
+      { label: '📝 Apply Now', url: '/apply' },
+      { label: '📋 View Vacancies', url: '/vacancies' },
+      { label: '🤝 Partner With Us', url: '/clients' },
+    ],
   },
 ];
 
-// Fallback response for out-of-box / unknown queries
-const FALLBACK_REPLY =
-  "I apologize, I might not have the exact information for that specific query right now! 🙏\n\nI am specially trained to assist you with:\n• 🏥 International Job Vacancies (Healthcare, Hospitality, Construction, Oil & Gas)\n• ✈️ Free Language Training, Visa & Relocation Support\n• 💰 Salary Packages & Country Requirements\n• 🏢 Corporate Housing & Employer Partnerships\n\n📞 For personalized guidance, you can speak directly with our expert team at 8976697001 or email info@daisworld.com.\n\nOr click 'Apply Now' to submit your profile for a free consultation!";
+// Fallback message for out-of-box / irrelevant questions
+const OUT_OF_BOX_REPLY =
+  "I apologize! 🙏 I am an AI assistant specifically dedicated to **Dais World** and our overseas career, recruitment, and corporate partnership services.\n\nI cannot answer general or unrelated questions. Please feel free to ask me anything regarding our website offerings:\n\n• 💼 **Active Job Vacancies** (Healthcare, Hospitality, Construction, Oil & Gas, Beauty)\n• 🤝 **Becoming a Partner / B2B Solutions** (Staffing, Corporate Housing, Academic Tie-ups)\n• 🌍 **Global Destinations** (Netherlands, Germany, UAE, Saudi, Europe) & Salaries\n• 🎓 **100% Free Dutch & German Language Training**\n• ✈️ **Visa, Process & How to Apply**\n• 🏢 **About Dais World & Contact Helpline**\n\nHow may I help you with our website or overseas services today?";
 
-function getBotReply(input: string): string {
+const OUT_OF_BOX_ACTIONS: ChatAction[] = [
+  { label: '💼 View Vacancies', url: '/vacancies' },
+  { label: '🤝 Partner With Us', url: '/clients' },
+  { label: '🎓 Free Language Training', query: 'How does the free Dutch/German training work?' },
+  { label: '📝 Apply Now', url: '/apply' },
+  { label: '📞 Contact Counselors', url: '/contact' },
+];
+
+// Match engine with intelligent score calculation & out-of-box filter
+function getBotResponse(input: string): { reply: string; actions?: ChatAction[] } {
   const clean = input
     .toLowerCase()
     .replace(/[^\w\s]/gi, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 
   if (!clean) {
-    return "Hi there! How can I help you today? Feel free to ask about our global jobs, countries, salaries, or application process.";
+    return {
+      reply: "Hi there! 👋 How can I assist you with Dais World today? Feel free to ask about our active vacancies, partnership opportunities, free training, or application process.",
+    };
   }
 
-  // Find matching rule with highest keyword specificity
-  for (const rule of RULES) {
-    if (rule.match.some((kw) => clean.includes(kw))) {
-      return rule.reply;
+  // Tokenize user input
+  const words = clean.split(' ').filter(Boolean);
+
+  let bestRule: KnowledgeRule | null = null;
+  let highestScore = 0;
+
+  for (const rule of KNOWLEDGE_RULES) {
+    let score = 0;
+
+    for (const kw of rule.keywords) {
+      const kwClean = kw.toLowerCase().trim();
+
+      // Multi-word phrase exact match (highest weight)
+      if (kwClean.includes(' ') && clean.includes(kwClean)) {
+        score += 30;
+      }
+      // Single word exact match
+      else if (words.includes(kwClean)) {
+        score += 10;
+      }
+      // Substring match for longer words
+      else if (kwClean.length > 3 && clean.includes(kwClean)) {
+        score += 5;
+      }
+    }
+
+    // Multiply by priority factor
+    const totalScore = score * (rule.priority / 50);
+
+    if (totalScore > highestScore && score >= 5) {
+      highestScore = totalScore;
+      bestRule = rule;
     }
   }
 
-  return FALLBACK_REPLY;
+  if (bestRule) {
+    return {
+      reply: bestRule.reply,
+      actions: bestRule.actions,
+    };
+  }
+
+  // If score is 0 or query is unrelated -> Out of box polite apology
+  return {
+    reply: OUT_OF_BOX_REPLY,
+    actions: OUT_OF_BOX_ACTIONS,
+  };
 }
 
 function loadHistory(): Message[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-
     if (raw) {
       const parsed = JSON.parse(raw) as Message[];
-
       if (Array.isArray(parsed) && parsed.length > 0) {
         return parsed;
       }
@@ -300,15 +527,13 @@ export default function ChatbotWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const idRef = useRef(1);
+  const navigate = useNavigate();
 
-  // Fixed chatbot position
   const MARGIN = 20;
 
   useEffect(() => {
     const history = loadHistory();
-
     setMessages(history);
-
     idRef.current =
       history.length > 0
         ? Math.max(...history.map((m) => m.id)) + 1
@@ -330,7 +555,6 @@ export default function ChatbotWidget() {
     if (open) {
       scrollToBottom();
       setUnread(false);
-
       setTimeout(() => {
         inputRef.current?.focus();
       }, 300);
@@ -343,7 +567,7 @@ export default function ChatbotWidget() {
     if (open) {
       scrollToBottom();
     }
-  }, [messages, open, scrollToBottom]);
+  }, [messages, typing, open, scrollToBottom]);
 
   const persist = (msgs: Message[]) => {
     try {
@@ -355,7 +579,6 @@ export default function ChatbotWidget() {
 
   const sendUserMessage = (text: string) => {
     const trimmed = text.trim();
-
     if (!trimmed) return;
 
     const userMsg: Message = {
@@ -366,26 +589,24 @@ export default function ChatbotWidget() {
     };
 
     const next = [...messages, userMsg];
-
     setMessages(next);
     persist(next);
     setInput('');
-
     setTyping(true);
 
-    const reply = getBotReply(trimmed);
-    const delay = 600 + Math.min(reply.length * 12, 1200);
+    const botResponse = getBotResponse(trimmed);
+    const delay = 450 + Math.min(botResponse.reply.length * 5, 850);
 
     setTimeout(() => {
       const botMsg: Message = {
         id: idRef.current++,
         sender: 'bot',
-        text: reply,
+        text: botResponse.reply,
         time: Date.now(),
+        actions: botResponse.actions,
       };
 
       const updated = [...next, botMsg];
-
       setMessages(updated);
       persist(updated);
       setTyping(false);
@@ -395,6 +616,17 @@ export default function ChatbotWidget() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sendUserMessage(input);
+  };
+
+  const handleActionClick = (action: ChatAction) => {
+    if (action.isExternal && action.url) {
+      window.open(action.url, '_blank', 'noopener,noreferrer');
+    } else if (action.url) {
+      navigate(action.url);
+      setOpen(false);
+    } else if (action.query) {
+      sendUserMessage(action.query);
+    }
   };
 
   const handleQuickReply = (text: string) => {
@@ -408,13 +640,11 @@ export default function ChatbotWidget() {
         time: Date.now(),
       },
     ];
-
     setMessages(fresh);
     persist(fresh);
     idRef.current = 1;
   };
 
-  // Fixed button position
   const btnStyle: React.CSSProperties = {
     position: 'fixed',
     bottom: `${MARGIN}px`,
@@ -424,345 +654,156 @@ export default function ChatbotWidget() {
   return (
     <>
       {/* =====================================
-          FIXED CHATBOT BUTTON
+          FIXED CHATBOT FLOATING BUTTON
           ===================================== */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
-        title={open ? 'Close chat' : 'Open chat'}
+        aria-label={open ? 'Close chat' : 'Open Dais World AI Assistant'}
+        title={open ? 'Close chat' : 'Dais World AI Assistant'}
         style={btnStyle}
-        className={`fixed z-[90]
-          w-14 h-14
-          rounded-full
-          shadow-2xl
-          transition-[background,transform]
-          duration-300
-          flex items-center justify-center
-          ${open
-            ? 'bg-slate-700 scale-90'
-            : 'bg-gradient-to-br from-blue-600 to-cyan-500 hover:scale-110 animate-pulse-ring'
-          }`}
+        className={`fixed z-[90] w-14 h-14 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
+          open
+            ? 'bg-slate-800 text-white scale-95 hover:bg-slate-700'
+            : 'bg-gradient-to-tr from-blue-600 via-cyan-500 to-teal-400 text-white hover:scale-110 shadow-blue-500/30 animate-pulse-ring'
+        }`}
       >
         {open ? (
           <X size={24} color="white" />
         ) : (
-          <MessageCircle size={24} color="white" />
+          <MessageCircle size={26} color="white" />
         )}
 
         {unread && !open && (
-          <span className="absolute top-1 right-1 bg-red-500 text-white text-xs px-1 rounded-full">
-            !
+          <span className="absolute -top-1 -right-1 flex h-4 w-4">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-white text-[10px] font-bold items-center justify-center">
+              1
+            </span>
           </span>
         )}
       </button>
 
       {/* =====================================
-          FIXED SIZE CHAT WINDOW
-      {/* =====================================
-          FIXED SIZE CHAT WINDOW
+          CHATBOT DIALOG WINDOW
           ===================================== */}
       {open && (
         <div
-          className="
-            fixed
-            z-[90]
-            left-3
-            right-3
-            bottom-[72px]
-
-            sm:left-auto
-            sm:right-5
-            sm:bottom-24
-            sm:w-[384px]
-
-            animate-fadeInUp
-          "
+          className="fixed z-[90] left-3 right-3 bottom-[80px] sm:left-auto sm:right-5 sm:bottom-24 sm:w-[410px] animate-fadeInUp"
           style={{
             maxWidth: '100%',
-            height: 'min(520px, calc(100dvh - 90px))',
+            height: 'min(580px, calc(100dvh - 100px))',
           }}
         >
-          <div
-            className="
-              bg-white
-              rounded-3xl
-              shadow-2xl
-              overflow-hidden
-              flex
-              flex-col
-              w-full
-              h-full
-            "
-          >
-            {/* =====================================
-                HEADER
-                ===================================== */}
-            <div
-              className="
-                relative
-                bg-gradient-to-br
-                from-blue-600
-                to-cyan-500
-                px-4
-                sm:px-5
-                py-3
-                sm:py-4
-                flex
-                items-center
-                justify-between
-                flex-shrink-0
-              "
-            >
-              <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden flex flex-col w-full h-full backdrop-blur-md">
+            {/* Header */}
+            <div className="relative bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between flex-shrink-0 text-white shadow-md">
+              <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div
-                    className="
-                      w-9 h-9
-                      sm:w-11 sm:h-11
-                      bg-white/20
-                      rounded-full
-                      flex
-                      items-center
-                      justify-center
-                      backdrop-blur-sm
-                    "
-                  >
-                    <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <div className="w-10 h-10 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+                    <Bot className="w-5 h-5 text-white" />
                   </div>
-
-                  <span
-                    className="
-                      absolute
-                      bottom-0.5
-                      right-0.5
-                      w-2.5 h-2.5
-                      sm:w-3 sm:h-3
-                      bg-emerald-400
-                      rounded-full
-                      border-2
-                      border-blue-600
-                    "
-                  />
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-blue-700" />
                 </div>
 
                 <div>
-                  <p className="text-white font-black text-xs sm:text-sm">
-                    DAIS WORLD Assistant
-                  </p>
-
-                  <p className="text-white/70 text-[10px] sm:text-xs flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-                    Online · Replies instantly
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-white font-extrabold text-sm sm:text-base tracking-wide">
+                      DAIS WORLD AI
+                    </p>
+                    <span className="text-[10px] bg-cyan-400/20 text-cyan-200 border border-cyan-300/30 px-1.5 py-0.5 rounded-full font-semibold">
+                      Assistant
+                    </span>
+                  </div>
+                  <p className="text-white/80 text-[11px] flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                    Online · Vacancies & Partnership Expert
                   </p>
                 </div>
               </div>
 
-              <button
-                onClick={clearChat}
-                aria-label="Clear chat"
-                title="Clear chat"
-                className="
-                  w-8 h-8
-                  sm:w-9 sm:h-9
-                  bg-white/10
-                  hover:bg-white/20
-                  rounded-full
-                  flex
-                  items-center
-                  justify-center
-                  transition-colors
-                  flex-shrink-0
-                "
-              >
-                <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={clearChat}
+                  aria-label="Clear chat"
+                  title="Clear conversation"
+                  className="w-8 h-8 bg-white/10 hover:bg-white/25 rounded-full flex items-center justify-center transition-colors text-white"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close"
+                  className="w-8 h-8 bg-white/10 hover:bg-white/25 rounded-full flex items-center justify-center transition-colors text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
-            {/* =====================================
-                MESSAGES
-                ===================================== */}
+            {/* Messages Area */}
             <div
               ref={scrollRef}
-              className="
-                flex-1
-                min-h-0
-                overflow-y-auto
-                px-3
-                sm:px-4
-                py-3
-                sm:py-4
-                space-y-3
-                bg-slate-50
-              "
+              className="flex-1 min-h-0 overflow-y-auto px-3.5 sm:px-4 py-3.5 space-y-3.5 bg-gradient-to-b from-slate-50 to-slate-100/70"
             >
               {messages.map((msg) => (
                 <MessageBubble
                   key={msg.id}
                   msg={msg}
+                  onActionClick={handleActionClick}
                 />
               ))}
 
               {/* Typing Indicator */}
               {typing && (
-                <div className="flex items-end gap-2">
-                  <div
-                    className="
-                      w-7 h-7
-                      rounded-full
-                      bg-gradient-to-br
-                      from-blue-600
-                      to-cyan-500
-                      flex
-                      items-center
-                      justify-center
-                      flex-shrink-0
-                    "
-                  >
-                    <Bot className="w-4 h-4 text-white" />
+                <div className="flex items-end gap-2 animate-fadeInUp">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+                    <Bot className="w-4 h-4" />
                   </div>
-
-                  <div
-                    className="
-                      bg-white
-                      rounded-2xl
-                      rounded-bl-md
-                      px-4
-                      py-3
-                      shadow-sm
-                      border
-                      border-slate-100
-                    "
-                  >
-                    <div className="flex gap-1 items-center">
-                      <span
-                        className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
-                        style={{ animationDelay: '0ms' }}
-                      />
-
-                      <span
-                        className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
-                        style={{ animationDelay: '150ms' }}
-                      />
-
-                      <span
-                        className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
-                        style={{ animationDelay: '300ms' }}
-                      />
+                  <div className="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm border border-slate-100">
+                    <div className="flex gap-1.5 items-center">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* =====================================
-                QUICK REPLIES
-                ===================================== */}
-            {messages.length <= 1 && !typing && (
-              <div
-                className="
-                  px-3
-                  sm:px-4
-                  pb-2
-                  flex
-                  flex-wrap
-                  gap-1.5
-                  sm:gap-2
-                  bg-slate-50
-                  flex-shrink-0
-                "
-              >
-                {QUICK_REPLIES.map((q) => (
-                  <button
-                    key={q}
-                    onClick={() => handleQuickReply(q)}
-                    className="
-                      px-2.5
-                      sm:px-3
-                      py-1.5
-                      bg-white
-                      border
-                      border-blue-200
-                      text-blue-600
-                      hover:bg-blue-50
-                      rounded-full
-                      text-[11px]
-                      sm:text-xs
-                      font-bold
-                      transition-colors
-                    "
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Quick Replies Carousel / Chips */}
+            <div className="px-3 sm:px-4 py-2 bg-slate-100/90 border-t border-slate-200/70 flex flex-wrap gap-1.5 max-h-24 overflow-y-auto flex-shrink-0">
+              {QUICK_REPLIES.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => handleQuickReply(q)}
+                  className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200 text-slate-700 hover:text-blue-600 rounded-full text-[11px] sm:text-xs font-semibold transition-all shadow-2xs hover:scale-102"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
 
-            {/* =====================================
-                INPUT
-                ===================================== */}
+            {/* Input Form */}
             <form
               onSubmit={handleSubmit}
-              className="
-                p-2.5
-                sm:p-3
-                bg-white
-                border-t
-                border-slate-100
-                flex
-                items-center
-                gap-2
-                flex-shrink-0
-              "
+              className="p-2.5 sm:p-3 bg-white border-t border-slate-200/80 flex items-center gap-2 flex-shrink-0"
             >
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
-                className="
-                  flex-1
-                  min-w-0
-                  px-3
-                  sm:px-4
-                  py-2.5
-                  rounded-2xl
-                  bg-slate-100
-                  focus:bg-white
-                  focus:ring-2
-                  focus:ring-blue-100
-                  outline-none
-                  transition-all
-                  text-sm
-                  text-slate-900
-                  placeholder:text-slate-400
-                "
+                placeholder="Ask about vacancies, partners, training..."
+                className="flex-1 min-w-0 px-3.5 sm:px-4 py-2.5 rounded-2xl bg-slate-100 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 border border-transparent outline-none transition-all text-xs sm:text-sm text-slate-900 placeholder:text-slate-400"
               />
 
               <button
                 type="submit"
                 disabled={!input.trim() || typing}
-                aria-label="Send"
-                className="
-                  w-10
-                  h-10
-                  flex-shrink-0
-                  bg-gradient-to-br
-                  from-blue-600
-                  to-cyan-500
-                  hover:shadow-lg
-                  hover:shadow-blue-500/30
-                  text-white
-                  rounded-full
-                  flex
-                  items-center
-                  justify-center
-                  transition-all
-                  disabled:opacity-40
-                  disabled:cursor-not-allowed
-                "
+                aria-label="Send message"
+                className="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white rounded-full flex items-center justify-center transition-all shadow-md shadow-blue-500/20 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
               </button>
             </form>
           </div>
@@ -773,13 +814,15 @@ export default function ChatbotWidget() {
 }
 
 /* =========================================
-   MESSAGE BUBBLE
+   MESSAGE BUBBLE COMPONENT
    ========================================= */
 
 function MessageBubble({
   msg,
+  onActionClick,
 }: {
   msg: Message;
+  onActionClick: (action: ChatAction) => void;
 }) {
   const isBot = msg.sender === 'bot';
 
@@ -790,61 +833,61 @@ function MessageBubble({
 
   return (
     <div
-      className={`flex items-end gap-2 ${isBot ? 'justify-start' : 'justify-end'
-        }`}
+      className={`flex items-end gap-2 ${
+        isBot ? 'justify-start' : 'justify-end'
+      }`}
     >
       {isBot && (
-        <div
-          className="
-            w-7 h-7
-            rounded-full
-            bg-gradient-to-br
-            from-blue-600
-            to-cyan-500
-            flex
-            items-center
-            justify-center
-            flex-shrink-0
-          "
-        >
-          <Bot className="w-4 h-4 text-white" />
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center flex-shrink-0 text-white shadow-xs">
+          <Bot className="w-4 h-4" />
         </div>
       )}
 
-      <div
-        className={`max-w-[78%] ${isBot ? '' : 'items-end'
-          }`}
-      >
+      <div className={`max-w-[85%] sm:max-w-[80%] ${isBot ? '' : 'items-end'}`}>
         <div
-          className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-line ${isBot
-              ? 'bg-white text-slate-800 rounded-bl-md border border-slate-100'
-              : 'bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-br-md'
-            }`}
+          className={`px-3.5 sm:px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm whitespace-pre-line ${
+            isBot
+              ? 'bg-white text-slate-800 rounded-bl-sm border border-slate-100 font-normal'
+              : 'bg-gradient-to-br from-blue-600 to-cyan-600 text-white rounded-br-sm font-medium'
+          }`}
         >
           {msg.text}
+
+          {/* Interactive Action Buttons inside Bot Message */}
+          {isBot && msg.actions && msg.actions.length > 0 && (
+            <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-wrap gap-1.5">
+              {msg.actions.map((act, i) => (
+                <button
+                  key={i}
+                  onClick={() => onActionClick(act)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200/80 text-blue-700 rounded-xl text-[11px] font-semibold transition-all duration-200 shadow-2xs hover:scale-102 active:scale-98"
+                >
+                  <span>{act.label}</span>
+                  {act.isExternal ? (
+                    <ExternalLink className="w-3 h-3 ml-0.5 opacity-70" />
+                  ) : act.url ? (
+                    <ArrowRight className="w-3 h-3 ml-0.5 opacity-70" />
+                  ) : (
+                    <Sparkles className="w-3 h-3 ml-0.5 opacity-70" />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <p
-          className={`text-[10px] text-slate-400 mt-1 ${isBot ? 'text-left' : 'text-right'
-            }`}
+          className={`text-[9px] sm:text-[10px] text-slate-400 mt-1 px-1 ${
+            isBot ? 'text-left' : 'text-right'
+          }`}
         >
           {time}
         </p>
       </div>
 
       {!isBot && (
-        <div
-          className="
-            w-7 h-7
-            rounded-full
-            bg-slate-200
-            flex
-            items-center
-            justify-center
-            flex-shrink-0
-          "
-        >
-          <UserIcon className="w-4 h-4 text-slate-500" />
+        <div className="w-7 h-7 rounded-full bg-slate-300/80 flex items-center justify-center flex-shrink-0 text-slate-600">
+          <UserIcon className="w-4 h-4" />
         </div>
       )}
     </div>

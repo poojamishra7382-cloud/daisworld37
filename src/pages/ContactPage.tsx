@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Phone, Mail, MapPin, MessageCircle, Calendar, Send, CheckCircle, Loader2,
-  User, Clock, Facebook, Instagram, Youtube, ArrowRight, Navigation,
+  User, Clock, Facebook, Instagram, Youtube, Linkedin, ArrowRight, Navigation,
   Globe, Sparkles, Heart, Users, Zap,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -33,6 +33,7 @@ const socials = [
   { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/1DYs7V9D6o/', hover: 'hover:bg-blue-600' },
   { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/dais_world_?igsh=a3ljcDFhamh3cjRr', hover: 'hover:bg-pink-600' },
   { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/@DaisWorld-d2y', hover: 'hover:bg-red-600' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/company/dais-world', hover: 'hover:bg-[#0077b5]' },
 ];
 
 const trustStats = [

@@ -16,6 +16,26 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
 
+  if (!slug || slug === 'healthcare') {
+    return <Navigate to="/services/healthcare/doctors-physicians" replace />;
+  }
+
+  if (slug === 'hospitality') {
+    return <Navigate to="/services/hospitality/front-office" replace />;
+  }
+
+  if (slug === 'construction') {
+    return <Navigate to="/services/construction/civil-structural" replace />;
+  }
+
+  if (slug === 'oil-and-gas') {
+    return <Navigate to="/services/oil-and-gas/exploration-geology" replace />;
+  }
+
+  if (slug === 'beauty-and-care') {
+    return <Navigate to="/services/beauty-and-care/hair-styling" replace />;
+  }
+
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   const service = services.find((item) => item.slug === slug);
@@ -40,18 +60,18 @@ export default function ServiceDetailPage() {
         }}
       >
 
-  
 
-{/* Blue Overlay */}
-<div className="absolute inset-0 bg-gradient-to-r from-blue-950/75 via-blue-900/45 to-blue-950/35" />
 
-{/* Transparent Dark Blue Overlay */}
-<div className="absolute inset-0 bg-[#061a3a]/45" />
+        {/* Blue Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/75 via-blue-900/45 to-blue-950/35" />
 
-{/* Decorative Glow */}
-<div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl" />
+        {/* Transparent Dark Blue Overlay */}
+        <div className="absolute inset-0 bg-[#061a3a]/45" />
 
-<div className="absolute -bottom-40 -left-40 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-3xl" />
+        {/* Decorative Glow */}
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-3xl" />
+
+        <div className="absolute -bottom-40 -left-40 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-3xl" />
 
         {/* Hero Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,11 +114,10 @@ export default function ServiceDetailPage() {
 
           <div
             ref={ref}
-            className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-700 ${
-              visible
+            className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-700 ${visible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-8'
-            }`}
+              }`}
           >
 
             {/* Left Content */}
