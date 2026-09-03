@@ -354,7 +354,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'fraud', 'real', 'reviews', 'experience', 'track record'
     ],
     reply:
-      "🏢 **About Dais World Endeavor Private Limited**\n\nWe are a premier international recruitment, corporate housing, and overseas career consultancy headquartered in Mumbai, India.\n\n✅ **Key Facts:**\n• **500+ Successful Placements** across Europe and the Middle East\n• **100% Legal & Government-Compliant** visa sponsorships\n• **Free Language Training Infrastructure** for healthcare and technical personnel\n• **Turnkey Corporate Housing** for international employers\n\n📍 **Headquarters:**\n1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra, India.\n\n📞 Phone / WhatsApp: **+91 8976697001** | Email: **info@daisworld.com**",
+      "🏢 **About Dais World Endeavor Private Limited**\n\nWe are a premier international recruitment, corporate housing, and overseas career consultancy headquartered in Mumbai, India.\n\n✅ **Key Facts:**\n• **500+ Successful Placements** across Europe and the Middle East\n• **100% Legal & Government-Compliant** visa sponsorships\n• **Free Language Training Infrastructure** for healthcare and technical personnel\n• **Turnkey Corporate Housing** for international employers\n\n📍 **Headquarters:**\n1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India).\n\n📞 Phone / WhatsApp: **+91 8976697001** | Email: **info@daisworld.com**",
     actions: [
       { label: '🏢 About Us Page', url: '/about' },
       { label: '🤝 Client & Partner Network', url: '/clients' },
@@ -375,7 +375,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'phone number', 'address', 'office location', 'counselor number'
     ],
     reply:
-      "📞 **Connect With Dais World Team:**\n\n• **Phone Helpline:** +91 8976697001\n• **WhatsApp Support:** +91 8976697001\n• **Email:** info@daisworld.com / aditya.s@daisworld.com\n• **Working Hours:** Monday – Saturday (11:00 AM – 8:00 PM IST)\n• **Headquarters Address:** 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra, India.\n\nFeel free to call or WhatsApp us anytime for immediate counselor guidance!",
+      "📞 **Connect With Dais World Team:**\n\n• **Phone Helpline:** +91 8976697001\n• **WhatsApp Support:** +91 8976697001\n• **Email:** info@daisworld.com / aditya.s@daisworld.com\n• **Working Hours:** Monday – Saturday (10:00 AM – 8:00 PM IST)\n• **Headquarters Address:** 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India).\n\nFeel free to call or WhatsApp us anytime for immediate counselor guidance!",
     actions: [
       { label: '💬 Chat on WhatsApp', url: 'https://wa.me/918976697001?text=Hello%20Dais%20World%2C%20I%20have%20an%20inquiry%20regarding%20overseas%20careers', isExternal: true },
       { label: '📞 Go to Contact Page', url: '/contact' },

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ApplyNowModal from '@/components/ApplyNowModal';
+import AnnouncementPopup from '@/components/AnnouncementPopup';
 import ScrollToTop from '@/components/ScrollToTop';
 import ChatbotWidget from '@/components/ChatbotWidget';
 
@@ -68,6 +69,7 @@ export default function Layout() {
       </main>
       <Footer />
       <ApplyNowModal open={applyOpen} onClose={handleClose} />
+      <AnnouncementPopup onApplyClick={() => setApplyOpen(true)} />
       <ChatbotWidget />
     </>
   );

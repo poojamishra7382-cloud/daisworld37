@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const footerLinks = {
   Company: [
@@ -148,7 +149,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.linkedin.com/company/dais-world"
+                href="https://www.linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -193,20 +194,17 @@ export default function Footer() {
         ==================================================== */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-6 pb-6 border-t border-white/10">
           {/* PHONE */}
-          <a
-            href="tel:8976697001"
-            className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/40 hover:bg-white/[0.07] transition-all duration-300 group"
-          >
+          <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/40 hover:bg-white/[0.07] transition-all duration-300 group">
             <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
               <Phone className="w-4 h-4 text-cyan-400 group-hover:text-slate-950 transition-colors" />
             </div>
             <div>
               <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Call Us</p>
-              <p className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
-                +91 89766 97001
+              <p className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                <a href="tel:8976697001" className="hover:underline">+91 89766 97001</a> / <a href="tel:8788631659" className="hover:underline">+91 87886 31659</a>
               </p>
             </div>
-          </a>
+          </div>
 
           {/* EMAIL */}
           <a
@@ -232,16 +230,26 @@ export default function Footer() {
             <div className="min-w-0">
               <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Head Office</p>
               <p className="text-xs sm:text-sm font-medium text-white leading-snug">
-                1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai
+                1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India)
               </p>
             </div>
           </div>
         </div>
 
         {/* ===================================================
+            LANGUAGE SELECTOR STRIP
+        ==================================================== */}
+        <div className="pt-4 pb-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+          <span className="text-slate-300 font-semibold flex items-center gap-1.5">
+            🌐 Regional Languages:
+          </span>
+          <LanguageSwitcher variant="footer-pills" />
+        </div>
+
+        {/* ===================================================
             BOTTOM BAR
         ==================================================== */}
-        <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           {/* Copyright */}
           <p className="text-center sm:text-left">
             © {new Date().getFullYear()} <span className="text-slate-200 font-semibold">Dais World Endeavor Private Limited</span>. All rights reserved.

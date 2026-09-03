@@ -355,7 +355,7 @@ export default function BusinessHousingSection() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                <span>1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai</span>
+                <span>1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />

@@ -23,12 +23,39 @@ import { oilAndGasDepartments } from '@/data/oilAndGasDepartments';
 import { beautyAndCareDepartments } from '@/data/beautyAndCareDepartments';
 import { countries, europeCountries, middleEastCountries } from '@/data/countries';
 import Flag from '@/components/Flag';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface NavbarProps {
   onApplyClick: () => void;
 }
 
 export default function Navbar({ onApplyClick }: NavbarProps) {
+  const { language } = useLanguage();
+  const [currentLang, setCurrentLang] = useState<string>('en');
+
+  useEffect(() => {
+    const detectLang = () => {
+      const match = document.cookie.match(/googtrans=\/en\/([a-zA-Z-]+)/);
+      if (match && match[1]) {
+        setCurrentLang(match[1]);
+      } else {
+        setCurrentLang(language || 'en');
+      }
+    };
+    detectLang();
+    const interval = setInterval(detectLang, 350);
+    return () => clearInterval(interval);
+  }, [language]);
+
+  // Compact languages where slogan & standard font fits
+  const showSlogan = currentLang === 'en' || currentLang === 'hi' || currentLang === 'mr';
+
+  // Dynamic link classes: compact small font for Tamil/Telugu/Russian/German etc. and standard for English/Hindi/Marathi
+  const navLinkClass = showSlogan
+    ? 'whitespace-nowrap shrink-0 px-2.5 2xl:px-3.5 py-2 text-xs 2xl:text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200'
+    : 'whitespace-nowrap shrink-0 px-1.5 2xl:px-2 py-1.5 text-[11px] 2xl:text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200';
+
   // =========================
   // MAIN MOBILE MENU
   // =========================
@@ -237,28 +264,34 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             />
           </Link>
 
-          {/* Slogan */}
-          <Link
-            to="/home"
-            className="
-              block
-              -mt-1
-              ml-1
-              text-[11px]
-              font-semibold
-              tracking-widest
-              text-white/80
-              hover:text-white
-              transition-colors
-            "
-            style={{
-              fontFamily: 'VIA, sans-serif',
-              fontWeight: 400,
-              letterSpacing: '0.08em',
-            }}
-          >
-            We Care • We Train • We Place • You Grow
-          </Link>
+          {/* Slogan (Shown on Phone & Desktop ONLY in English; Hidden in all other languages) */}
+          {currentLang === 'en' && (
+            <Link
+              to="/home"
+              className="
+                nav-slogan
+                block
+                notranslate
+                -mt-1
+                ml-1
+                text-[9px] sm:text-[10px]
+                font-semibold
+                tracking-wider
+                text-white/75
+                hover:text-white
+                transition-colors
+                whitespace-nowrap
+              "
+              translate="no"
+              style={{
+                fontFamily: 'VIA, sans-serif',
+                fontWeight: 400,
+                letterSpacing: '0.06em',
+              }}
+            >
+              We Care • We Train • We Place • You Grow
+            </Link>
+          )}
 
         </div>
 
@@ -267,20 +300,12 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
             DESKTOP NAVIGATION
         ====================================================== */}
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 shrink-0">
 
           {/* HOME */}
           <Link
             to="/home"
-            className="
-              px-4 py-2
-              text-sm font-medium
-              text-white/80
-              hover:text-white
-              hover:bg-white/10
-              rounded-lg
-              transition-all duration-200
-            "
+            className={navLinkClass}
           >
             Home
           </Link>
@@ -289,15 +314,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           {/* ABOUT */}
           <Link
             to="/about"
-            className="
-              px-4 py-2
-              text-sm font-medium
-              text-white/80
-              hover:text-white
-              hover:bg-white/10
-              rounded-lg
-              transition-all duration-200
-            "
+            className={navLinkClass}
           >
             About
           </Link>
@@ -306,19 +323,31 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           {/* VACANCIES */}
           <Link
             to="/vacancies"
-            className="
-              px-4 py-2
-              text-sm font-medium
-              text-white/80
-              hover:text-white
-              hover:bg-white/10
-              rounded-lg
-              transition-all duration-200
-              relative
-            "
+            className={`${navLinkClass} relative`}
           >
             <span>Vacancies</span>
-            <span className="absolute -top-1 right-1 px-1.5 py-0.2 text-[9px] font-bold bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-full uppercase tracking-tight animate-pulse shadow-sm">
+            <span
+              className="
+                notranslate
+                absolute
+                -top-1
+                right-0.5
+                px-1.5
+                py-0.2
+                text-[9px]
+                font-bold
+                bg-gradient-to-r
+                from-red-500
+                to-rose-600
+                text-white
+                rounded-full
+                uppercase
+                tracking-tight
+                shadow-sm
+                whitespace-nowrap
+              "
+              translate="no"
+            >
               Hiring
             </span>
           </Link>
@@ -330,7 +359,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
           <div
             ref={servicesRef}
-            className="relative"
+            className="relative shrink-0"
           >
 
             <button
@@ -342,16 +371,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
                 setDesktopCountriesOpen(false);
               }}
-              className="
-                flex items-center gap-1
-                px-4 py-2
-                text-sm font-medium
-                text-white/80
-                hover:text-white
-                hover:bg-white/10
-                rounded-lg
-                transition-all duration-200
-              "
+              className={`${navLinkClass} flex items-center gap-1`}
             >
               Services
 
@@ -913,15 +933,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           {/* CLIENTS */}
           <Link
             to="/clients"
-            className="
-              px-4 py-2
-              text-sm font-medium
-              text-white/80
-              hover:text-white
-              hover:bg-white/10
-              rounded-lg
-              transition-all duration-200
-            "
+            className={navLinkClass}
           >
             Clients
           </Link>
@@ -933,7 +945,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
           <div
             ref={countriesRef}
-            className="relative"
+            className="relative shrink-0"
           >
 
             <button
@@ -947,16 +959,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                 });
                 setDesktopServicesOpen(false);
               }}
-              className="
-                flex items-center gap-1
-                px-4 py-2
-                text-sm font-medium
-                text-white/80
-                hover:text-white
-                hover:bg-white/10
-                rounded-lg
-                transition-all duration-200
-              "
+              className={`${navLinkClass} flex items-center gap-1`}
             >
               Country
 
@@ -1163,15 +1166,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           {/* CONTACT */}
           <Link
             to="/contact"
-            className="
-              px-4 py-2
-              text-sm font-medium
-              text-white/80
-              hover:text-white
-              hover:bg-white/10
-              rounded-lg
-              transition-all duration-200
-            "
+            className={navLinkClass}
           >
             Contact Us
           </Link>
@@ -1180,74 +1175,40 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
 
         {/* =====================================================
-            DESKTOP APPLY BUTTON
+            DESKTOP ACTIONS (TRANSLATOR + APPLY BUTTON)
         ====================================================== */}
 
-        <button
-          type="button"
-          onClick={onApplyClick}
-          className="
-            hidden lg:flex
-            items-center gap-2
-            text-sm font-bold
-            text-white
-            bg-gradient-to-r
-            from-blue-600
-            to-blue-500
-            hover:from-blue-500
-            hover:to-cyan-500
-            px-5 py-2.5
-            rounded-xl
-            transition-all duration-300
-            hover:shadow-xl
-            hover:shadow-blue-500/40
-            hover:-translate-y-0.5
-          "
-        >
-          Apply Now
+        <div className="hidden xl:flex items-center gap-2 2xl:gap-3 shrink-0">
+          <LanguageSwitcher variant="dropdown" />
 
-          <ArrowRight className="w-4 h-4" />
-        </button>
+          <button
+            type="button"
+            onClick={onApplyClick}
+            className={`
+              whitespace-nowrap shrink-0 flex items-center gap-1.5 font-bold text-white
+              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500
+              rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5
+              ${showSlogan ? 'text-sm px-4 py-2.5' : 'text-xs px-3 py-2'}
+            `}
+          >
+            Apply Now
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
 
 
         {/* =====================================================
-            MOBILE APPLY + HAMBURGER
+            MOBILE ACTIONS (TRANSLATOR + HAMBURGER)
         ====================================================== */}
 
         <div
           className="
-            flex lg:hidden
+            flex xl:hidden
             items-center gap-2
             flex-shrink-0
           "
         >
-
-          {/* <button
-            type="button"
-            onClick={() => {
-              onApplyClick();
-              setOpen(false);
-            }}
-            className="
-              flex items-center gap-1.5
-              text-xs font-bold
-              text-white
-              bg-gradient-to-r
-              from-blue-600
-              to-cyan-500
-              px-3 py-2
-              rounded-lg
-              shadow-lg
-              shadow-blue-500/20
-              active:scale-95
-              transition-all
-            "
-          >
-            Apply
-
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button> */}
-
+          <LanguageSwitcher variant="dropdown" />
 
           <button
             type="button"
@@ -1280,7 +1241,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
       <div
         className={`
-          lg:hidden
+          xl:hidden
           fixed
           inset-x-0
           top-[60px] sm:top-[64px]
@@ -1519,9 +1480,8 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         <span>Healthcare</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 text-cyan-400 transition-transform duration-300 ${
-                          mobileHealthcareOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 text-cyan-400 transition-transform duration-300 ${mobileHealthcareOpen ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 
@@ -1563,9 +1523,8 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         <span>Hospitality</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 text-amber-400 transition-transform duration-300 ${
-                          mobileHospitalityOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 text-amber-400 transition-transform duration-300 ${mobileHospitalityOpen ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 
@@ -1607,9 +1566,8 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         <span>Construction</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 text-yellow-400 transition-transform duration-300 ${
-                          mobileConstructionOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 text-yellow-400 transition-transform duration-300 ${mobileConstructionOpen ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 
@@ -1651,9 +1609,8 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         <span>Oil & Gas</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 text-indigo-400 transition-transform duration-300 ${
-                          mobileOilAndGasOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 text-indigo-400 transition-transform duration-300 ${mobileOilAndGasOpen ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 
@@ -1695,9 +1652,8 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         <span>Beauty & Care</span>
                       </div>
                       <ChevronDown
-                        className={`w-4 h-4 text-pink-400 transition-transform duration-300 ${
-                          mobileBeautyAndCareOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 text-pink-400 transition-transform duration-300 ${mobileBeautyAndCareOpen ? 'rotate-180' : ''
+                          }`}
                       />
                     </button>
 

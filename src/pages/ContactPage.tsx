@@ -12,7 +12,7 @@ const professions = ['Registered Nurse', 'OT Nurse', 'Healthcare Assistant'];
 
 const quickCards = [
   {
-    icon: Phone, label: 'Call', value: '8976697001', sub: 'Mon–Sat, 11am–8pm IST',
+    icon: Phone, label: 'Call', value: '8976697001', sub: 'Mon–Sat, 10am–8pm IST',
     href: 'tel:8976697001', color: 'from-blue-600 to-blue-500',
   },
   {
@@ -33,7 +33,7 @@ const socials = [
   { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/1DYs7V9D6o/', hover: 'hover:bg-blue-600' },
   { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/dais_world_?igsh=a3ljcDFhamh3cjRr', hover: 'hover:bg-pink-600' },
   { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/@DaisWorld-d2y', hover: 'hover:bg-red-600' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/company/dais-world', hover: 'hover:bg-[#0077b5]' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/', hover: 'hover:bg-[#0077b5]' },
 ];
 
 const trustStats = [
@@ -187,18 +187,17 @@ export default function ContactPage() {
               </p>
 
               <div className="space-y-5">
-                <a
-                  href="tel:8976697001"
-                  className="flex items-center gap-4 group"
-                >
+                <div className="flex items-center gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-blue-50 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
                     <Phone className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
                   </div>
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Phone</p>
-                    <p className="text-slate-900 font-bold group-hover:text-blue-600 transition-colors">8976697001</p>
+                    <p className="text-slate-900 font-bold group-hover:text-blue-600 transition-colors text-sm sm:text-base">
+                      <a href="tel:8976697001" className="hover:underline">+91 89766 97001</a> / <a href="tel:8788631659" className="hover:underline">+91 87886 31659</a>
+                    </p>
                   </div>
-                </a>
+                </div>
 
                 <a
                   href="mailto:info@daisworld.com"
@@ -221,7 +220,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Address</p>
-                    <p className="text-slate-900 font-bold">1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai, Maharashtra, India</p>
+                    <p className="text-slate-900 font-bold">1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India)</p>
                   </div>
                 </div>
 
@@ -231,7 +230,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Hours</p>
-                    <p className="text-slate-900 font-bold">Mon – Sat · 11:00 AM – 8:00 PM IST</p>
+                    <p className="text-slate-900 font-bold">Mon – Sat · 10:00 AM – 8:00 PM IST</p>
                   </div>
                 </div>
               </div>
@@ -420,7 +419,7 @@ export default function ContactPage() {
             </h2>
             <p className="text-slate-500 text-xs sm:text-base max-w-2xl mx-auto flex items-center justify-center gap-2">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
-              <span>1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai</span>
+              <span>1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India)</span>
             </p>
           </div>
 
