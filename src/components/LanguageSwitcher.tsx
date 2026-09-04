@@ -2,39 +2,53 @@ import { useState, useRef, useEffect } from 'react';
 import { Globe, Check, ChevronDown, Search } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Language } from '@/translations/translations';
+import Flag from '@/components/Flag';
 
 export interface TranslateLang {
   code: string;
   label: string;
   nativeName: string;
   flag: string;
+  flagCode?: string;
 }
 
 export const SUPPORTED_LANGUAGES: TranslateLang[] = [
   { code: 'en', label: 'English', nativeName: 'English', flag: '🌐' },
-  { code: 'hi', label: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'te', label: 'Telugu', nativeName: 'తెలుగు', flag: '🇮🇳' },
-  { code: 'ml', label: 'Malayalam', nativeName: 'മലയാളം', flag: '🇮🇳' },
-  { code: 'kn', label: 'Kannada', nativeName: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'ta', label: 'Tamil', nativeName: 'தமிழ்', flag: '🇮🇳' },
-  { code: 'bn', label: 'Bengali', nativeName: 'বাংলা', flag: '🇮🇳' },
-  { code: 'mr', label: 'Marathi', nativeName: 'मराठी', flag: '🇮🇳' },
-  { code: 'gu', label: 'Gujarati', nativeName: 'ગુજરાતી', flag: '🇮🇳' },
-  { code: 'ur', label: 'Urdu', nativeName: 'اردو', flag: '🇵🇰' },
-  { code: 'ja', label: 'Japanese', nativeName: '日本語', flag: '🇯🇵' },
-  { code: 'zh-CN', label: 'Chinese', nativeName: '中文 (简体)', flag: '🇨🇳' },
-  { code: 'ko', label: 'Korean', nativeName: '한국어', flag: '🇰🇷' },
-  { code: 'nl', label: 'Dutch', nativeName: 'Nederlands', flag: '🇳🇱' },
-  { code: 'de', label: 'German', nativeName: 'Deutsch', flag: '🇩🇪' },
-  { code: 'ar', label: 'Arabic', nativeName: 'العربية', flag: '🇸🇦' },
-  { code: 'fr', label: 'French', nativeName: 'Français', flag: '🇫🇷' },
-  { code: 'es', label: 'Spanish', nativeName: 'Español', flag: '🇪🇸' },
-  { code: 'it', label: 'Italian', nativeName: 'Italiano', flag: '🇮🇹' },
-  { code: 'pt', label: 'Portuguese', nativeName: 'Português', flag: '🇵🇹' },
-  { code: 'ru', label: 'Russian', nativeName: 'Русский', flag: '🇷🇺' },
-  { code: 'tl', label: 'Filipino', nativeName: 'Tagalog', flag: '🇵🇭' },
-  { code: 'tr', label: 'Turkish', nativeName: 'Türkçe', flag: '🇹🇷' },
+  { code: 'hi', label: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'te', label: 'Telugu', nativeName: 'తెలుగు', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'ml', label: 'Malayalam', nativeName: 'മലയാളം', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'kn', label: 'Kannada', nativeName: 'ಕನ್ನಡ', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'ta', label: 'Tamil', nativeName: 'தமிழ்', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'bn', label: 'Bengali', nativeName: 'বাংলা', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'mr', label: 'Marathi', nativeName: 'मराठी', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'gu', label: 'Gujarati', nativeName: 'ગુજરાતી', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'ur', label: 'Urdu', nativeName: 'اردو', flag: '🇮🇳', flagCode: 'in' },
+  { code: 'ja', label: 'Japanese', nativeName: '日本語', flag: '🇯🇵', flagCode: 'jp' },
+  { code: 'zh-CN', label: 'Chinese', nativeName: '中文 (简体)', flag: '🇨🇳', flagCode: 'cn' },
+  { code: 'ko', label: 'Korean', nativeName: '한국어', flag: '🇰🇷', flagCode: 'kr' },
+  { code: 'nl', label: 'Dutch', nativeName: 'Nederlands', flag: '🇳🇱', flagCode: 'nl' },
+  { code: 'de', label: 'German', nativeName: 'Deutsch', flag: '🇩🇪', flagCode: 'de' },
+  { code: 'ar', label: 'Arabic', nativeName: 'العربية', flag: '🇸🇦', flagCode: 'sa' },
+  { code: 'fr', label: 'French', nativeName: 'Français', flag: '🇫🇷', flagCode: 'fr' },
+  { code: 'es', label: 'Spanish', nativeName: 'Español', flag: '🇪🇸', flagCode: 'es' },
+  { code: 'it', label: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', flagCode: 'it' },
+  { code: 'pt', label: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', flagCode: 'pt' },
+  { code: 'ru', label: 'Russian', nativeName: 'Русский', flag: '🇷🇺', flagCode: 'ru' },
+  { code: 'tl', label: 'Filipino', nativeName: 'Tagalog', flag: '🇵🇭', flagCode: 'ph' },
+  { code: 'tr', label: 'Turkish', nativeName: 'Türkçe', flag: '🇹🇷', flagCode: 'tr' },
 ];
+
+function renderFlagIcon(lang: TranslateLang, size = 'w-4 h-2.5') {
+  if (lang.flagCode) {
+    return (
+      <Flag
+        code={lang.flagCode}
+        className={`${size} rounded-[2px] object-cover flex-shrink-0 inline-block shadow-xs`}
+      />
+    );
+  }
+  return <span>{lang.flag}</span>;
+}
 
 function setGoogleTranslateCookie(langCode: string) {
   const hostname = window.location.hostname;
@@ -134,7 +148,7 @@ export default function LanguageSwitcher({
                   }`}
                 translate="no"
               >
-                <span className="text-sm">{lang.flag}</span>
+                {renderFlagIcon(lang, 'w-4 h-3')}
                 <span className="truncate text-xs font-semibold">{lang.label}</span>
               </button>
             );
@@ -160,7 +174,7 @@ export default function LanguageSwitcher({
                 }`}
               translate="no"
             >
-              <span>{lang.flag}</span>
+              {renderFlagIcon(lang, 'w-4 h-2.5')}
               <span>{lang.label}</span>
             </button>
           );
@@ -180,7 +194,13 @@ export default function LanguageSwitcher({
         translate="no"
         title="Translate Website"
       >
-        <span className="text-sm leading-none">{current.code === 'en' ? '🌐' : current.flag}</span>
+        <span className="flex items-center">
+          {current.code === 'en' ? (
+            <span className="text-sm leading-none">🌐</span>
+          ) : (
+            renderFlagIcon(current, 'w-4 h-3')
+          )}
+        </span>
         <span className="font-semibold text-xs">{current.code === 'en' ? 'English' : current.label}</span>
         <ChevronDown
           className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${
@@ -231,7 +251,7 @@ export default function LanguageSwitcher({
                   translate="no"
                 >
                   <div className="flex items-center gap-2 text-left">
-                    <span className="text-base">{lang.flag}</span>
+                    {renderFlagIcon(lang, 'w-4 h-3')}
                     <span className="font-semibold text-white">{lang.label}</span>
                     <span className="text-[11px] text-slate-400">({lang.nativeName})</span>
                   </div>
