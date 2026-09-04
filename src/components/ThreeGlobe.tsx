@@ -61,21 +61,33 @@ export default function ThreeGlobe({ selectedCountry, onSelectCountry }: ThreeGl
     const container = mountRef.current;
     if (!container) return;
 
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+    let renderer: THREE.WebGLRenderer | null = null;
+    let animationFrameId: number;
+    let handleResize: () => void = () => {};
+    let onMouseDown: (e: MouseEvent) => void;
+    let onMouseMove: (e: MouseEvent) => void;
+    let onMouseUp: () => void;
+    let onTouchStart: (e: TouchEvent) => void;
+    let onTouchMove: (e: TouchEvent) => void;
+    let onTouchEnd: () => void;
+    let dom: HTMLCanvasElement;
 
-    // Scene
-    const scene = new THREE.Scene();
+    try {
+      const width = container.clientWidth || 320;
+      const height = container.clientHeight || 320;
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = 290;
+      // Scene
+      const scene = new THREE.Scene();
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+      // Camera
+      const camera = new THREE.PerspectiveCamera(45, width / (height || 1), 0.1, 1000);
+      camera.position.z = 290;
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      container.appendChild(renderer.domElement);
 
     // Globe Group
     const globeGroup = new THREE.Group();
@@ -361,37 +373,46 @@ export default function ThreeGlobe({ selectedCountry, onSelectCountry }: ThreeGl
         dragVelocity.y *= 0.95;
       }
 
-      renderer.render(scene, camera);
+      if (renderer) {
+        renderer.render(scene, camera);
+      }
     };
 
     animate();
 
-    // Resize Handler
-    const handleResize = () => {
-      if (!container) return;
-      const newWidth = container.clientWidth;
-      const newHeight = container.clientHeight;
-      camera.aspect = newWidth / newHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
-    };
+      // Resize Handler
+      const handleResize = () => {
+        if (!container || !renderer) return;
+        const newWidth = container.clientWidth || 320;
+        const newHeight = container.clientHeight || 320;
+        camera.aspect = newWidth / (newHeight || 1);
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      };
 
-    window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleResize);
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-      dom.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-      dom.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
-      renderer.dispose();
-    };
+      return () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('resize', handleResize);
+        if (dom) {
+          dom.removeEventListener('mousedown', onMouseDown);
+          dom.removeEventListener('touchstart', onTouchStart);
+        }
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+        window.removeEventListener('touchmove', onTouchMove);
+        window.removeEventListener('touchend', onTouchEnd);
+        if (renderer) {
+          if (container.contains(renderer.domElement)) {
+            container.removeChild(renderer.domElement);
+          }
+          renderer.dispose();
+        }
+      };
+    } catch {
+      // Graceful fallback if WebGL is restricted on mobile devices
+    }
   }, []);
 
   const handleCountryClick = (hub: CountryHub) => {

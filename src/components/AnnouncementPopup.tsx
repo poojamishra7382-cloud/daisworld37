@@ -117,22 +117,30 @@ export default function AnnouncementPopup({ onApplyClick }: AnnouncementPopupPro
 
   // Show once per session
   useEffect(() => {
-    const dismissedUntil = localStorage.getItem(STORAGE_DISMISSED_KEY);
-    if (dismissedUntil && Date.now() < parseInt(dismissedUntil, 10)) {
-      return;
+    try {
+      const dismissedUntil = localStorage.getItem(STORAGE_DISMISSED_KEY);
+      if (dismissedUntil && Date.now() < parseInt(dismissedUntil, 10)) {
+        return;
+      }
+
+      const hasSeenInSession = sessionStorage.getItem(STORAGE_SESSION_KEY);
+      if (hasSeenInSession) {
+        return;
+      }
+
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+        try {
+          sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+        } catch {
+          // ignore Safari private mode
+        }
+      }, 800);
+
+      return () => clearTimeout(timer);
+    } catch {
+      // ignore Safari storage restriction
     }
-
-    const hasSeenInSession = sessionStorage.getItem(STORAGE_SESSION_KEY);
-    if (hasSeenInSession) {
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-      sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
-    }, 800);
-
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
