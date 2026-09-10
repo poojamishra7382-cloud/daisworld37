@@ -274,6 +274,19 @@ const BLOCKED_DUMMY_PHONES = new Set([
       errs.passportNumber = 'Enter a valid passport number (6-12 characters)';
     }
 
+    if (formData.dob) {
+      const dob = new Date(formData.dob);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      if (age < 18 || age > 35) {
+        errs.dob = 'Age must be between 18 and 35 years';
+      }
+    }
+
     if (!resumeFile) {
       errs.resume = 'Please upload your Resume / CV (PDF, PNG, JPG, or DOC up to 5MB)';
     }
@@ -686,7 +699,7 @@ const BLOCKED_DUMMY_PHONES = new Set([
               {/* Date of Birth */}
               <div>
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-                  Date of Birth
+                  Date of Birth (Age 18–35)
                 </label>
                 <input
                   type="date"
@@ -694,8 +707,23 @@ const BLOCKED_DUMMY_PHONES = new Set([
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, dob: e.target.value }))
                   }
+                  min={
+                    new Date(new Date().setFullYear(new Date().getFullYear() - 35))
+                      .toISOString()
+                      .split('T')[0]
+                  }
+                  max={
+                    new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+                      .toISOString()
+                      .split('T')[0]
+                  }
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none transition-all"
                 />
+                {errors.dob && (
+                  <p className="text-rose-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5" /> {errors.dob}
+                  </p>
+                )}
               </div>
             </div>
 

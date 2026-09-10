@@ -562,8 +562,8 @@ export default function ApplyNowModal({ open, onClose }: ApplyNowModalProps) {
       if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
         age--;
       }
-      if (age < 18 || age > 60) {
-        e.dateOfBirth = 'Age must be between 18 and 60 years.';
+      if (age < 18 || age > 35) {
+        e.dateOfBirth = 'Age must be between 18 and 35 years.';
       }
     }
 
@@ -1064,11 +1064,16 @@ export default function ApplyNowModal({ open, onClose }: ApplyNowModalProps) {
               {/* Row 5: Date of Birth & Passport */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Date of Birth */}
-                <Field label="Date of Birth (Age 18–60)" icon={Calendar} error={errors.dateOfBirth} required>
+                <Field label="Date of Birth (Age 18–35)" icon={Calendar} error={errors.dateOfBirth} required>
                   <input
                     type="date"
                     value={data.dateOfBirth}
                     onChange={(e) => update('dateOfBirth', e.target.value)}
+                    min={
+                      new Date(new Date().setFullYear(new Date().getFullYear() - 35))
+                        .toISOString()
+                        .split('T')[0]
+                    }
                     max={
                       new Date(new Date().setFullYear(new Date().getFullYear() - 18))
                         .toISOString()
