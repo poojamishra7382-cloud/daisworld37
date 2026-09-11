@@ -18,7 +18,7 @@ export default function AboutSection() {
               <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
                 <div className="glassmorphism rounded-2xl p-3.5 sm:p-5">
                   <p className="text-white font-bold text-sm sm:text-lg italic">"We Care. We Train. We Place. You Grow."</p>
-                  <p className="text-white/70 text-xs mt-1">— DAIS WORLD MISSION</p>
+                  <p className="text-white/70 text-xs mt-1">— DAIS WORLD ENDEAVOR MISSION</p>
                 </div>
               </div>
             </div>
@@ -29,7 +29,7 @@ export default function AboutSection() {
 
           {/* Right content */}
           <div>
-            <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">About Dais World</p>
+            <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">About Dais World Endeavor</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-5">
               India's Most Trusted{' '}
               <span className="text-gradient">Overseas</span>{' '}

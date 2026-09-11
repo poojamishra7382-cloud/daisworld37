@@ -250,7 +250,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
           >
             <img
               src="/logo3.png"
-              alt="DAIS World"
+              alt="Dais World Endeavor"
               className="
                 w-auto
                 object-contain

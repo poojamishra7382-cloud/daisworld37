@@ -7,7 +7,7 @@ export default function HairStylingPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Hair & Styling Careers | Dais World Beauty & Care';
+    document.title = 'Hair & Styling Careers | Dais World Endeavor Beauty & Care';
   }, []);
 
   return <BeautyAndCareDepartmentDetailView department={department} />;

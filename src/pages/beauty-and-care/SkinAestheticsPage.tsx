@@ -7,7 +7,7 @@ export default function SkinAestheticsPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Skin & Aesthetics Careers | Dais World Beauty & Care';
+    document.title = 'Skin & Aesthetics Careers | Dais World Endeavor Beauty & Care';
   }, []);
 
   return <BeautyAndCareDepartmentDetailView department={department} />;

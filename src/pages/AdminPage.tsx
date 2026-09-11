@@ -142,8 +142,7 @@ function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
       } else {
         const remainingAttempts = MAX_ATTEMPTS - nextAttempts;
         setError(
-          `Invalid email or password. (${remainingAttempts} attempt${
-            remainingAttempts === 1 ? '' : 's'
+          `Invalid email or password. (${remainingAttempts} attempt${remainingAttempts === 1 ? '' : 's'
           } remaining before temporary security lock)`
         );
       }
@@ -179,7 +178,7 @@ function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
               <ShieldCheck className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-2xl font-black tracking-tight">
-              DAIS WORLD Admin Portal
+              DAIS WORLD ENDEAVOR Admin Portal
             </h1>
             <p className="text-white/80 text-xs sm:text-sm mt-1">
               Authorized Administrative Access Only
@@ -522,7 +521,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               type="button"
               onClick={() => {
                 const link = window.location.origin + '/form';
-                const text = `Hi, please fill out the official Dais World Overseas Candidate Registration Form here: ${link}`;
+                const text = `Hi, please fill out the official Dais World Endeavor Overseas Candidate Registration Form here: ${link}`;
                 window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
               }}
               className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 py-2 rounded-xl transition-all text-xs shadow-xs"
@@ -541,23 +540,97 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
+        {/* Stats & Clickable Status Filter Boxes */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
           {[
-            { label: 'Total Inquiries', value: stats.total, color: 'from-blue-600 to-blue-500' },
-            { label: 'New / Unread', value: stats.new, color: 'from-sky-600 to-sky-500' },
-            { label: 'Reviewed', value: stats.reviewed, color: 'from-amber-500 to-orange-500' },
-            { label: 'Contacted', value: stats.contacted, color: 'from-violet-600 to-purple-500' },
-            { label: 'Hired / Partnered', value: stats.hired, color: 'from-emerald-600 to-emerald-500' },
-          ].map(({ label, value, color }) => (
-            <div key={label} className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-              <div className={`inline-flex w-10 h-10 rounded-xl bg-gradient-to-br ${color} items-center justify-center text-white mb-3 shadow-md`}>
-                <Inbox className="w-5 h-5" />
-              </div>
-              <p className="text-3xl font-black text-slate-900">{value}</p>
-              <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-1">{label}</p>
-            </div>
-          ))}
+            {
+              label: 'Total Inquiries',
+              value: stats.total,
+              color: 'from-blue-600 to-blue-500',
+              statusKey: 'all',
+              icon: Inbox,
+              activeClasses: 'ring-2 ring-blue-500 border-blue-400 bg-blue-50/50 shadow-md',
+              badgeColor: 'bg-blue-600 text-white',
+            },
+            {
+              label: 'New / Unread',
+              value: stats.new,
+              color: 'from-sky-600 to-sky-500',
+              statusKey: 'new',
+              icon: Mail,
+              activeClasses: 'ring-2 ring-sky-500 border-sky-400 bg-sky-50/50 shadow-md',
+              badgeColor: 'bg-sky-600 text-white',
+            },
+            {
+              label: 'Reviewed',
+              value: stats.reviewed,
+              color: 'from-amber-500 to-orange-500',
+              statusKey: 'reviewed',
+              icon: Eye,
+              activeClasses: 'ring-2 ring-amber-500 border-amber-400 bg-amber-50/50 shadow-md',
+              badgeColor: 'bg-amber-600 text-white',
+            },
+            {
+              label: 'Contacted',
+              value: stats.contacted,
+              color: 'from-violet-600 to-purple-500',
+              statusKey: 'contacted',
+              icon: Phone,
+              activeClasses: 'ring-2 ring-violet-500 border-violet-400 bg-violet-50/50 shadow-md',
+              badgeColor: 'bg-violet-600 text-white',
+            },
+            {
+              label: 'Hired / Partnered',
+              value: stats.hired,
+              color: 'from-emerald-600 to-emerald-500',
+              statusKey: 'hired',
+              icon: CheckCircle,
+              activeClasses: 'ring-2 ring-emerald-500 border-emerald-400 bg-emerald-50/50 shadow-md',
+              badgeColor: 'bg-emerald-600 text-white',
+            },
+          ].map(({ label, value, color, statusKey, icon: Icon, activeClasses, badgeColor }) => {
+            const isSelected = statusFilter === statusKey;
+
+            return (
+              <button
+                key={label}
+                type="button"
+                onClick={() => {
+                  if (statusKey === 'all') {
+                    setStatusFilter('all');
+                  } else {
+                    setStatusFilter(isSelected ? 'all' : statusKey);
+                  }
+                  setPage(0);
+                }}
+                className={`group relative text-left bg-white rounded-2xl p-5 border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer focus:outline-none ${
+                  isSelected
+                    ? activeClasses
+                    : 'border-slate-100 shadow-sm hover:border-slate-300'
+                }`}
+                title={`Click to filter: ${label}`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div
+                    className={`inline-flex w-10 h-10 rounded-xl bg-gradient-to-br ${color} items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform`}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  {isSelected && (
+                    <span
+                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${badgeColor} shadow-xs tracking-wide uppercase`}
+                    >
+                      Active
+                    </span>
+                  )}
+                </div>
+                <p className="text-3xl font-black text-slate-900">{value}</p>
+                <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-1 group-hover:text-slate-700 transition-colors">
+                  {label}
+                </p>
+              </button>
+            );
+          })}
         </div>
 
         {/* Category Tabs: All vs Candidates vs Corporate Partnerships */}
@@ -565,11 +638,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <button
             type="button"
             onClick={() => { setTypeFilter('all'); setPage(0); }}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-              typeFilter === 'all'
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${typeFilter === 'all'
                 ? 'bg-blue-600 text-white shadow-md'
                 : 'text-slate-600 hover:bg-slate-100'
-            }`}
+              }`}
           >
             All Submissions ({apps.length})
           </button>
@@ -577,11 +649,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <button
             type="button"
             onClick={() => { setTypeFilter('candidates'); setPage(0); }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-              typeFilter === 'candidates'
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${typeFilter === 'candidates'
                 ? 'bg-blue-600 text-white shadow-md'
                 : 'text-slate-600 hover:bg-slate-100'
-            }`}
+              }`}
           >
             <span>👨‍⚕️ Candidates / Job Seekers</span>
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-800">
@@ -592,11 +663,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <button
             type="button"
             onClick={() => { setTypeFilter('partnerships'); setPage(0); }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-              typeFilter === 'partnerships'
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${typeFilter === 'partnerships'
                 ? 'bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md'
                 : 'text-slate-600 hover:bg-slate-100'
-            }`}
+              }`}
           >
             <span>🏢 B2B & Housing Partnerships</span>
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 font-black">
@@ -813,11 +883,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-3">
                               <div
-                                className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-sm ${
-                                  isPartnership
+                                className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-sm ${isPartnership
                                     ? 'bg-gradient-to-br from-indigo-600 to-cyan-500'
                                     : 'bg-gradient-to-br from-blue-500 to-cyan-400'
-                                }`}
+                                  }`}
                               >
                                 {isPartnership ? (
                                   <Building2 className="w-5 h-5" />
@@ -839,9 +908,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                             </div>
                           </td>
                           <td className="px-5 py-4 hidden md:table-cell">
-                            <span className={`text-xs font-bold px-2.5 py-1 rounded-lg ${
-                              isPartnership ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'text-slate-700'
-                            }`}>
+                            <span className={`text-xs font-bold px-2.5 py-1 rounded-lg ${isPartnership ? 'bg-indigo-50 text-indigo-700 border border-indigo-100' : 'text-slate-700'
+                              }`}>
                               {app.position || '—'}
                             </span>
                           </td>
@@ -959,26 +1027,26 @@ function DetailModal({
 
   const infoItems = isPartnership
     ? [
-        { icon: Building2, label: 'Company & Contact', value: app.full_name },
-        { icon: Mail, label: 'Official Email', value: app.email },
-        { icon: Phone, label: 'Direct Phone / WhatsApp', value: app.phone },
-        { icon: Briefcase, label: 'Partnership Scope', value: app.position },
-        { icon: GraduationCap, label: 'Industry Sector', value: app.qualification },
-        { icon: MapPin, label: 'Operating Country / City', value: app.current_country },
-      ].filter((i) => i.value)
+      { icon: Building2, label: 'Company & Contact', value: app.full_name },
+      { icon: Mail, label: 'Official Email', value: app.email },
+      { icon: Phone, label: 'Direct Phone / WhatsApp', value: app.phone },
+      { icon: Briefcase, label: 'Partnership Scope', value: app.position },
+      { icon: GraduationCap, label: 'Industry Sector', value: app.qualification },
+      { icon: MapPin, label: 'Operating Country / City', value: app.current_country },
+    ].filter((i) => i.value)
     : [
-        { icon: User, label: 'Full Name', value: app.full_name },
-        { icon: Mail, label: 'Email', value: app.email },
-        { icon: Phone, label: 'Phone', value: app.phone },
-        { icon: Briefcase, label: 'Position', value: app.position },
-        { icon: Briefcase, label: 'Experience', value: app.experience_years != null ? `${app.experience_years} years` : null },
-        { icon: GraduationCap, label: 'Qualification', value: app.qualification },
-        { icon: MapPin, label: 'Current Country', value: app.current_country },
-        { icon: Flag, label: 'Nationality', value: app.nationality },
-        { icon: Calendar, label: 'Date of Birth', value: app.date_of_birth },
-        { icon: FileCheck, label: 'Has Passport', value: app.has_passport === true ? 'Yes' : app.has_passport === false ? 'No' : null },
-        { icon: FileCheck, label: 'Passport Number', value: app.passport_number },
-      ].filter((i) => i.value);
+      { icon: User, label: 'Full Name', value: app.full_name },
+      { icon: Mail, label: 'Email', value: app.email },
+      { icon: Phone, label: 'Phone', value: app.phone },
+      { icon: Briefcase, label: 'Position', value: app.position },
+      { icon: Briefcase, label: 'Experience', value: app.experience_years != null ? `${app.experience_years} years` : null },
+      { icon: GraduationCap, label: 'Qualification', value: app.qualification },
+      { icon: MapPin, label: 'Current Country', value: app.current_country },
+      { icon: Flag, label: 'Nationality', value: app.nationality },
+      { icon: Calendar, label: 'Date of Birth', value: app.date_of_birth },
+      { icon: FileCheck, label: 'Has Passport', value: app.has_passport === true ? 'Yes' : app.has_passport === false ? 'No' : null },
+      { icon: FileCheck, label: 'Passport Number', value: app.passport_number },
+    ].filter((i) => i.value);
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
@@ -986,11 +1054,10 @@ function DetailModal({
 
       <div className="relative w-full max-w-2xl animate-fadeInUp max-h-[85dvh] sm:max-h-[90vh] overflow-y-auto scrollbar-hide my-auto">
         <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
-          <div className={`relative p-5 sm:p-6 ${
-            isPartnership
+          <div className={`relative p-5 sm:p-6 ${isPartnership
               ? 'bg-gradient-to-br from-indigo-700 via-blue-700 to-cyan-600'
               : 'bg-gradient-to-br from-blue-600 to-cyan-500'
-          }`}>
+            }`}>
             <button
               onClick={onClose}
               className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
@@ -1076,11 +1143,10 @@ function DetailModal({
                   <button
                     key={s.value}
                     onClick={() => onStatusChange(app.id, s.value)}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all ${
-                      app.status === s.value
+                    className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all ${app.status === s.value
                         ? s.color + ' ring-2 ring-offset-1 ring-current'
                         : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     {s.label}
                   </button>

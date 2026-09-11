@@ -7,7 +7,7 @@ export default function DoctorsPhysiciansPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Doctors & Physicians Careers | Dais World Healthcare';
+    document.title = 'Doctors & Physicians Careers | Dais World Endeavor Healthcare';
   }, []);
 
   return <HealthcareDepartmentDetailView department={department} />;

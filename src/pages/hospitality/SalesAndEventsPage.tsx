@@ -7,7 +7,7 @@ export default function SalesAndEventsPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Hospitality Sales & Events Careers | Dais World Hospitality';
+    document.title = 'Hospitality Sales & Events Careers | Dais World Endeavor Hospitality';
   }, []);
 
   return <HospitalityDepartmentDetailView department={department} />;

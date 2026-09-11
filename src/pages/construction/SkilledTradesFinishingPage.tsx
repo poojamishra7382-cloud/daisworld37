@@ -7,7 +7,7 @@ export default function SkilledTradesFinishingPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Skilled Trades & Finishing Careers | Dais World Construction';
+    document.title = 'Skilled Trades & Finishing Careers | Dais World Endeavor Construction';
   }, []);
 
   return <ConstructionDepartmentDetailView department={department} />;

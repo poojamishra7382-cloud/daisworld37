@@ -7,7 +7,7 @@ export default function SpaWellnessPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Spa & Wellness Careers | Dais World Beauty & Care';
+    document.title = 'Spa & Wellness Careers | Dais World Endeavor Beauty & Care';
   }, []);
 
   return <BeautyAndCareDepartmentDetailView department={department} />;

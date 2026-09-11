@@ -7,7 +7,7 @@ export default function MedicalLaboratoryPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Medical Laboratory & Diagnostic Tech Careers | Dais World Healthcare';
+    document.title = 'Medical Laboratory & Diagnostic Tech Careers | Dais World Endeavor Healthcare';
   }, []);
 
   return <HealthcareDepartmentDetailView department={department} />;

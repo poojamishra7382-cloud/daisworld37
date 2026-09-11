@@ -7,7 +7,7 @@ export default function MakeupBridalPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Makeup & Bridal Glamour Careers | Dais World Beauty & Care';
+    document.title = 'Makeup & Bridal Glamour Careers | Dais World Endeavor Beauty & Care';
   }, []);
 
   return <BeautyAndCareDepartmentDetailView department={department} />;

@@ -7,7 +7,7 @@ export default function MaintenanceEngineeringPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Maintenance & Engineering Careers | Dais World Oil & Gas';
+    document.title = 'Maintenance & Engineering Careers | Dais World Endeavor Oil & Gas';
   }, []);
 
   return <OilAndGasDepartmentDetailView department={department} />;

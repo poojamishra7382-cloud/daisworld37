@@ -26,7 +26,7 @@ const testimonials = [
     role: 'Hotel Operations Supervisor, Dubai, UAE',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'I always wanted to build my career in the international hospitality industry. Dais World helped me find the right opportunity in Dubai and supported me throughout the interview and documentation process. Today I am working in a reputed hotel and gaining valuable international experience.',
+    text: 'I always wanted to build my career in the international hospitality industry. Dais World Endeavor helped me find the right opportunity in Dubai and supported me throughout the interview and documentation process. Today I am working in a reputed hotel and gaining valuable international experience.',
   },
 
   {
@@ -44,7 +44,7 @@ const testimonials = [
     role: 'Civil Engineer, Riyadh, Saudi Arabia',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'I was looking for an opportunity in the Middle East construction sector and Dais World helped me connect with the right employer. The documentation and interview guidance were very helpful. I am now working on a major construction project in Riyadh.',
+    text: 'I was looking for an opportunity in the Middle East construction sector and Dais World Endeavor helped me connect with the right employer. The documentation and interview guidance were very helpful. I am now working on a major construction project in Riyadh.',
   },
 
   {
@@ -62,7 +62,7 @@ const testimonials = [
     role: 'Mechanical Engineer, Abu Dhabi, UAE',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'Dais World helped me take the next step in my oil and gas career. The team understood my technical background and guided me towards a suitable opportunity in Abu Dhabi. Their support during the recruitment process was excellent.',
+    text: 'Dais World Endeavor helped me take the next step in my oil and gas career. The team understood my technical background and guided me towards a suitable opportunity in Abu Dhabi. Their support during the recruitment process was excellent.',
   },
 
   {
@@ -70,7 +70,7 @@ const testimonials = [
     role: 'Electrical Technician, Doha, Qatar',
     image: '/no-dp-image-1.webp',
     rating: 5,
-    text: 'I wanted to work in the Middle East energy sector and did not know where to start. Dais World guided me through the complete process and helped me prepare for the technical interview. I am now working in Qatar and building my international career.',
+    text: 'I wanted to work in the Middle East energy sector and did not know where to start. Dais World Endeavor guided me through the complete process and helped me prepare for the technical interview. I am now working in Qatar and building my international career.',
   },
 
 ];

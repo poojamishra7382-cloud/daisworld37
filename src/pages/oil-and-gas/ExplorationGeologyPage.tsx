@@ -7,7 +7,7 @@ export default function ExplorationGeologyPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Exploration & Geology Careers | Dais World Oil & Gas';
+    document.title = 'Exploration & Geology Careers | Dais World Endeavor Oil & Gas';
   }, []);
 
   return <OilAndGasDepartmentDetailView department={department} />;

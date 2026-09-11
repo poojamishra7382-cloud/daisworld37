@@ -91,7 +91,7 @@ export default function Footer() {
             <Link to="/home" className="inline-block mb-3">
               <img
                 src="/logo3.png"
-                alt="Dais World"
+                alt="Dais World Endeavor"
                 className="h-14 sm:h-16 w-auto max-w-[260px] object-contain"
               />
             </Link>

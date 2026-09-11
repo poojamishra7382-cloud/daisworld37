@@ -7,7 +7,7 @@ export default function FrontOfficePage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Front Office & Hotel Reception Careers | Dais World Hospitality';
+    document.title = 'Front Office & Hotel Reception Careers | Dais World Endeavor Hospitality';
   }, []);
 
   return <HospitalityDepartmentDetailView department={department} />;

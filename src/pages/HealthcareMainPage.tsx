@@ -18,7 +18,7 @@ import { services } from '@/data/services';
 export default function HealthcareMainPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Healthcare Services & Clinical Placements | Dais World';
+    document.title = 'Healthcare Services & Clinical Placements | Dais World Endeavor';
   }, []);
 
   const openApplyModal = () => {

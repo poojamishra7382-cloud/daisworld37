@@ -7,7 +7,7 @@ export default function KitchenCulinaryPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Kitchen & Culinary Chef Careers | Dais World Hospitality';
+    document.title = 'Kitchen & Culinary Chef Careers | Dais World Endeavor Hospitality';
   }, []);
 
   return <HospitalityDepartmentDetailView department={department} />;

@@ -39,7 +39,7 @@ export default function AboutPage() {
                   <div className="absolute bottom-6 left-6 right-6">
                     <div className="glassmorphism rounded-2xl p-4">
                       <p className="text-white font-bold text-lg italic">"We Care. We Train. We Place. You Grow."</p>
-                      <p className="text-white/70 text-xs mt-1">— DAIS WORLD MISSION</p>
+                      <p className="text-white/70 text-xs mt-1">— DAIS WORLD ENDEAVOR MISSION</p>
                     </div>
                   </div>
                 </div>
@@ -48,13 +48,13 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Dais World</p>
+                <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">About Dais World Endeavor</p>
                 <h2 className="text-4xl sm:text-5xl font-black text-slate-900 leading-tight mb-6">
                   Our <span className="text-gradient">Story</span>
                 </h2>
                 <div className="space-y-4 text-slate-600 text-base leading-relaxed mb-8">
                   <p>
-                    Dais World is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas etc.
+                    Dais World Endeavor is a premier international manpower recruitment consultancy based in Mumbai, India. We specialize in connecting skilled Indian professionals with trusted employers and leading organizations across Healthcare, Hospitality, Construction, and Oil & Gas etc.
                   </p>
                   <p>
                     With over a decade of experience, we have helped hundreds of skilled professionals build international careers across Healthcare, Hospitality, Construction, and Oil & Gas etc. We provide end-to-end support, from recruitment and documentation to visa assistance, relocation guidance, and career support.
@@ -132,7 +132,7 @@ export default function AboutPage() {
           <div className="text-center mb-10 sm:mb-12">
             <p className="text-blue-600 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2.5">Why Choose Us</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 sm:mb-5">
-              The <span className="text-gradient">Dais World</span> Advantage
+              The <span className="text-gradient">Dais World Endeavor</span> Advantage
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">

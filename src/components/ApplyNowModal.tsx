@@ -780,7 +780,7 @@ export default function ApplyNowModal({ open, onClose }: ApplyNowModalProps) {
                 Next Steps:
               </p>
               <p>✓ Free European eligibility & qualification check</p>
-              <p>✓ Direct call / WhatsApp briefing from Dais World team</p>
+              <p>✓ Direct call / WhatsApp briefing from Dais World Endeavor team</p>
               <p>✓ Fast-track employer sponsorship & language onboarding</p>
             </div>
 

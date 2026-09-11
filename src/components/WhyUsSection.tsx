@@ -16,7 +16,7 @@ export default function WhyUsSection() {
         <div className="text-center mb-16">
           <p className="text-blue-600 font-semibold text-sm uppercase tracking-widest mb-3">Why Choose Us</p>
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-5">
-            The DAIS WORLD <span className="text-gradient">Advantage</span>
+            The DAIS WORLD ENDEAVOR <span className="text-gradient">Advantage</span>
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
             We're not just a recruiter — we're your career partner. Here's what makes us different.

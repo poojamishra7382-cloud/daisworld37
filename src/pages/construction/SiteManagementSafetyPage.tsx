@@ -7,7 +7,7 @@ export default function SiteManagementSafetyPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Site Management, Safety & QA/QC Careers | Dais World Construction';
+    document.title = 'Site Management, Safety & QA/QC Careers | Dais World Endeavor Construction';
   }, []);
 
   return <ConstructionDepartmentDetailView department={department} />;

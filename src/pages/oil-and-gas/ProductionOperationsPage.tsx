@@ -7,7 +7,7 @@ export default function ProductionOperationsPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Production & Plant Operations Careers | Dais World Oil & Gas';
+    document.title = 'Production & Plant Operations Careers | Dais World Endeavor Oil & Gas';
   }, []);
 
   return <OilAndGasDepartmentDetailView department={department} />;

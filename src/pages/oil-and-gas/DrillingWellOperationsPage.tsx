@@ -7,7 +7,7 @@ export default function DrillingWellOperationsPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Drilling & Well Operations Careers | Dais World Oil & Gas';
+    document.title = 'Drilling & Well Operations Careers | Dais World Endeavor Oil & Gas';
   }, []);
 
   return <OilAndGasDepartmentDetailView department={department} />;

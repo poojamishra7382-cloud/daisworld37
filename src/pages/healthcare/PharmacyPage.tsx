@@ -7,7 +7,7 @@ export default function PharmacyPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Pharmacy & Clinical Pharmaceutical Careers | Dais World Healthcare';
+    document.title = 'Pharmacy & Clinical Pharmaceutical Careers | Dais World Endeavor Healthcare';
   }, []);
 
   return <HealthcareDepartmentDetailView department={department} />;

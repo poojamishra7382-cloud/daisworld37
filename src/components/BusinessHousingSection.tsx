@@ -69,7 +69,7 @@ export default function BusinessHousingSection() {
     {
       icon: Home,
       title: 'Turnkey Corporate Housing',
-      desc: 'Fully furnished, safe, and premium employee apartments with utilities, proximity to job sites, and complete municipal lease management handled by Dais World.',
+      desc: 'Fully furnished, safe, and premium employee apartments with utilities, proximity to job sites, and complete municipal lease management handled by Dais World Endeavor.',
       color: 'from-blue-600 to-cyan-500',
     },
     {
@@ -267,7 +267,7 @@ export default function BusinessHousingSection() {
           </h2>
 
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Dais World partners with international hospitals, luxury hotel chains, construction conglomerates, and global enterprises to provide reliable international staffing and end-to-end corporate workforce housing.
+            Dais World Endeavor partners with international hospitals, luxury hotel chains, construction conglomerates, and global enterprises to provide reliable international staffing and end-to-end corporate workforce housing.
           </p>
         </div>
 

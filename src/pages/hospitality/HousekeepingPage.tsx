@@ -7,7 +7,7 @@ export default function HousekeepingPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Housekeeping & Hotel Operations Careers | Dais World Hospitality';
+    document.title = 'Housekeeping & Hotel Operations Careers | Dais World Endeavor Hospitality';
   }, []);
 
   return <HospitalityDepartmentDetailView department={department} />;

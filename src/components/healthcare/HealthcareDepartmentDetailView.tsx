@@ -144,7 +144,7 @@ export default function HealthcareDepartmentDetailView({ department }: Props) {
               <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 shadow-sm">
                 <h3 className="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
                   <Award className="w-5 h-5 text-blue-600" />
-                  Why Professionals Choose Dais World
+                  Why Professionals Choose Dais World Endeavor
                 </h3>
 
                 <ul className="space-y-3">
@@ -399,7 +399,7 @@ export default function HealthcareDepartmentDetailView({ department }: Props) {
               Career Opportunities & Benefits
             </h2>
             <p className="text-slate-500 text-sm sm:text-base">
-              Relocating internationally with Dais World offers exceptional compensation, stability, and professional prestige.
+              Relocating internationally with Dais World Endeavor offers exceptional compensation, stability, and professional prestige.
             </p>
           </div>
 

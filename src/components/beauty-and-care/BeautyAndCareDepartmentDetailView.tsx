@@ -141,7 +141,7 @@ export default function BeautyAndCareDepartmentDetailView({ department }: Props)
               <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 shadow-sm">
                 <h3 className="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
                   <Award className="w-5 h-5 text-pink-600" />
-                  Why Beauty Talents Choose Dais World
+                  Why Beauty Talents Choose Dais World Endeavor
                 </h3>
 
                 <ul className="space-y-3">

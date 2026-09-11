@@ -7,7 +7,7 @@ export default function FoodAndBeveragePage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Food & Beverage (F&B) Careers | Dais World Hospitality';
+    document.title = 'Food & Beverage (F&B) Careers | Dais World Endeavor Hospitality';
   }, []);
 
   return <HospitalityDepartmentDetailView department={department} />;

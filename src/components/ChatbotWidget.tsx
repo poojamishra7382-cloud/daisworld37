@@ -32,7 +32,7 @@ const STORAGE_KEY = 'daisworld_ai_chat_history_v5';
 const WELCOME: Message = {
   id: 0,
   sender: 'bot',
-  text: "Hello & Welcome to Dais World! 👋",
+  text: "Hello & Welcome to Dais World Endeavor! 👋",
   time: Date.now(),
 };
 
@@ -76,11 +76,11 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'agency partner', 'franchise', 'vendor', 'become a partner', 'join as partner'
     ],
     reply:
-      "🤝 **Partner With Dais World (B2B & Employer Solutions)**\n\nWe warmly welcome international hospitals, hotel chains, construction conglomerates, recruitment agencies, and educational institutions to collaborate with us!\n\n**Our Core Partnership Avenues:**\n\n1️⃣ **Employer Staffing Partnerships:**\n• Direct access to pre-screened, certified, and language-trained (Dutch/German B1-B2) healthcare, hospitality, and engineering talent.\n• 100% legal visa compliance, credential attestation, and fast-track deployment.\n\n2️⃣ **Turnkey Corporate Housing Solutions:**\n• Complete furnished accommodation, municipal leasing, and facility management for overseas workforces.\n\n3️⃣ **Academic & Institutional Tie-ups:**\n• Collaborations with Nursing Colleges, Culinary Institutes, and Engineering Academies for direct international campus placements.\n\n4️⃣ **Global Associate Recruitment Partners:**\n• Join our verified worldwide network of overseas recruitment consultants.\n\n⭐ **Trusted Global Partners Include:**\nSiemens Healthineers, Royal Philips Healthcare, Bupa, Ramsay Health Care, Roche, Accor Hotels, Marriott Europe, and premier Dutch health networks.\n\n📍 **Submit Your Proposal or Connect Directly:**\n• Direct Partnership Helpline: **+91 8976697001**\n• Corporate Email: **info@daisworld.com** / **aditya.s@daisworld.com**\n• Head Office: 1210, One World by Sanjar, Malad West, Mumbai, India.",
+      "🤝 **Partner With Dais World Endeavor (B2B & Employer Solutions)**\n\nWe warmly welcome international hospitals, hotel chains, construction conglomerates, recruitment agencies, and educational institutions to collaborate with us!\n\n**Our Core Partnership Avenues:**\n\n1️⃣ **Employer Staffing Partnerships:**\n• Direct access to pre-screened, certified, and language-trained (Dutch/German B1-B2) healthcare, hospitality, and engineering talent.\n• 100% legal visa compliance, credential attestation, and fast-track deployment.\n\n2️⃣ **Turnkey Corporate Housing Solutions:**\n• Complete furnished accommodation, municipal leasing, and facility management for overseas workforces.\n\n3️⃣ **Academic & Institutional Tie-ups:**\n• Collaborations with Nursing Colleges, Culinary Institutes, and Engineering Academies for direct international campus placements.\n\n4️⃣ **Global Associate Recruitment Partners:**\n• Join our verified worldwide network of overseas recruitment consultants.\n\n⭐ **Trusted Global Partners Include:**\nSiemens Healthineers, Royal Philips Healthcare, Bupa, Ramsay Health Care, Roche, Accor Hotels, Marriott Europe, and premier Dutch health networks.\n\n📍 **Submit Your Proposal or Connect Directly:**\n• Direct Partnership Helpline: **+91 8976697001**\n• Corporate Email: **info@daisworld.com** / **aditya.s@daisworld.com**\n• Head Office: 1210, One World by Sanjar, Malad West, Mumbai, India.",
     actions: [
       { label: '🏢 Explore B2B / Partners Page', url: '/clients' },
       { label: '📞 Contact Partnerships Desk', url: '/contact' },
-      { label: '💬 WhatsApp Corporate Desk', url: 'https://wa.me/918976697001?text=Hello%2C%20I%20am%20interested%20in%20a%20B2B%20Partnership%20with%20Dais%20World', isExternal: true },
+      { label: '💬 WhatsApp Corporate Desk', url: 'https://wa.me/918976697001?text=Hello%2C%20I%20am%20interested%20in%20a%20B2B%20Partnership%20with%20Dais%20World%20Endeavor', isExternal: true },
     ],
   },
 
@@ -98,7 +98,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'hiring drive', 'available jobs', 'opportunities', 'abroad job'
     ],
     reply:
-      "💼 **Current Active Vacancies at Dais World (August 2026 Drive)**\n\nWe are actively hiring for 150+ positions across Europe and the Middle East:\n\n🇳🇱 **Netherlands Healthcare Urgent Drive:**\n• **20 Operation Room (OT) Nurses:** €3,900 – €5,500/mo (₹3.5L – ₹5.0L)\n• **30 Healthcare Assistants & Caregivers:** €2,450 – €3,200/mo (₹2.2L – ₹2.9L)\n• **20 Registered Staff Nurses (Ward/ICU):** €3,200 – €3,775/mo (₹2.85L – ₹3.4L)\n*(Includes 100% Free Dutch B1 Training, Visa, Flight & Accommodation support)*\n\n🏨 **Hospitality Careers (Europe & UAE):**\n• 15 Executive Chefs & Sous Chefs (8,500 – 14,000 AED / €2,800 – €4,200)\n• 25 Housekeeping & Front Office Supervisors\n• Food & Beverage Stewards & Restaurant Captains\n\n🏗️ **Construction & Oil/Gas (Gulf & Europe):**\n• 20 Civil & Structural Site Engineers\n• 35 Certified Welders, Electricians & MEP Technicians\n• 15 Offshore Drilling & HSE Safety Officers\n\n💅 **Beauty & Wellness (Europe & Dubai):**\n• 15 Hair Stylists, Cosmetologists & Spa Therapists\n\n✨ All vacancies include legal employer visa sponsorship, healthcare coverage, and PR pathways!",
+      "💼 **Current Active Vacancies at Dais World Endeavor (August 2026 Drive)**\n\nWe are actively hiring for 150+ positions across Europe and the Middle East:\n\n🇳🇱 **Netherlands Healthcare Urgent Drive:**\n• **20 Operation Room (OT) Nurses:** €3,900 – €5,500/mo (₹3.5L – ₹5.0L)\n• **30 Healthcare Assistants & Caregivers:** €2,450 – €3,200/mo (₹2.2L – ₹2.9L)\n• **20 Registered Staff Nurses (Ward/ICU):** €3,200 – €3,775/mo (₹2.85L – ₹3.4L)\n*(Includes 100% Free Dutch B1 Training, Visa, Flight & Accommodation support)*\n\n🏨 **Hospitality Careers (Europe & UAE):**\n• 15 Executive Chefs & Sous Chefs (8,500 – 14,000 AED / €2,800 – €4,200)\n• 25 Housekeeping & Front Office Supervisors\n• Food & Beverage Stewards & Restaurant Captains\n\n🏗️ **Construction & Oil/Gas (Gulf & Europe):**\n• 20 Civil & Structural Site Engineers\n• 35 Certified Welders, Electricians & MEP Technicians\n• 15 Offshore Drilling & HSE Safety Officers\n\n💅 **Beauty & Wellness (Europe & Dubai):**\n• 15 Hair Stylists, Cosmetologists & Spa Therapists\n\n✨ All vacancies include legal employer visa sponsorship, healthcare coverage, and PR pathways!",
     actions: [
       { label: '📋 View All Vacancies', url: '/vacancies' },
       { label: '📝 Apply Now', url: '/apply' },
@@ -230,7 +230,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'language institute', 'training duration', 'online training'
     ],
     reply:
-      "🎓 **100% Free Language Training Program (Dutch & German)**\n\nTo ensure our candidates succeed abroad, Dais World provides complete, structured language training **100% FREE OF COST** for selected candidates!\n\n**Program Highlights:**\n• **Languages:** Dutch (B1 level) & German (B1 / B2 level)\n• **Duration:** 4 to 6 Months (Fast-track intensive batches)\n• **Trainers:** Certified Native & Expert Linguistic Instructors\n• **Curriculum:** Conversational Fluency + Medical / Professional Terminology\n• **Format:** Interactive Live Online Classes + Daily Speaking Practice & Mock Tests\n• **Exam Fee Support:** Complete guidance for official Dutch CNaVT / German Goethe & TELC examinations.\n\n*Note: Training is sponsored by our healthcare & employer partners for all enrolled candidates!*",
+      "🎓 **100% Free Language Training Program (Dutch & German)**\n\nTo ensure our candidates succeed abroad, Dais World Endeavor provides complete, structured language training **100% FREE OF COST** for selected candidates!\n\n**Program Highlights:**\n• **Languages:** Dutch (B1 level) & German (B1 / B2 level)\n• **Duration:** 4 to 6 Months (Fast-track intensive batches)\n• **Trainers:** Certified Native & Expert Linguistic Instructors\n• **Curriculum:** Conversational Fluency + Medical / Professional Terminology\n• **Format:** Interactive Live Online Classes + Daily Speaking Practice & Mock Tests\n• **Exam Fee Support:** Complete guidance for official Dutch CNaVT / German Goethe & TELC examinations.\n\n*Note: Training is sponsored by our healthcare & employer partners for all enrolled candidates!*",
     actions: [
       { label: '📝 Apply for Free Training Batch', url: '/apply' },
       { label: '🇳🇱 View Netherlands Vacancies', url: '/vacancies' },
@@ -332,7 +332,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'permanent residency', 'timeline', 'kitna time lagta hai'
     ],
     reply:
-      "🛂 **100% Legal Visa & Immigration Process:**\n\n• Dais World handles the complete end-to-end legal visa processing:\n1. **Employer Sponsorship Verification** (Guaranteed legitimate contract)\n2. **Apostille & Document Attestation** (HRD, MEA & Embassy)\n3. **Licensing Equivalency** (BIG / DHA / Approbation)\n4. **Work Permit & MVV Filing**\n5. **Flight Booking & Airport Reception**\n\n⏱️ **Timeline:** Europe takes ~5–7 months (including language training), and Gulf takes ~3–6 weeks!",
+      "🛂 **100% Legal Visa & Immigration Process:**\n\n• Dais World Endeavor handles the complete end-to-end legal visa processing:\n1. **Employer Sponsorship Verification** (Guaranteed legitimate contract)\n2. **Apostille & Document Attestation** (HRD, MEA & Embassy)\n3. **Licensing Equivalency** (BIG / DHA / Approbation)\n4. **Work Permit & MVV Filing**\n5. **Flight Booking & Airport Reception**\n\n⏱️ **Timeline:** Europe takes ~5–7 months (including language training), and Gulf takes ~3–6 weeks!",
     actions: [
       { label: '📝 Start Visa Assessment', url: '/apply' },
       { label: '🏢 About Our Company', url: '/about' },
@@ -375,9 +375,9 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'phone number', 'address', 'office location', 'counselor number'
     ],
     reply:
-      "📞 **Connect With Dais World Team:**\n\n• **Phone Helpline:** +91 8976697001\n• **WhatsApp Support:** +91 8976697001\n• **Email:** info@daisworld.com / aditya.s@daisworld.com\n• **Working Hours:** Monday – Saturday (10:00 AM – 8:00 PM IST)\n• **Headquarters Address:** 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India).\n\nFeel free to call or WhatsApp us anytime for immediate counselor guidance!",
+      "📞 **Connect With Dais World Endeavor Team:**\n\n• **Phone Helpline:** +91 8976697001\n• **WhatsApp Support:** +91 8976697001\n• **Email:** info@daisworld.com / aditya.s@daisworld.com\n• **Working Hours:** Monday – Saturday (10:00 AM – 8:00 PM IST)\n• **Headquarters Address:** 1210, One World by Sanjar, Bhadran Nagar, Malad West, Mumbai (India).\n\nFeel free to call or WhatsApp us anytime for immediate counselor guidance!",
     actions: [
-      { label: '💬 Chat on WhatsApp', url: 'https://wa.me/918976697001?text=Hello%20Dais%20World%2C%20I%20have%20an%20inquiry%20regarding%20overseas%20careers', isExternal: true },
+      { label: '💬 Chat on WhatsApp', url: 'https://wa.me/918976697001?text=Hello%20Dais%20World%20Endeavor%2C%20I%20have%20an%20inquiry%20regarding%20overseas%20careers', isExternal: true },
       { label: '📞 Go to Contact Page', url: '/contact' },
       { label: '📝 Apply Now', url: '/apply' },
     ],
@@ -396,10 +396,10 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'whats up', 'whatsup', 'sup', 'yo', 'greeting'
     ],
     reply:
-      "Hello! 😊 Welcome to Dais World.\n\nHow can I help you today? You can ask me about our **Job Vacancies**, **Partnership Opportunities**, **Language Training**, or **How to Apply**!",
+      "Hello! 😊 Welcome to Dais World Endeavor.\n\nHow can I help you today? You can ask me about our **Job Vacancies**, **Partnership Opportunities**, **Language Training**, or **How to Apply**!",
     actions: [
       { label: '💼 Active Vacancies', query: 'What vacancies are available right now?' },
-      { label: '🤝 Become a Partner', query: 'I want to become a partner with Dais World' },
+      { label: '🤝 Become a Partner', query: 'I want to become a partner with Dais World Endeavor' },
       { label: '🎓 Free Training', query: 'How does the free Dutch/German training work?' },
       { label: '📝 How to Apply', query: 'How do I apply for jobs?' },
     ],
@@ -428,7 +428,7 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
 
 // Fallback message for out-of-box / irrelevant questions
 const OUT_OF_BOX_REPLY =
-  "I apologize! 🙏 I am an AI assistant specifically dedicated to **Dais World** and our overseas career, recruitment, and corporate partnership services.\n\nI cannot answer general or unrelated questions. Please feel free to ask me anything regarding our website offerings:\n\n• 💼 **Active Job Vacancies** (Healthcare, Hospitality, Construction, Oil & Gas, Beauty)\n• 🤝 **Becoming a Partner / B2B Solutions** (Staffing, Corporate Housing, Academic Tie-ups)\n• 🌍 **Global Destinations** (Netherlands, Germany, UAE, Saudi, Europe) & Salaries\n• 🎓 **100% Free Dutch & German Language Training**\n• ✈️ **Visa, Process & How to Apply**\n• 🏢 **About Dais World & Contact Helpline**\n\nHow may I help you with our website or overseas services today?";
+  "I apologize! 🙏 I am an AI assistant specifically dedicated to **Dais World Endeavor** and our overseas career, recruitment, and corporate partnership services.\n\nI cannot answer general or unrelated questions. Please feel free to ask me anything regarding our website offerings:\n\n• 💼 **Active Job Vacancies** (Healthcare, Hospitality, Construction, Oil & Gas, Beauty)\n• 🤝 **Becoming a Partner / B2B Solutions** (Staffing, Corporate Housing, Academic Tie-ups)\n• 🌍 **Global Destinations** (Netherlands, Germany, UAE, Saudi, Europe) & Salaries\n• 🎓 **100% Free Dutch & German Language Training**\n• ✈️ **Visa, Process & How to Apply**\n• 🏢 **About Dais World Endeavor & Contact Helpline**\n\nHow may I help you with our website or overseas services today?";
 
 const OUT_OF_BOX_ACTIONS: ChatAction[] = [
   { label: '💼 View Vacancies', url: '/vacancies' },
@@ -448,7 +448,7 @@ function getBotResponse(input: string): { reply: string; actions?: ChatAction[] 
 
   if (!clean) {
     return {
-      reply: "Hi there! 👋 How can I assist you with Dais World today? Feel free to ask about our active vacancies, partnership opportunities, free training, or application process.",
+      reply: "Hi there! 👋 How can I assist you with Dais World Endeavor today? Feel free to ask about our active vacancies, partnership opportunities, free training, or application process.",
     };
   }
 
@@ -658,8 +658,8 @@ export default function ChatbotWidget() {
           ===================================== */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close chat' : 'Open Dais World AI Assistant'}
-        title={open ? 'Close chat' : 'Dais World AI Assistant'}
+        aria-label={open ? 'Close chat' : 'Open Dais World Endeavor AI Assistant'}
+        title={open ? 'Close chat' : 'Dais World Endeavor AI Assistant'}
         style={btnStyle}
         className={`fixed z-[90] w-14 h-14 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
           open
@@ -708,7 +708,7 @@ export default function ChatbotWidget() {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <p className="text-white font-extrabold text-sm sm:text-base tracking-wide">
-                      DAIS WORLD AI
+                      DAIS WORLD ENDEAVOR AI
                     </p>
                     <span className="text-[10px] bg-cyan-400/20 text-cyan-200 border border-cyan-300/30 px-1.5 py-0.5 rounded-full font-semibold">
                       Assistant

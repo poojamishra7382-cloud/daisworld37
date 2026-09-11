@@ -7,7 +7,7 @@ export default function AlliedHealthWellnessPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Allied Health, Physiotherapy & Wellness Careers | Dais World Healthcare';
+    document.title = 'Allied Health, Physiotherapy & Wellness Careers | Dais World Endeavor Healthcare';
   }, []);
 
   return <HealthcareDepartmentDetailView department={department} />;

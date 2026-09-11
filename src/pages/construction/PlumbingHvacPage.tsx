@@ -7,7 +7,7 @@ export default function PlumbingHvacPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Plumbing & HVAC Mechanical Careers | Dais World Construction';
+    document.title = 'Plumbing & HVAC Mechanical Careers | Dais World Endeavor Construction';
   }, []);
 
   return <ConstructionDepartmentDetailView department={department} />;

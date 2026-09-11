@@ -7,7 +7,7 @@ export default function ElectricalPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Electrical Engineering & Installation Careers | Dais World Construction';
+    document.title = 'Electrical Engineering & Installation Careers | Dais World Endeavor Construction';
   }, []);
 
   return <ConstructionDepartmentDetailView department={department} />;

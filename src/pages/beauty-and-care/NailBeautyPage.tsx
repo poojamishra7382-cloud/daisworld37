@@ -7,7 +7,7 @@ export default function NailBeautyPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Nail & Beauty Careers | Dais World Beauty & Care';
+    document.title = 'Nail & Beauty Careers | Dais World Endeavor Beauty & Care';
   }, []);
 
   return <BeautyAndCareDepartmentDetailView department={department} />;

@@ -146,7 +146,7 @@ export default function ApplyPage() {
 
   const shareViaWhatsApp = () => {
     const link = window.location.origin + '/form';
-    const text = `Hi, please fill out the official Dais World Overseas Candidate Registration Form here: ${link}`;
+    const text = `Hi, please fill out the official Dais World Endeavor Overseas Candidate Registration Form here: ${link}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
 
@@ -444,7 +444,7 @@ const BLOCKED_DUMMY_PHONES = new Set([
             DW
           </div>
           <span className="text-xs sm:text-sm font-bold text-slate-800 truncate">
-            Dais World · Official Candidate Registration Form
+            Dais World Endeavor · Official Candidate Registration Form
           </span>
         </div>
 

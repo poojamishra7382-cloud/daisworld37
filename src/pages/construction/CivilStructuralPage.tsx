@@ -7,7 +7,7 @@ export default function CivilStructuralPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Civil & Structural Engineering Careers | Dais World Construction';
+    document.title = 'Civil & Structural Engineering Careers | Dais World Endeavor Construction';
   }, []);
 
   return <ConstructionDepartmentDetailView department={department} />;
