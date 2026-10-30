@@ -34,6 +34,16 @@ import SkinAestheticsPage from '@/pages/beauty-and-care/SkinAestheticsPage';
 import NailBeautyPage from '@/pages/beauty-and-care/NailBeautyPage';
 import SpaWellnessPage from '@/pages/beauty-and-care/SpaWellnessPage';
 import MakeupBridalPage from '@/pages/beauty-and-care/MakeupBridalPage';
+import AutomotiveEngineeringDesignPage from '@/pages/automotive/AutomotiveEngineeringDesignPage';
+import VehicleMaintenanceRepairPage from '@/pages/automotive/VehicleMaintenanceRepairPage';
+import AutomotiveManufacturingProductionPage from '@/pages/automotive/AutomotiveManufacturingProductionPage';
+import AutomotiveElectricalEvPage from '@/pages/automotive/AutomotiveElectricalEvPage';
+import QualityControlTestingInspectionPage from '@/pages/automotive/QualityControlTestingInspectionPage';
+import SpecializedServicesPage from '@/pages/SpecializedServicesPage';
+import ElectriciansJobPage from '@/pages/skilled-jobs/ElectriciansJobPage';
+import WeldersJobPage from '@/pages/skilled-jobs/WeldersJobPage';
+import ScaffoldersJobPage from '@/pages/skilled-jobs/ScaffoldersJobPage';
+import CraneOperatorsJobPage from '@/pages/skilled-jobs/CraneOperatorsJobPage';
 import { LanguageProvider } from '@/context/LanguageContext';
 
 export default function App() {
@@ -87,6 +97,22 @@ export default function App() {
             <Route path="/services/beauty-and-care/nail-beauty" element={<NailBeautyPage />} />
             <Route path="/services/beauty-and-care/spa-wellness" element={<SpaWellnessPage />} />
             <Route path="/services/beauty-and-care/makeup-bridal" element={<MakeupBridalPage />} />
+
+            {/* Automotive & Automobile Multi-Page Routes */}
+            <Route path="/services/automotive" element={<Navigate to="/services/automotive/engineering-design" replace />} />
+            <Route path="/services/automotive-and-automobile" element={<Navigate to="/services/automotive/engineering-design" replace />} />
+            <Route path="/services/automotive/engineering-design" element={<AutomotiveEngineeringDesignPage />} />
+            <Route path="/services/automotive/maintenance-repair" element={<VehicleMaintenanceRepairPage />} />
+            <Route path="/services/automotive/manufacturing-production" element={<AutomotiveManufacturingProductionPage />} />
+            <Route path="/services/automotive/electrical-ev" element={<AutomotiveElectricalEvPage />} />
+            <Route path="/services/automotive/quality-testing-inspection" element={<QualityControlTestingInspectionPage />} />
+
+            {/* Specialized Services / Skilled Jobs Main Page & Detail Pages */}
+            <Route path="/services/specialized-services" element={<SpecializedServicesPage />} />
+            <Route path="/services/specialized-services/electricians" element={<ElectriciansJobPage />} />
+            <Route path="/services/specialized-services/welders" element={<WeldersJobPage />} />
+            <Route path="/services/specialized-services/scaffolders" element={<ScaffoldersJobPage />} />
+            <Route path="/services/specialized-services/crane-operators" element={<CraneOperatorsJobPage />} />
 
             {/* General Services Fallback Route */}
             <Route path="/services/:slug" element={<ServiceDetailPage />} />

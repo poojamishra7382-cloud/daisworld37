@@ -1,7 +1,7 @@
 export interface Partner {
   id: number;
   name: string;
-  category: 'Healthcare' | 'Hospitality' | 'Construction' | 'Oil & Gas' | 'Beauty & Care';
+  category: 'Healthcare' | 'Hospitality' | 'Construction' | 'Oil & Gas' | 'Beauty & Care' | 'Automotive & Automobile';
   country: string;
   city: string;
   description: string;
@@ -225,5 +225,31 @@ export const partnersData: Partner[] = [
       "World-class luxury spa and wellness management operating 5-star hotel thermal spas, holistic body treatments, and aesthetic therapy.",
     image:
       "https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1200&q=80",
+  },
+
+  // =========================================================================
+  // AUTOMOTIVE & AUTOMOBILE
+  // =========================================================================
+  {
+    id: 19,
+    name: "Bavarian Automotive Engineering Group",
+    category: "Automotive & Automobile",
+    country: "Germany",
+    city: "Munich",
+    description:
+      "Leading premium European automotive manufacturing and R&D cluster specializing in precision CAD engineering, automated robotics, and electric vehicle powertrain development.",
+    image:
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    id: 20,
+    name: "Nordic E-Mobility Gigafactory & Assembly",
+    category: "Automotive & Automobile",
+    country: "Sweden",
+    city: "Gothenburg",
+    description:
+      "Next-generation electric vehicle assembly and battery pack manufacturing facility deploying state-of-the-art automated robotics, BMS calibration, and high-voltage testing.",
+    image:
+      "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=1200&q=80",
   },
 ];

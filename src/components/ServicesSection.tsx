@@ -6,6 +6,10 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 export default function ServicesSection() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
+  const openApplyModal = () => {
+    window.dispatchEvent(new CustomEvent('open-apply-modal'));
+  };
+
   return (
     <section id="services" className="pt-12 pb-12 bg-gradient-to-b from-white to-blue-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +32,7 @@ export default function ServicesSection() {
 
           <p className="text-slate-500 text-sm sm:text-lg max-w-2xl mx-auto">
             End-to-end international recruitment solutions across healthcare, hospitality,
-            construction, oil & gas, and beauty & care industries.
+            construction, oil & gas, beauty & care, automotive & automobile, and skilled job services.
           </p>
         </div>
 
@@ -47,6 +51,8 @@ export default function ServicesSection() {
                 ? '/services/oil-and-gas/exploration-geology'
                 : s.slug === 'beauty-and-care'
                 ? '/services/beauty-and-care/hair-styling'
+                : s.slug === 'automotive'
+                ? '/services/automotive/engineering-design'
                 : `/services/${s.slug}`;
 
             return (
@@ -101,41 +107,35 @@ export default function ServicesSection() {
             );
           })}
 
-          {/* CTA Card */}
+          {/* Ready to Begin? Box */}
           <div
-            className={`relative bg-gradient-to-br from-blue-600 to-cyan-500 rounded-3xl p-6 sm:p-8 text-white shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 hover:-translate-y-2 ${visible
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-8'
-              }`}
+            className={`group relative h-72 sm:h-80 overflow-hidden rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-[#1e69ff] via-[#0984e3] to-[#00a8ff] p-6 sm:p-8 flex flex-col justify-start ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
             style={{ transitionDelay: `${services.length * 100}ms` }}
           >
+            {/* Top-left subtle glossy bubble curve */}
+            <div className="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-white/20 blur-xl pointer-events-none" />
+            <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-br-full pointer-events-none" />
+            <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-cyan-300/20 blur-2xl pointer-events-none" />
 
-            <div className="absolute -top-4 -left-4 w-32 h-32 bg-white/10 rounded-3xl rotate-12" />
-
-            <div className="relative">
-              <h3 className="text-xl font-black mb-3">
+            {/* Content */}
+            <div className="relative z-10">
+              <h3 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight">
                 Ready to Begin?
               </h3>
-
-              <p className="text-white/90 text-xs sm:text-sm leading-relaxed mb-6">
-                Start your application today and take the first step toward
-                your global career.
+              <p className="text-white/95 text-xs sm:text-sm leading-relaxed mb-6 sm:mb-7 max-w-[280px] font-normal">
+                Start your application today and take the first step toward your global career.
               </p>
-
               <button
-                onClick={() =>
-                  window.dispatchEvent(
-                    new CustomEvent('open-apply-modal')
-                  )
-                }
-                className="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-all group/btn text-sm sm:text-base"
+                type="button"
+                onClick={openApplyModal}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white hover:bg-slate-50 text-[#1754db] font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer group/btn active:scale-95"
               >
-                Apply Now
-
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                <span>Apply Now</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
               </button>
             </div>
-
           </div>
 
         </div>

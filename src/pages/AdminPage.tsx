@@ -430,10 +430,25 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
   };
 
   const handleStatusChange = async (id: string, status: string) => {
+    const targetApp = apps.find((a) => a.id === id);
     try {
-      await supabase.from('applications').update({ status }).eq('id', id);
+      if (!id.startsWith('lead-')) {
+        await supabase.from('applications').update({ status }).eq('id', id);
+      }
     } catch (e) {
       console.warn('Status update note:', e);
+    }
+    try {
+      const localLeads = JSON.parse(localStorage.getItem('daisworld_partnership_leads') || '[]');
+      const updated = localLeads.map((lead: any) => {
+        if (lead.id === id || (targetApp && lead.email === targetApp.email)) {
+          return { ...lead, status };
+        }
+        return lead;
+      });
+      localStorage.setItem('daisworld_partnership_leads', JSON.stringify(updated));
+    } catch (err) {
+      console.warn('Local lead status update note:', err);
     }
     setApps((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
     if (selected?.id === id) setSelected({ ...selected, status });
@@ -441,8 +456,32 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this application? This cannot be undone.')) return;
-    const { error } = await supabase.from('applications').delete().eq('id', id);
-    if (error) return;
+    const targetApp = apps.find((a) => a.id === id);
+
+    // 1. Attempt Supabase delete (ignoring error so local leads or RLS won't block UI deletion)
+    try {
+      if (!id.startsWith('lead-')) {
+        const { error } = await supabase.from('applications').delete().eq('id', id);
+        if (error) console.warn('Supabase delete notice:', error);
+      }
+    } catch (e) {
+      console.warn('Supabase delete exception:', e);
+    }
+
+    // 2. Remove from localStorage backup for B2B partnership leads
+    try {
+      const localLeads = JSON.parse(localStorage.getItem('daisworld_partnership_leads') || '[]');
+      const updatedLeads = localLeads.filter(
+        (lead: any) =>
+          lead.id !== id &&
+          (!targetApp || lead.email !== targetApp.email)
+      );
+      localStorage.setItem('daisworld_partnership_leads', JSON.stringify(updatedLeads));
+    } catch (e) {
+      console.warn('LocalStorage lead delete error:', e);
+    }
+
+    // 3. Immediately update UI state
     setApps((prev) => prev.filter((a) => a.id !== id));
     if (selected?.id === id) setSelected(null);
   };

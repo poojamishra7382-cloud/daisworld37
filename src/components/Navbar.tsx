@@ -13,6 +13,8 @@ import {
   HardHat,
   Fuel,
   Sparkles,
+  Car,
+  Wrench,
 } from 'lucide-react';
 
 import { services } from '@/data/services';
@@ -21,6 +23,7 @@ import { hospitalityDepartments } from '@/data/hospitalityDepartments';
 import { constructionDepartments } from '@/data/constructionDepartments';
 import { oilAndGasDepartments } from '@/data/oilAndGasDepartments';
 import { beautyAndCareDepartments } from '@/data/beautyAndCareDepartments';
+import { automotiveDepartments } from '@/data/automotiveDepartments';
 import { countries, europeCountries, middleEastCountries } from '@/data/countries';
 import Flag from '@/components/Flag';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -65,7 +68,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
   // DESKTOP DROPDOWNS
   // =========================
   const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
-  const [desktopActiveService, setDesktopActiveService] = useState<'healthcare' | 'hospitality' | 'construction' | 'oil-and-gas' | 'beauty-and-care' | null>(null);
+  const [desktopActiveService, setDesktopActiveService] = useState<'healthcare' | 'hospitality' | 'construction' | 'oil-and-gas' | 'beauty-and-care' | 'automotive' | null>(null);
   const [desktopCountriesOpen, setDesktopCountriesOpen] = useState(false);
   const [desktopActiveRegion, setDesktopActiveRegion] = useState<'europe' | 'middle-east' | null>(null);
 
@@ -78,6 +81,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
   const [mobileConstructionOpen, setMobileConstructionOpen] = useState(false);
   const [mobileOilAndGasOpen, setMobileOilAndGasOpen] = useState(false);
   const [mobileBeautyAndCareOpen, setMobileBeautyAndCareOpen] = useState(false);
+  const [mobileAutomotiveOpen, setMobileAutomotiveOpen] = useState(false);
   const [mobileCountriesOpen, setMobileCountriesOpen] = useState(false);
   const [mobileEuropeOpen, setMobileEuropeOpen] = useState(false);
   const [mobileMiddleEastOpen, setMobileMiddleEastOpen] = useState(false);
@@ -111,6 +115,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
     setMobileConstructionOpen(false);
     setMobileOilAndGasOpen(false);
     setMobileBeautyAndCareOpen(false);
+    setMobileAutomotiveOpen(false);
     setMobileCountriesOpen(false);
     setMobileEuropeOpen(false);
     setMobileMiddleEastOpen(false);
@@ -547,6 +552,58 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
 
                       <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                     </button>
+
+                    {/* Option 6: Automotive & Automobile with drilldown */}
+                    <button
+                      type="button"
+                      onClick={() => setDesktopActiveService('automotive')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-red-600 hover:to-rose-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-rose-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <Car className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Automotive & Automobile</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
+
+                    {/* Option 7: Specialized Services - Directly opens page */}
+                    <button
+                      type="button"
+                      onClick={() => go('/services/specialized-services')}
+                      className="
+                        w-full flex items-center justify-between
+                        px-3.5 py-2.5 rounded-xl
+                        bg-white/5 hover:bg-gradient-to-r hover:from-teal-600 hover:to-emerald-600
+                        border border-white/5 hover:border-transparent
+                        text-left font-bold text-sm text-white
+                        transition-all duration-200
+                        group cursor-pointer
+                      "
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <Wrench className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <p className="leading-tight text-white font-bold text-sm">Skilled Job</p>
+                        </div>
+                      </div>
+
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </button>
                   </div>
                 ) : desktopActiveService === 'healthcare' ? (
                   /* VIEW 2A: HEALTHCARE DEPARTMENTS DRILL-DOWN SCREEN */
@@ -848,7 +905,7 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                       })}
                     </div>
                   </div>
-                ) : (
+                ) : desktopActiveService === 'beauty-and-care' ? (
                   /* VIEW 2E: BEAUTY & CARE DEPARTMENTS DRILL-DOWN SCREEN */
                   <div className="flex flex-col animate-fadeIn">
                     {/* Back Button & Header */}
@@ -914,6 +971,81 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                             </div>
 
                             <span className="flex-1 truncate group-hover:text-pink-300 transition-colors">
+                              {dept.title}
+                            </span>
+
+                            <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  /* VIEW 2F: AUTOMOTIVE & AUTOMOBILE DEPARTMENTS DRILL-DOWN SCREEN */
+                  <div className="flex flex-col animate-fadeIn">
+                    {/* Back Button & Header */}
+                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 px-1">
+                      <button
+                        type="button"
+                        onClick={() => setDesktopActiveService(null)}
+                        className="
+                          flex items-center gap-1
+                          text-xs font-semibold
+                          text-red-400 hover:text-red-300
+                          hover:bg-white/10
+                          px-2 py-1 rounded-lg
+                          transition-all cursor-pointer
+                        "
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                        <span>Back</span>
+                      </button>
+
+                      <span className="text-xs font-bold text-white pr-1">
+                        Automotive & Automobile
+                      </span>
+                    </div>
+
+                    {/* Department list */}
+                    <div className="space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-hide pt-0.5">
+                      {automotiveDepartments.map((dept) => {
+                        const DeptIcon = dept.icon;
+                        return (
+                          <button
+                            type="button"
+                            key={dept.id}
+                            onClick={() => go(dept.route)}
+                            className="
+                              w-full
+                              flex items-center gap-2.5
+                              px-2.5 py-2
+                              text-white/80
+                              hover:text-white
+                              hover:bg-white/10
+                              rounded-lg
+                              text-xs
+                              font-medium
+                              transition-all
+                              cursor-pointer
+                              group
+                              text-left
+                            "
+                          >
+                            <div
+                              className={`
+                                w-6 h-6
+                                rounded-md
+                                bg-gradient-to-br
+                                ${dept.color}
+                                flex items-center
+                                justify-center
+                                flex-shrink-0
+                              `}
+                            >
+                              <DeptIcon className="w-3.5 h-3.5 text-white" />
+                            </div>
+
+                            <span className="flex-1 truncate group-hover:text-red-300 transition-colors">
                               {dept.title}
                             </span>
 
@@ -1679,6 +1811,67 @@ export default function Navbar({ onApplyClick }: NavbarProps) {
                         })}
                       </div>
                     )}
+                  </div>
+
+                  {/* 6. Automotive & Automobile Accordion Option */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileAutomotiveOpen((prev) => !prev)}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-red-600 to-rose-600 flex items-center justify-center flex-shrink-0">
+                          <Car className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Automotive & Automobile</span>
+                      </div>
+                      <ChevronDown
+                        className={`w-4 h-4 text-red-400 transition-transform duration-300 ${
+                          mobileAutomotiveOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileAutomotiveOpen && (
+                      <div className="p-2 pt-0 space-y-1 divide-y divide-white/5 bg-black/20 animate-fadeIn">
+                        {/* 5 Automotive Departments */}
+                        {automotiveDepartments.map((dept) => {
+                          const DeptIcon = dept.icon;
+                          return (
+                            <button
+                              type="button"
+                              key={dept.id}
+                              onClick={() => go(dept.route)}
+                              className="w-full flex items-center gap-2.5 px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer"
+                            >
+                              <div className={`w-5 h-5 rounded bg-gradient-to-br ${dept.color} flex items-center justify-center flex-shrink-0`}>
+                                <DeptIcon className="w-3 h-3 text-white" />
+                              </div>
+                              <span className="flex-1">{dept.title}</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-white/30" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 7. Skilled Job Option (Direct Navigation) */}
+                  <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => go('/services/specialized-services')}
+                      className="w-full flex items-center justify-between px-3.5 py-3 text-left text-white font-bold text-sm hover:bg-white/10 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                          <Wrench className="w-3.5 h-3.5 text-white" />
+                        </div>
+                        <span>Skilled Job</span>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-teal-400" />
+                    </button>
                   </div>
                 </div>
               </div>

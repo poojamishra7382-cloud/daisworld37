@@ -26,6 +26,7 @@ import { supabase } from '@/lib/supabase';
 interface ApplyNowModalProps {
   open: boolean;
   onClose: () => void;
+  initialPosition?: string;
 }
 
 interface FormData {
@@ -70,6 +71,19 @@ const POSITIONS = [
   'Heavy Equipment Operator',
   'Certified Welder / Pipe Fitter',
   'Spa Therapist / Aesthetician',
+  'Automotive & Automobile Engineer / Specialist',
+  'Luxury Car Mechanical Engineer (Overseas)',
+  'Automotive Engineering & Design',
+  'Vehicle Maintenance & Repair',
+  'Automotive Manufacturing & Production',
+  'Automotive Electrical & Electric Vehicles (EV)',
+  'Quality Control, Testing & Inspection (Automotive)',
+  'Skilled Jobs',
+  'Certified Industrial Electrician',
+  'Certified Scaffolder (CISRS / DGUV)',
+  '6G Pipe Welder / Multi-Process Welder',
+  'Crane Operator – Container Terminals at the Port',
+  'Industrial Pipefitter & Fabricator',
   'Other Professional',
 ];
 
@@ -83,6 +97,8 @@ const QUALIFICATIONS = [
   'BMLT / DMLT (Medical Lab Technology)',
   'Diploma / Certificate in Healthcare',
   'Bachelor of Engineering / B.Tech / Diploma',
+  'B.E. / B.Tech / Diploma in Automobile / Mechanical Engineering',
+  'ITI / Vocational Trade Certification (Automobile / Mechanical)',
   'Hotel Management / Culinary Degree',
   'Higher Secondary (12th Pass)',
   'Other',
@@ -245,7 +261,7 @@ const BLOCKED_DUMMY_PHONES = new Set([
   '3333333333', '2222222222', '1111111111', '0000000000',
 ]);
 
-export default function ApplyNowModal({ open, onClose }: ApplyNowModalProps) {
+export default function ApplyNowModal({ open, onClose, initialPosition }: ApplyNowModalProps) {
   const [data, setData] = useState<FormData>(EMPTY);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -255,12 +271,15 @@ export default function ApplyNowModal({ open, onClose }: ApplyNowModalProps) {
 
   useEffect(() => {
     if (open) {
-      setData(EMPTY);
+      setData({
+        ...EMPTY,
+        position: initialPosition || '',
+      });
       setErrors({});
       setStatus('idle');
       setSubmitError('');
     }
-  }, [open]);
+  }, [open, initialPosition]);
 
   useEffect(() => {
     if (errors._scrollTo && scrollRef.current) {

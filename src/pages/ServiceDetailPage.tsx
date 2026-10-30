@@ -36,6 +36,10 @@ export default function ServiceDetailPage() {
     return <Navigate to="/services/beauty-and-care/hair-styling" replace />;
   }
 
+  if (slug === 'automotive' || slug === 'automotive-and-automobile') {
+    return <Navigate to="/services/automotive/engineering-design" replace />;
+  }
+
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   const service = services.find((item) => item.slug === slug);

@@ -559,6 +559,8 @@ export default function BusinessHousingSection() {
                       <option value="Construction">Construction & Engineering</option>
                       <option value="Oil & Gas">Oil, Gas & Energy</option>
                       <option value="Beauty & Care">Beauty, Spa & Wellness</option>
+                      <option value="Automotive & Automobile">Automotive, EV & Manufacturing</option>
+                      <option value="Skilled Jobs">Skilled Jobs (Welders, Electricians, Scaffolders, Crane Operators)</option>
                       <option value="Corporate Housing">Workforce Housing & Facilities</option>
                       <option value="Other">Other Enterprise Sector</option>
                     </select>

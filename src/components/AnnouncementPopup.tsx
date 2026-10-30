@@ -9,6 +9,15 @@ import {
   Languages,
   Plane,
   FileText,
+  Car,
+  Wrench,
+  Stethoscope,
+  Sparkles,
+  Activity,
+  Flame,
+  Zap,
+  Layers,
+  Anchor,
 } from 'lucide-react';
 import Flag from '@/components/Flag';
 
@@ -20,7 +29,7 @@ interface SlideData {
   openings: string;
   country: string;
   countryCode: string;
-  icon: typeof GraduationCap;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   salaryEuro: string;
@@ -40,6 +49,28 @@ interface SlideData {
 const slides: SlideData[] = [
   {
     id: 1,
+    openings: 'URGENT HIRING',
+    country: 'Netherlands',
+    countryCode: 'nl',
+    icon: Car,
+    title: 'Luxury Car Mechanical Engineer',
+    description:
+      'Overseas employment in Netherlands. Diagnosing, repairing & servicing luxury cars (BMW, Mercedes-Benz, Audi, Porsche, Land Rover).',
+    salaryEuro: '€2,200 – €4,500',
+    salaryInr: '₹2,00,000 – ₹4,00,000 / month',
+    btnText: 'Apply for Luxury Car Engineer (Netherlands)',
+    theme: {
+      badgeBg: 'bg-red-100',
+      badgeText: 'text-red-800',
+      iconBg: 'bg-red-100/90',
+      iconText: 'text-red-700',
+      salaryText: 'text-red-700',
+      btnBg: 'bg-red-600 hover:bg-red-700',
+    },
+    positionQuery: 'Luxury Car Mechanical Engineer - Netherlands',
+  },
+  {
+    id: 2,
     openings: '20 OPENINGS',
     country: 'Netherlands',
     countryCode: 'nl',
@@ -61,7 +92,7 @@ const slides: SlideData[] = [
     positionQuery: 'Operation Room (OT) Nurse - Netherlands',
   },
   {
-    id: 2,
+    id: 3,
     openings: '30 OPENINGS',
     country: 'Netherlands',
     countryCode: 'nl',
@@ -83,7 +114,7 @@ const slides: SlideData[] = [
     positionQuery: 'Healthcare Assistant - Netherlands',
   },
   {
-    id: 3,
+    id: 4,
     openings: '20 OPENINGS',
     country: 'Netherlands',
     countryCode: 'nl',
@@ -103,6 +134,208 @@ const slides: SlideData[] = [
       btnBg: 'bg-sky-600 hover:bg-sky-700',
     },
     positionQuery: 'Registered Staff Nurse - Netherlands',
+  },
+
+  // =========================================================================
+  // NEW EUROPEAN JOB VACANCIES (HEALTHCARE & SKILLED JOBS)
+  // =========================================================================
+  {
+    id: 5,
+    openings: 'EUROPE DRIVE',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Stethoscope,
+    title: 'Dentist',
+    description:
+      'Examine patients, perform dental procedures, diagnosis & treatment plans across European clinical practices.',
+    salaryEuro: '€4,000 – €6,500',
+    salaryInr: 'approx ₹3.6 Lakh – ₹5.85 Lakh / month',
+    btnText: 'Apply for Dentist (Europe)',
+    theme: {
+      badgeBg: 'bg-teal-100',
+      badgeText: 'text-teal-800',
+      iconBg: 'bg-teal-100/90',
+      iconText: 'text-teal-700',
+      salaryText: 'text-teal-700',
+      btnBg: 'bg-teal-600 hover:bg-teal-700',
+    },
+    positionQuery: 'Dentist - Europe',
+  },
+  {
+    id: 6,
+    openings: 'EUROPE DRIVE',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Sparkles,
+    title: 'Dental Hygienist',
+    description:
+      'Preventive oral care, teeth cleaning, periodontal hygiene education & patient support in modern dental clinics.',
+    salaryEuro: '€3,000 – €4,500',
+    salaryInr: 'approx ₹2.7 Lakh – ₹4.05 Lakh / month',
+    btnText: 'Apply for Dental Hygienist (Europe)',
+    theme: {
+      badgeBg: 'bg-cyan-100',
+      badgeText: 'text-cyan-800',
+      iconBg: 'bg-cyan-100/90',
+      iconText: 'text-cyan-700',
+      salaryText: 'text-cyan-700',
+      btnBg: 'bg-cyan-600 hover:bg-cyan-700',
+    },
+    positionQuery: 'Dental Hygienist - Europe',
+  },
+  {
+    id: 7,
+    openings: 'EUROPE DRIVE',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: ShieldCheck,
+    title: 'Nurse (Dutch B1)',
+    description:
+      'Patient care, administering prescribed treatments, monitoring conditions, and collaborating with medical teams.',
+    salaryEuro: '€2,800 – €4,300',
+    salaryInr: 'approx ₹2.5 Lakh – ₹3.85 Lakh / month',
+    btnText: 'Apply for Nurse (Europe)',
+    theme: {
+      badgeBg: 'bg-blue-100',
+      badgeText: 'text-blue-800',
+      iconBg: 'bg-blue-100/90',
+      iconText: 'text-blue-700',
+      salaryText: 'text-blue-700',
+      btnBg: 'bg-blue-600 hover:bg-blue-700',
+    },
+    positionQuery: 'Nurse - Europe',
+  },
+  {
+    id: 8,
+    openings: 'EUROPE DRIVE',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: GraduationCap,
+    title: 'Operating Room Assistant',
+    description:
+      'Support surgical teams, prepare operating rooms, arrange sterile instruments, and assist with theatre safety.',
+    salaryEuro: '€3,800 – €5,600',
+    salaryInr: 'approx ₹3.4 Lakh – ₹5.0 Lakh / month',
+    btnText: 'Apply for OR Assistant (Europe)',
+    theme: {
+      badgeBg: 'bg-indigo-100',
+      badgeText: 'text-indigo-800',
+      iconBg: 'bg-indigo-100/90',
+      iconText: 'text-indigo-700',
+      salaryText: 'text-indigo-700',
+      btnBg: 'bg-indigo-600 hover:bg-indigo-700',
+    },
+    positionQuery: 'Operating Room Assistant - Europe',
+  },
+  {
+    id: 9,
+    openings: 'EUROPE DRIVE',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Activity,
+    title: 'Anesthesia Assistant',
+    description:
+      'Prepare equipment, assist with anesthesia procedures, monitor patient status before, during & after surgery.',
+    salaryEuro: '€2,700 – €4,000',
+    salaryInr: 'approx ₹2.4 Lakh – ₹3.6 Lakh / month',
+    btnText: 'Apply for Anesthesia Assistant (Europe)',
+    theme: {
+      badgeBg: 'bg-purple-100',
+      badgeText: 'text-purple-800',
+      iconBg: 'bg-purple-100/90',
+      iconText: 'text-purple-700',
+      salaryText: 'text-purple-700',
+      btnBg: 'bg-purple-600 hover:bg-purple-700',
+    },
+    positionQuery: 'Anesthesia Assistant - Europe',
+  },
+  {
+    id: 10,
+    openings: 'SKILLED JOBS',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Flame,
+    title: 'Welder',
+    description:
+      'Metal fabrication, joining components, structural welding projects, interpreting technical drawings & safety.',
+    salaryEuro: '€2,500 – €3,600',
+    salaryInr: 'approx ₹2.25 Lakh – ₹3.25 Lakh / month',
+    btnText: 'Apply for Welder (Europe)',
+    theme: {
+      badgeBg: 'bg-amber-100',
+      badgeText: 'text-amber-800',
+      iconBg: 'bg-amber-100/90',
+      iconText: 'text-amber-700',
+      salaryText: 'text-amber-700',
+      btnBg: 'bg-amber-600 hover:bg-amber-700',
+    },
+    positionQuery: 'Welder - Europe',
+  },
+  {
+    id: 11,
+    openings: 'SKILLED JOBS',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Zap,
+    title: 'Electrician',
+    description:
+      'Electrical installation, maintenance, troubleshooting with practical solar panel & EV charging experience.',
+    salaryEuro: '€3,000 – €4,500',
+    salaryInr: 'approx ₹2.7 Lakh – ₹4.05 Lakh / month',
+    btnText: 'Apply for Electrician (Europe)',
+    theme: {
+      badgeBg: 'bg-emerald-100',
+      badgeText: 'text-emerald-800',
+      iconBg: 'bg-emerald-100/90',
+      iconText: 'text-emerald-700',
+      salaryText: 'text-emerald-700',
+      btnBg: 'bg-emerald-600 hover:bg-emerald-700',
+    },
+    positionQuery: 'Electrician - Europe',
+  },
+  {
+    id: 12,
+    openings: 'SKILLED JOBS',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Layers,
+    title: 'Scaffolder',
+    description:
+      'Assemble, inspect, modify, and dismantle modular scaffolding structures for industrial & construction sites.',
+    salaryEuro: '€2,500 – €4,000',
+    salaryInr: 'approx ₹2.25 Lakh – ₹3.6 Lakh / month',
+    btnText: 'Apply for Scaffolder (Europe)',
+    theme: {
+      badgeBg: 'bg-blue-100',
+      badgeText: 'text-blue-800',
+      iconBg: 'bg-blue-100/90',
+      iconText: 'text-blue-700',
+      salaryText: 'text-blue-700',
+      btnBg: 'bg-blue-600 hover:bg-blue-700',
+    },
+    positionQuery: 'Scaffolder - Europe',
+  },
+  {
+    id: 13,
+    openings: 'SKILLED JOBS',
+    country: 'Europe',
+    countryCode: 'eu',
+    icon: Anchor,
+    title: 'Crane Operator – Terminals',
+    description:
+      'Operating container-handling cranes at European port terminals, loading/unloading shipping containers & cargo.',
+    salaryEuro: '€2,500 – €3,500',
+    salaryInr: 'approx ₹2.25 Lakh – ₹3.15 Lakh / month',
+    btnText: 'Apply for Crane Operator (Europe)',
+    theme: {
+      badgeBg: 'bg-rose-100',
+      badgeText: 'text-rose-800',
+      iconBg: 'bg-rose-100/90',
+      iconText: 'text-rose-700',
+      salaryText: 'text-rose-700',
+      btnBg: 'bg-rose-600 hover:bg-rose-700',
+    },
+    positionQuery: 'Crane Operator – Container Terminals at the Port - Europe',
   },
 ];
 
@@ -225,7 +458,9 @@ export default function AnnouncementPopup({ onApplyClick }: AnnouncementPopupPro
 
           {/* Golden Subheader */}
           <div className="bg-amber-400 py-1 px-3 text-center border-b border-amber-500 text-[10px] font-black text-blue-950 uppercase tracking-wide h-[24px] flex items-center justify-center flex-shrink-0">
-            ★ NETHERLANDS DIRECT CLIENT HIRING ★
+            {current.country === 'Netherlands'
+              ? '★ NETHERLANDS DIRECT CLIENT HIRING ★'
+              : '★ EUROPE DIRECT CLIENT HIRING ★'}
           </div>
 
           {/* Main Slide Card Area with Fixed Height */}
@@ -307,13 +542,13 @@ export default function AnnouncementPopup({ onApplyClick }: AnnouncementPopupPro
             </div>
 
             {/* Slide Dots Indicator */}
-            <div className="flex items-center justify-center gap-1.5 mt-3 h-[8px] flex-shrink-0">
+            <div className="flex items-center justify-center gap-1 mt-3 h-[8px] flex-shrink-0">
               {slides.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveIndex(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    activeIndex === idx ? 'w-5 bg-blue-600' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                  className={`h-1.5 rounded-full transition-all ${
+                    activeIndex === idx ? 'w-4 bg-blue-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'
                   }`}
                   aria-label={`Slide ${idx + 1}`}
                 />
@@ -326,13 +561,15 @@ export default function AnnouncementPopup({ onApplyClick }: AnnouncementPopupPro
           <div className="bg-slate-100 border-t border-slate-200 px-4 py-2 text-[11px] text-slate-700 h-[36px] flex items-center justify-between flex-shrink-0">
             <div className="w-full flex items-center justify-between text-center divide-x divide-slate-300">
               <span className="flex-1 px-1 font-semibold flex items-center justify-center gap-1 truncate">
-                <Languages className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" /> B1 Dutch
+                <Languages className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />{' '}
+                {current.countryCode === 'nl' ? 'B1 Dutch' : 'English / EU'}
               </span>
               <span className="flex-1 px-1 font-semibold flex items-center justify-center gap-1 truncate">
                 <Plane className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" /> 100% Visa
               </span>
               <span className="flex-1 px-1 font-semibold flex items-center justify-center gap-1 truncate">
-                <FileText className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" /> 5-Yr Contract
+                <FileText className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />{' '}
+                {current.countryCode === 'nl' ? '5-Yr Contract' : 'Legal Contract'}
               </span>
             </div>
           </div>

@@ -38,6 +38,7 @@ const WELCOME: Message = {
 
 const QUICK_REPLIES = [
   '💼 All Vacancies',
+  '🚗 Luxury Car Engineer (NL)',
   '🤝 Partner With Us',
   '🏥 Healthcare Jobs',
   '🏨 Hospitality Roles',
@@ -98,11 +99,31 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       'hiring drive', 'available jobs', 'opportunities', 'abroad job'
     ],
     reply:
-      "💼 **Current Active Vacancies at Dais World Endeavor (August 2026 Drive)**\n\nWe are actively hiring for 150+ positions across Europe and the Middle East:\n\n🇳🇱 **Netherlands Healthcare Urgent Drive:**\n• **20 Operation Room (OT) Nurses:** €3,900 – €5,500/mo (₹3.5L – ₹5.0L)\n• **30 Healthcare Assistants & Caregivers:** €2,450 – €3,200/mo (₹2.2L – ₹2.9L)\n• **20 Registered Staff Nurses (Ward/ICU):** €3,200 – €3,775/mo (₹2.85L – ₹3.4L)\n*(Includes 100% Free Dutch B1 Training, Visa, Flight & Accommodation support)*\n\n🏨 **Hospitality Careers (Europe & UAE):**\n• 15 Executive Chefs & Sous Chefs (8,500 – 14,000 AED / €2,800 – €4,200)\n• 25 Housekeeping & Front Office Supervisors\n• Food & Beverage Stewards & Restaurant Captains\n\n🏗️ **Construction & Oil/Gas (Gulf & Europe):**\n• 20 Civil & Structural Site Engineers\n• 35 Certified Welders, Electricians & MEP Technicians\n• 15 Offshore Drilling & HSE Safety Officers\n\n💅 **Beauty & Wellness (Europe & Dubai):**\n• 15 Hair Stylists, Cosmetologists & Spa Therapists\n\n✨ All vacancies include legal employer visa sponsorship, healthcare coverage, and PR pathways!",
+      "💼 **Current Active Vacancies at Dais World Endeavor (August 2026 Drive)**\n\nWe are actively hiring for 150+ positions across Europe and the Middle East:\n\n🚗 **Netherlands Automotive Overseas Urgent Drive:**\n• **Luxury Car Mechanical Engineer:** €2,200 – €4,500/mo (₹2,00,000 – ₹4,00,000/mo)\n*(Servicing BMW, Mercedes-Benz, Audi, Porsche, Land Rover with Work Visa & Relocation Support)*\n\n🇳🇱 **Netherlands Healthcare Urgent Drive:**\n• **20 Operation Room (OT) Nurses:** €3,900 – €5,500/mo (₹3.5L – ₹5.0L)\n• **30 Healthcare Assistants & Caregivers:** €2,450 – €3,200/mo (₹2.2L – ₹2.9L)\n• **20 Registered Staff Nurses (Ward/ICU):** €3,200 – €3,775/mo (₹2.85L – ₹3.4L)\n*(Includes 100% Free Dutch B1 Training, Visa, Flight & Accommodation support)*\n\n🏨 **Hospitality Careers (Europe & UAE):**\n• 15 Executive Chefs & Sous Chefs (8,500 – 14,000 AED / €2,800 – €4,200)\n• 25 Housekeeping & Front Office Supervisors\n• Food & Beverage Stewards & Restaurant Captains\n\n🏗️ **Construction & Oil/Gas (Gulf & Europe):**\n• 20 Civil & Structural Site Engineers\n• 35 Certified Welders, Electricians & MEP Technicians\n• 15 Offshore Drilling & HSE Safety Officers\n\n💅 **Beauty & Wellness (Europe & Dubai):**\n• 15 Hair Stylists, Cosmetologists & Spa Therapists\n\n✨ All vacancies include legal employer visa sponsorship, healthcare coverage, and PR pathways!",
     actions: [
       { label: '📋 View All Vacancies', url: '/vacancies' },
+      { label: '🚗 Luxury Car Engineer Vacancy', query: 'Tell me about the Luxury Car Mechanical Engineer opening in Netherlands' },
       { label: '📝 Apply Now', url: '/apply' },
       { label: '🇳🇱 Netherlands Nursing Drive', query: 'Tell me about Netherlands Nursing vacancies' },
+    ],
+  },
+
+  {
+    id: 'vacancies-netherlands-car-engineer',
+    category: 'vacancies',
+    priority: 99,
+    keywords: [
+      'luxury car', 'mechanical engineer', 'car mechanical engineer', 'luxury car engineer',
+      'car mechanic', 'automobile engineer', 'bmw', 'mercedes', 'audi', 'porsche',
+      'jaguar', 'land rover', 'netherlands car', 'auto engineer netherlands',
+      'mechanic netherlands', 'luxury car mechanical engineer'
+    ],
+    reply:
+      "🚗 **Urgent Hiring: Luxury Car Mechanical Engineer – Overseas (Netherlands 🇳🇱)**\n\n🔥 **Role Overview:**\nWe are hiring experienced **Luxury Car Mechanical Engineers** for overseas employment in the **Netherlands**. Candidates must have hands-on experience in repairing, servicing, and maintaining premium and luxury vehicles.\n\n💶 **Salary & Compensation:**\n• **Salary:** ₹2,00,000 – ₹4,00,000 per month (€2,200 – €4,500 / month)\n• **Employment Type:** Full-Time, Overseas Contract\n• **Location:** Netherlands (Holland)\n\n🔧 **Key Responsibilities:**\n• Diagnose and repair mechanical and electrical faults in luxury cars.\n• Service and maintain engines, transmissions, braking systems, and suspension systems.\n• Operate advanced computerized vehicle diagnostic tools.\n• Perform repairs on luxury brands: **BMW, Mercedes-Benz, Audi, Porsche, Jaguar, and Land Rover**.\n• Ensure vehicle safety, high performance, and European quality standards.\n\n🎓 **Eligibility Criteria:**\n• ITI, Diploma, or Degree in Automobile or Mechanical Engineering.\n• Practical hands-on experience in luxury car repair and maintenance.\n• Strong troubleshooting and diagnostic skills.\n• Overseas work experience is an added advantage.\n\n🎁 **Benefits:**\n• Legal overseas job opportunity in the Netherlands with work visa sponsorship\n• Competitive European salary package (₹2.0L – ₹4.0L/mo)\n• Additional benefits & accommodation guidance as per employer policy\n• Flight assistance and long-term European career advancement!",
+    actions: [
+      { label: '📝 Apply for Luxury Car Engineer', url: '/apply' },
+      { label: '📋 View Vacancies Page', url: '/vacancies' },
+      { label: '🚗 Vehicle Maintenance Department', url: '/services/automotive/maintenance-repair' },
     ],
   },
 
@@ -213,6 +234,43 @@ const KNOWLEDGE_RULES: KnowledgeRule[] = [
       { label: '💅 Beauty & Care Services', url: '/services/beauty-and-care/hair-styling' },
       { label: '📋 Beauty Vacancies', url: '/vacancies' },
       { label: '📝 Apply Online', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'automotive-services',
+    category: 'services',
+    priority: 89,
+    keywords: [
+      'automotive', 'automobile', 'car', 'vehicle', 'ev', 'electric vehicle',
+      'mechanic', 'auto mechanic', 'technician', 'cad', 'catia', 'powertrain',
+      'robotic welding', 'assembly', 'cmm', 'quality inspection', 'iatf', 'chassis'
+    ],
+    reply:
+      "🚗 **Automotive & Automobile Careers in Europe:**\n\nDirect placements with leading European car manufacturers, EV gigafactories, and authorized brand dealerships across Germany, Sweden, Netherlands, and Poland:\n\n• **Engineering & Design:** CAD Design (CATIA/NX), Powertrain & Chassis Engineers\n• **Maintenance & Repair:** Master Technicians, Engine/Gearbox Specialists, Diagnostic Mechanics\n• **Manufacturing & Production:** Automated Assembly, Robotic Welding (KUKA/ABB), CNC Machinists\n• **Electric Vehicles (EV):** High-Voltage EV Technicians, Battery Pack & BMS Engineers, ADAS Calibration\n• **Quality & Inspection:** IATF 16949 QA/QC Engineers, CMM 3D Metrologists, EOL Test Drivers\n\n✨ Direct OEM contracts, flight tickets, visa sponsorship & furnished accommodation support!",
+    actions: [
+      { label: '🚗 Automotive Engineering & Design', url: '/services/automotive/engineering-design' },
+      { label: '⚡ EV & Electrical Careers', url: '/services/automotive/electrical-ev' },
+      { label: '📋 Automotive Vacancies', url: '/vacancies' },
+      { label: '📝 Apply Online', url: '/apply' },
+    ],
+  },
+
+  {
+    id: 'specialized-services',
+    category: 'services',
+    priority: 89,
+    keywords: [
+      'specialized', 'welder', 'electrician', 'scaffolder', 'pipefitter', 'crane operator',
+      'rigging', 'rigger', 'millwright', 'trade', 'trades', 'skilled trades', '6g welder',
+      'cisrs', 'hvac', 'heavy equipment', 'steel fixer', 'painter', 'blaster'
+    ],
+    reply:
+      "🔧 **Specialized Services & Technical Trades Careers:**\n\nDirect international deployment with top European and Middle Eastern EPC contractors and industrial projects:\n\n• **Electrical & Power:** Certified Industrial Electricians, High-Voltage Cable Jointers (11kV-66kV)\n• **Welding & Metallurgy:** 6G TIG/MIG Pipe Welders (ASME Sec IX, 100% X-Ray), Structural FCAW Welders\n• **Scaffolding & Rigging:** Certified Industrial Scaffolders (CISRS/DGUV), Heavy Riggers & Banksmen\n• **Piping & Millwright:** Industrial Pipefitters, Flange Aligners, Precision Rotating Equipment Millwrights\n• **Heavy Machinery:** Mobile Crane (50T-500T+), Tower Crane, and 360 Excavator Operators\n\n✨ Direct overseas contracts (€2,800 – €5,800/mo), employer-provided housing, flights, and 100% work visa sponsorship!",
+    actions: [
+      { label: '🔧 Specialized Services Page', url: '/services/specialized-services' },
+      { label: '📋 Skilled Trade Vacancies', url: '/vacancies' },
+      { label: '📝 Apply for a Trade', url: '/apply' },
     ],
   },
 

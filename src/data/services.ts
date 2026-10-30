@@ -4,6 +4,8 @@ import {
   HardHat,
   Fuel,
   Sparkles,
+  Car,
+  Wrench,
 } from 'lucide-react';
 
 import type { LucideIcon } from 'lucide-react';
@@ -374,5 +376,145 @@ export const services: ServiceItem[] = [
     color: 'from-pink-500 to-rose-500',
 
     image: '/service-beauty-hero.jpg',
+  },
+
+
+  // =====================================================
+  // AUTOMOTIVE & AUTOMOBILE
+  // =====================================================
+
+  {
+    slug: 'automotive',
+    title: 'Automotive & Automobile',
+    icon: Car,
+
+    short:
+      'Premier automotive recruitment across design, maintenance, assembly manufacturing, EV powertrains & metrology testing',
+
+    description:
+      'We recruit and deploy qualified automotive engineers, certified master technicians, automated assembly operators, EV battery specialists, and quality auditors with leading European OEMs, gigafactories, tier-1 suppliers, and authorized brand dealerships.',
+
+    overview:
+      'Our Automotive & Automobile recruitment services bridge India’s finest automotive engineers and certified technicians with premier car manufacturers, commercial fleet operators, and next-generation electric vehicle gigafactories across Germany, Sweden, the Netherlands, the UK, Poland, and the Middle East. From CAD/CAM design and robotic assembly to high-voltage EV battery integration and IATF 16949 quality testing, we manage full licensing, verification, and relocation.',
+
+    features: [
+      'Automotive Design & CAD/CAM Simulation Engineers',
+      'Dealership Master Technicians & Certified Diagnostic Mechanics',
+      'High-Speed Robotic Assembly & Stamping Cell Operators',
+      'Electric Vehicle (EV) High-Voltage Battery & BMS Specialists',
+      'Precision CMM 3D Metrology & IATF 16949 QA/QC Auditors',
+      'Heavy Commercial Fleet & Diesel Truck Fitters',
+      'Comprehensive Tooling & European Safety Certification Support',
+      'Direct OEM Placement & End-to-End Visa Processing',
+    ],
+
+    roles: [
+      'Automotive CAD Design Engineers (CATIA / NX)',
+      'Master Automotive Diagnostic Technicians',
+      'Electric Vehicle (EV) High-Voltage Technicians',
+      'Automated Robotic Welding Operators (KUKA / Fanuc)',
+      'Powertrain & Transmission Engineers',
+      'Automotive Quality Assurance (QA/QC) Engineers',
+      'CMM Precision 3D Metrology Technicians',
+      'Auto-Electricians & Wiring Harness Specialists',
+      'Heavy Commercial Vehicle & Fleet Mechanics',
+      'Chassis & Vehicle Dynamics Engineers',
+      'CNC Machinists & Tool/Die Makers',
+      'End-of-Line Vehicle Road Test Drivers',
+    ],
+
+    industries: [
+      'Passenger Vehicle OEMs & R&D Centers',
+      'Electric Vehicle (EV) Gigafactories',
+      'Authorized Brand Dealership Service Networks',
+      'Tier-1 Automotive Component Manufacturers',
+      'Heavy Commercial Truck & Bus Builders',
+      'Automotive Testing & Homologation Facilities',
+      'Body-in-White (BIW) Stamping & Stamping Plants',
+      'Battery Pack & Power Electronics Producers',
+      'Motorsport & High-Performance Engineering Centers',
+    ],
+
+    benefits: [
+      'Competitive international salaries (€2,800 to €7,800+/month)',
+      'Direct employment contracts with accredited European OEMs & Tier-1 suppliers',
+      'Assistance with European trade credentials & high-voltage safety certifications',
+      'Flight tickets, visa sponsorship & furnished company accommodation options',
+      'Structured career growth and high shift / overtime premiums',
+      '100% transparent and reliable overseas placement support',
+    ],
+
+    color: 'from-red-600 to-rose-600',
+
+  image: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=1200&auto=format&fit=crop',
+  },
+
+  // =====================================================
+  // SKILLED JOB (SPECIALIZED SERVICES)
+  // =====================================================
+
+  {
+    slug: 'specialized-services',
+    title: 'Skilled Job',
+    icon: Wrench,
+
+    short:
+      'Certified international recruitment for skilled jobs including Electricians, Welders, Scaffolders & Crane Operators',
+
+    description:
+      'We recruit and deploy certified skilled craftsmen for premier European and Middle Eastern infrastructure, energy, plant construction, and port facilities.',
+
+    overview:
+      'Our Skilled Job recruitment division fulfills high-demand skilled workforce requirements across the globe. From certified electricians and welders to scaffolders and crane operators, we ensure comprehensive verification and 100% legal visa processing.',
+
+    features: [
+      'Certified Industrial, High-Voltage & Marine Electricians',
+      'Multi-Process 6G / TIG / MIG / SMAW Pipe & Structural Welders',
+      'Advanced CISRS & DGUV Certified Industrial Scaffolders',
+      'Precision Industrial Pipefitters, Steamfitters & Flange Aligners',
+      'Heavy Equipment, Mobile & Tower Crane Operators (NCCCO / EU)',
+      'Certified Riggers, Banksmen & Slinger Signalers',
+      'Industrial Mechanics, Rotating Equipment Millwrights & Fitters',
+      'HVAC, Ducting, Chiller & Industrial Refrigeration Technicians',
+    ],
+
+    roles: [
+      'Certified Industrial Electricians',
+      '6G TIG / MIG / Arc Welders',
+      'Advanced Industrial Scaffolders (CISRS)',
+      'Industrial Pipefitters & Steamfitters',
+      'Heavy Mobile & Tower Crane Operators',
+      'Riggers & Banksmen / Slingers',
+      'Industrial Millwrights & Mechanics',
+      'Commercial HVAC & Chiller Technicians',
+      'Steel Fixers & Rebar Fabricators',
+      'Industrial Sandblasters & Spray Painters',
+      'Thermal Insulators & Cladders',
+      'Formwork & Shuttering Carpenters',
+    ],
+
+    industries: [
+      'Power Plants & Renewable Energy Substations',
+      'Petrochemical Refineries & Heavy Industry',
+      'Offshore Oil Platforms & Shipbuilding Yards',
+      'Infrastructure, Bridges & High-Speed Rail',
+      'Mega Commercial & Industrial Construction',
+      'Hyperscale Data Centers & Tech Facilities',
+      'Mining & Mineral Processing Facilities',
+      'Heavy Manufacturing & Assembly Plants',
+    ],
+
+    benefits: [
+      'Competitive international trade wages (€2,800 to €5,800+/month)',
+      'Direct employment contracts with accredited European and global EPC contractors',
+      'Free employer-provided accommodation, utilities, and daily site transportation',
+      'Trade credential verification, European safety certs (VCA/SCC), and testing support',
+      'Full flight tickets, visa sponsorship, health insurance & PPE provided',
+      'Substantial overtime opportunities with guaranteed extra shift allowances',
+    ],
+
+    color: 'from-teal-600 to-emerald-600',
+
+    image: '/skilled-jobs-hero.jpg',
   },
 ];

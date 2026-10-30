@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Briefcase,
   MapPin,
@@ -22,6 +23,9 @@ import {
   Building,
   HeartHandshake,
   MessageCircle,
+  X,
+  ExternalLink,
+  Euro,
 } from 'lucide-react';
 import { vacancies, Vacancy } from '@/data/vacancies';
 import Flag from '@/components/Flag';
@@ -33,15 +37,54 @@ const categories = [
   'Construction',
   'Oil & Gas',
   'Beauty & Care',
+  'Automotive & Automobile',
+  'Skilled Jobs',
 ];
 
-const regions = ['All Regions', 'West Europe', 'Middle East'];
+const regions = ['All Regions', 'Europe', 'West Europe', 'Middle East'];
 
 export default function VacanciesPage() {
   const [selectedCategory, setSelectedCategory] = useState('All Vacancies');
   const [selectedRegion, setSelectedRegion] = useState('All Regions');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+
+  // Modal ESC handler & body scroll lock
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedVacancy(null);
+      }
+    };
+    if (selectedVacancy) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedVacancy]);
+
+  // Support direct URL deeplinking (e.g. /vacancies?job=dentist-europe or /vacancies#dentist-europe)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryJob = params.get('job');
+    const hashJob = window.location.hash.replace('#', '');
+    const target = queryJob || hashJob;
+    if (target) {
+      const match = vacancies.find(
+        (v) =>
+          v.id.toLowerCase() === target.toLowerCase() ||
+          v.title.toLowerCase().includes(target.toLowerCase())
+      );
+      if (match) {
+        setSelectedVacancy(match);
+      }
+    }
+  }, []);
 
   // Filtered vacancies
   const filteredVacancies = vacancies.filter((v) => {
@@ -50,7 +93,8 @@ export default function VacanciesPage() {
     const matchRegion =
       selectedRegion === 'All Regions' ||
       v.region === selectedRegion ||
-      (selectedRegion === 'West Europe' && v.region === 'West Europe');
+      (selectedRegion === 'Europe' && (v.region === 'Europe' || v.region === 'West Europe')) ||
+      (selectedRegion === 'West Europe' && (v.region === 'West Europe' || v.region === 'Europe'));
     const matchQuery =
       searchQuery.trim() === '' ||
       v.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -524,19 +568,34 @@ export default function VacanciesPage() {
 
                   {/* Bottom Salary & Action */}
                   <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-[11px] font-semibold text-slate-400 uppercase">Package</p>
-                      <p className="text-sm sm:text-base font-bold text-blue-700">{vacancy.salary}</p>
-                      <p className="text-[10px] text-slate-400 font-medium">{vacancy.salaryInr}</p>
+                    <div className="min-w-0 pr-2">
+                      <p className="text-[11px] font-semibold text-slate-400 uppercase truncate">
+                        Indicative Package
+                      </p>
+                      <p className="text-sm sm:text-base font-bold text-blue-700 truncate">{vacancy.salary}</p>
+                      {vacancy.salaryInr && (
+                        <p className="text-[10px] text-slate-400 font-medium truncate">{vacancy.salaryInr}</p>
+                      )}
                     </div>
 
-                    <button
-                      onClick={() => openApplyModal(vacancy.title)}
-                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-sm"
-                    >
-                      <span>Apply</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedVacancy(vacancy)}
+                        className="px-3 py-2 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50 text-slate-700 hover:text-blue-700 font-bold text-xs transition-all shadow-xs cursor-pointer whitespace-nowrap"
+                      >
+                        Learn More
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => openApplyModal(vacancy.title)}
+                        className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-sm cursor-pointer whitespace-nowrap"
+                      >
+                        <span>Apply</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -613,6 +672,189 @@ export default function VacanciesPage() {
           </div>
         </div>
       </section>
+
+      {/* =========================================================
+          VACANCY DETAIL MODAL (LEARN MORE VIEW)
+      ========================================================= */}
+      {selectedVacancy && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-sm"
+          onClick={() => setSelectedVacancy(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-y-auto p-6 sm:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setSelectedVacancy(null)}
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close details"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Header: Category Badge + Flag */}
+            <div className="flex flex-wrap items-center gap-2 mb-3 pr-10">
+              <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-100">
+                {selectedVacancy.category}
+              </span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                <Flag code={selectedVacancy.countryCode} className="w-4 h-3 rounded shadow-xs" />
+                <span>{selectedVacancy.country}</span>
+              </div>
+              {selectedVacancy.positions && (
+                <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  {selectedVacancy.positions}
+                </span>
+              )}
+            </div>
+
+            {/* Job Title */}
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-4">
+              {selectedVacancy.title}
+            </h2>
+
+            {/* Salary Banner */}
+            <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-blue-900 via-slate-900 to-slate-950 text-white border border-blue-500/30 shadow-md">
+              <p className="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <Euro className="w-3.5 h-3.5" />
+                <span>Indicative Compensation</span>
+              </p>
+              <p className="text-2xl sm:text-3xl font-black text-white">
+                {selectedVacancy.salary}
+              </p>
+              {selectedVacancy.salaryInr && (
+                <p className="text-xs text-slate-300 mt-0.5">
+                  {selectedVacancy.salaryInr}
+                </p>
+              )}
+              <p className="text-[11px] text-slate-300 mt-2 pt-2 border-t border-white/10 leading-relaxed font-normal">
+                {selectedVacancy.salaryNote ||
+                  '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules.'}
+              </p>
+            </div>
+
+            {/* Key Specifications Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <MapPin className="w-3.5 h-3.5 text-blue-600" /> Location
+                </p>
+                <p className="text-sm font-semibold text-slate-800">{selectedVacancy.country}</p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <Clock className="w-3.5 h-3.5 text-blue-600" /> Experience
+                </p>
+                <p className="text-sm font-semibold text-slate-800">{selectedVacancy.experience}</p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <Languages className="w-3.5 h-3.5 text-blue-600" /> Language Requirement
+                </p>
+                <p className="text-sm font-semibold text-slate-800">{selectedVacancy.languageReq}</p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                  <GraduationCap className="w-3.5 h-3.5 text-blue-600" /> Qualification
+                </p>
+                <p className="text-sm font-semibold text-slate-800 leading-snug">{selectedVacancy.qualification}</p>
+              </div>
+            </div>
+
+            {/* Job Description */}
+            <div className="mb-6">
+              <h3 className="text-base font-bold text-slate-900 mb-2">Job Description</h3>
+              <p className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                {selectedVacancy.description}
+              </p>
+            </div>
+
+            {/* Requirements (if available) */}
+            {selectedVacancy.requirements && selectedVacancy.requirements.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-base font-bold text-slate-900 mb-3">Key Requirements</h3>
+                <ul className="space-y-2">
+                  {selectedVacancy.requirements.map((req, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                      <span>{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Benefits & Contract (if available) */}
+            {selectedVacancy.benefits && selectedVacancy.benefits.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-base font-bold text-slate-900 mb-3">Key Provisions & Support</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {selectedVacancy.benefits.map((b, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
+                      <Check className="w-3.5 h-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Professional Notice */}
+            <div className="mb-6 p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-[11px] text-amber-900 leading-relaxed">
+              <strong>Professional Notice:</strong> Diploma, licence, certification, language proficiency, and professional registration requirements may differ by destination European country. Final eligibility is verified according to the local statutory authorities.
+            </div>
+
+            {/* Action Bar */}
+            <div className="pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+              {selectedVacancy.detailUrl ? (
+                <Link
+                  to={selectedVacancy.detailUrl}
+                  onClick={() => setSelectedVacancy(null)}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800"
+                >
+                  <span>Explore Full Specialized Role Guide</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </Link>
+              ) : (
+                <p className="text-xs text-slate-400">
+                  Reference ID: <span className="font-mono text-slate-600">{selectedVacancy.id}</span>
+                </p>
+              )}
+
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setSelectedVacancy(null)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const title = selectedVacancy.title;
+                    setSelectedVacancy(null);
+                    openApplyModal(title);
+                  }}
+                  className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Apply Now</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

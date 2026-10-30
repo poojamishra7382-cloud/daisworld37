@@ -29,6 +29,8 @@ const footerLinks = {
     { label: 'Construction', to: '/services/construction/civil-structural' },
     { label: 'Oil & Gas', to: '/services/oil-and-gas/exploration-geology' },
     { label: 'Beauty & Care', to: '/services/beauty-and-care/hair-styling' },
+    { label: 'Automotive & Automobile', to: '/services/automotive/engineering-design' },
+    { label: 'Skilled Job', to: '/services/specialized-services' },
   ],
 
   Countries: [
@@ -258,7 +260,7 @@ export default function Footer() {
           {/* Made With */}
           <div className="flex items-center justify-center gap-1.5">
             <span>Empowering careers worldwide</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+            {/* <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> */}
           </div>
         </div>
       </div>

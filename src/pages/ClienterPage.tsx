@@ -12,6 +12,8 @@ export default function ClienterPage() {
     "Construction",
     "Oil & Gas",
     "Beauty & Care",
+    "Automotive & Automobile",
+    "Skilled Jobs",
   ];
 
   const filteredPartners =

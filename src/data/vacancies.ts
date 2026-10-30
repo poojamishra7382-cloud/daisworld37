@@ -1,7 +1,7 @@
 export interface Vacancy {
   id: string;
   title: string;
-  category: 'Healthcare' | 'Hospitality' | 'Construction' | 'Oil & Gas' | 'Beauty & Care';
+  category: 'Healthcare' | 'Hospitality' | 'Construction' | 'Oil & Gas' | 'Beauty & Care' | 'Automotive & Automobile' | 'Skilled Jobs';
   country: string;
   countryCode: string;
   region: 'West Europe' | 'Europe' | 'Middle East';
@@ -18,6 +18,9 @@ export interface Vacancy {
   postedDate: string;
   deadline: string;
   description: string;
+  requirements?: string[];
+  salaryNote?: string;
+  detailUrl?: string;
 }
 
 export const vacancies: Vacancy[] = [
@@ -288,5 +291,377 @@ export const vacancies: Vacancy[] = [
     deadline: 'Next Batch Selection',
     description:
       'Luxury resort spas and wellness clinics seeking qualified massage, holistic, and aesthetic skincare therapists.',
+  },
+
+  // =========================================================================
+  // AUTOMOTIVE & AUTOMOBILE
+  // =========================================================================
+  {
+    id: 'luxury-car-mechanical-engineer-netherlands',
+    title: 'Luxury Car Mechanical Engineer – Overseas',
+    category: 'Automotive & Automobile',
+    country: 'Netherlands',
+    countryCode: 'nl',
+    region: 'West Europe',
+    positions: '10 Openings',
+    salary: '€2,200 – €4,500 / month',
+    salaryInr: '₹2,00,000 – ₹4,00,000 / month',
+    experience: 'Practical experience in luxury car repair & maintenance (BMW, Mercedes, Audi, Porsche, Jaguar, Land Rover)',
+    qualification: 'ITI, Diploma, or Degree in Automobile or Mechanical Engineering',
+    languageReq: 'Basic English (Dutch workplace language support provided)',
+    contract: 'Full-Time / 2 Years Renewable',
+    benefits: [
+      'Overseas employment in Netherlands with legal work visa',
+      'Competitive salary package (₹2,00,000 – ₹4,00,000 per month)',
+      'Hands-on servicing of premium brands (BMW, Mercedes, Audi, Porsche, Land Rover)',
+      'Relocation guidance & additional benefits as per employer policy',
+    ],
+    isFeatured: true,
+    isUrgent: true,
+    postedDate: 'Current Vacancy',
+    deadline: 'Immediate Hiring',
+    description:
+      'We are hiring experienced Luxury Car Mechanical Engineers for overseas employment in the Netherlands. Candidates must have hands-on experience in repairing, servicing, and maintaining premium and luxury vehicles including BMW, Mercedes-Benz, Audi, Porsche, Jaguar, and Land Rover.',
+  },
+
+  // =========================================================================
+  // EUROPE HEALTHCARE VACANCIES
+  // =========================================================================
+  {
+    id: 'dentist-europe',
+    title: 'Dentist',
+    category: 'Healthcare',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Open Vacancies',
+    salary: '€4,000 – €6,500 / month',
+    salaryInr: 'approx ₹3,60,000 – ₹5,85,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Actual compensation varies by destination country, employer, qualification, specialization, and working hours.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification:
+      'Recognized dental degree or diploma and professional registration as required by the destination country',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2–3 Years Renewable',
+    benefits: [
+      'Assistance with European professional registration and licensing',
+      'Full work permit & visa documentation support',
+      'Modern state-of-the-art dental clinical environments',
+      'Statutory annual leave & health insurance coverage',
+    ],
+    isFeatured: true,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Open Until Filled',
+    description:
+      'We are seeking qualified dentists to diagnose oral health conditions, examine patients, perform dental procedures, recommend treatment plans, and provide preventive dental care.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      'Relevant recognized dental qualification.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Valid professional registration or licence as required locally.',
+      'Good patient communication and clinical skills.',
+    ],
+  },
+  {
+    id: 'dental-hygienist-europe',
+    title: 'Dental Hygienist',
+    category: 'Healthcare',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Open Vacancies',
+    salary: '€3,000 – €4,500 / month',
+    salaryInr: 'approx ₹2,70,000 – ₹4,05,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Actual compensation varies by destination country, employer, qualification, specialization, and working hours.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification: 'Relevant dental hygiene diploma or recognized qualification',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2–3 Years Renewable',
+    benefits: [
+      'Assistance with destination country credentials verification',
+      'Work visa and employment relocation guidance',
+      'Modern ergonomic equipment and ultrasonic instrumentation',
+      'Comprehensive statutory medical insurance & benefits',
+    ],
+    isFeatured: false,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Open Until Filled',
+    description:
+      'We are looking for qualified dental hygienists to provide preventive oral healthcare, professional teeth cleaning, periodontal care, oral hygiene education, and patient support in dental practices or clinics.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      'Relevant dental hygiene diploma or recognized qualification.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Professional registration where required by the destination country.',
+      'Knowledge of dental hygiene procedures and infection-control standards.',
+    ],
+  },
+  {
+    id: 'nurse-europe',
+    title: 'Nurse',
+    category: 'Healthcare',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Multiple Openings',
+    salary: '€2,800 – €4,300 / month',
+    salaryInr: 'approx ₹2,50,000 – ₹3,85,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Actual compensation varies by country, employer, qualification, specialization, and working hours. Professional registration, qualification recognition, and language requirements depend on the destination country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification: 'Recognized nursing diploma',
+    languageReq: 'Dutch B1',
+    contract: 'Full-Time / 2–3 Years Renewable',
+    benefits: [
+      '100% legal European work visa sponsorship assistance',
+      'Shift premiums, weekend allowances, and overtime compensation',
+      'Relocation support and temporary housing options',
+      'Continuing education and European career upgrade opportunities',
+    ],
+    isFeatured: true,
+    isUrgent: true,
+    postedDate: 'Current Vacancy',
+    deadline: 'Open Until Filled',
+    description:
+      'We are recruiting qualified nurses to provide patient care, monitor health conditions, administer prescribed treatments, maintain medical records, and collaborate with doctors and other healthcare professionals.',
+    requirements: [
+      'Dutch language proficiency at B1 level.',
+      'Recognized nursing diploma.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Professional nursing registration where required.',
+      'Knowledge of patient safety, hygiene, and clinical procedures.',
+    ],
+  },
+  {
+    id: 'operating-room-assistant-europe',
+    title: 'Operating Room Assistant',
+    category: 'Healthcare',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Multiple Openings',
+    salary: '€3,800 – €5,600 / month',
+    salaryInr: 'approx ₹3,40,000 – ₹5,00,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Actual compensation varies by country, employer, qualification, specialization, and working hours. Qualification recognition depends on the destination European country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification:
+      'Recognized Operating Room Assistant or Surgical Technologist qualification',
+    languageReq: 'Dutch B1',
+    contract: 'Full-Time / 2–3 Years Renewable',
+    benefits: [
+      'Work visa & relocation assistance for qualified candidates',
+      'State-of-the-art operating theatre suites and academic medical centers',
+      'On-call and specialized surgical shift allowances',
+      'Statutory paid leave, pension contribution, and medical insurance',
+    ],
+    isFeatured: false,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Open Until Filled',
+    description:
+      'We are seeking experienced operating room assistants to support surgical teams, prepare operating rooms, arrange instruments and equipment, maintain sterile conditions, and assist with safe operating theatre procedures.',
+    requirements: [
+      'Dutch language proficiency at B1 level, subject to employer requirements.',
+      'Relevant recognized diploma or qualification.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Knowledge of sterile techniques and operating room protocols.',
+      'Professional registration or certification where required.',
+    ],
+  },
+  {
+    id: 'anesthesia-assistant-europe',
+    title: 'Anesthesia Assistant',
+    category: 'Healthcare',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Multiple Openings',
+    salary: '€2,700 – €4,000 / month',
+    salaryInr: 'approx ₹2,40,000 – ₹3,60,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules. Dutch B1 or diploma alone does not guarantee automatic eligibility to practice without required local credentials.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification:
+      'Recognized anesthesia assistant or anesthesia nursing qualification',
+    languageReq: 'Dutch B1',
+    contract: 'Full-Time / 2–3 Years Renewable',
+    benefits: [
+      'Work visa and employment relocation support',
+      'Collaborative environment alongside experienced anesthesiology teams',
+      'Hospital shift allowances and weekend bonuses',
+      'Comprehensive healthcare and statutory social security benefits',
+    ],
+    isFeatured: false,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Open Until Filled',
+    description:
+      'We are hiring qualified anesthesia assistants to support anesthesiologists and anesthesia teams in preparing equipment, assisting with anesthesia procedures, monitoring patients within their professional scope, and maintaining patient safety before, during, and after surgery.',
+    requirements: [
+      'Dutch language proficiency at B1 level, subject to employer requirements.',
+      'Relevant recognized anesthesia diploma or qualification.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Knowledge of anesthesia equipment and patient monitoring.',
+      'Required professional registration and certifications for the destination country.',
+    ],
+  },
+
+  // =========================================================================
+  // EUROPE SKILLED JOBS VACANCIES
+  // =========================================================================
+  {
+    id: 'welder-europe',
+    title: 'Welder',
+    category: 'Skilled Jobs',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Active Openings',
+    salary: '€2,500 – €3,600 / month',
+    salaryInr: 'approx ₹2,25,000 – ₹3,25,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules. Diploma, licence, and certification requirements may differ by country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification: 'Relevant welding diploma or professional qualification',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2 Years Renewable',
+    detailUrl: '/services/specialized-services/welders',
+    benefits: [
+      'Full European legal work visa assistance',
+      'Shift bonuses and overtime allowances (1.5x)',
+      'Furnished housing options or accommodation allowances',
+      'Modern welding equipment and certified PPE provided',
+    ],
+    isFeatured: true,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Immediate Selection',
+    description:
+      'We are hiring experienced welders for metal fabrication, joining metal components, and industrial or structural welding projects. Candidates should be able to follow technical drawings, operate welding equipment safely, and maintain quality standards.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      'Relevant welding diploma or professional qualification.',
+      '2–5 years of relevant welding experience in Europe.',
+      'Knowledge of welding techniques and equipment.',
+      'Ability to follow technical drawings and safety procedures.',
+    ],
+  },
+  {
+    id: 'electrician-europe',
+    title: 'Electrician',
+    category: 'Skilled Jobs',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Active Openings',
+    salary: '€3,000 – €4,500 / month',
+    salaryInr: 'approx ₹2,70,000 – ₹4,05,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules. Diploma, licence, and certification requirements may differ by country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification: 'Relevant electrical diploma or technical qualification',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2 Years Renewable',
+    detailUrl: '/services/specialized-services/electricians',
+    benefits: [
+      'Legal European work visa sponsorship support',
+      'High-growth projects in solar PV and EV charging networks',
+      'Tools, calibrated test instruments, and safety gear supplied',
+      'Accommodation and site travel arrangements as per employer',
+    ],
+    isFeatured: true,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Immediate Selection',
+    description:
+      'We are seeking experienced electricians for electrical installation, maintenance, troubleshooting, and repair work. Candidates must have practical experience with solar panel systems and EV charging station installations.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      'Relevant electrical diploma or technical qualification.',
+      '2–5 years of relevant professional experience in Europe.',
+      'Hands-on experience with solar panels and EV charging stations.',
+      'Knowledge of electrical safety procedures and local regulations.',
+    ],
+  },
+  {
+    id: 'scaffolder-europe',
+    title: 'Scaffolder',
+    category: 'Skilled Jobs',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Active Openings',
+    salary: '€2,500 – €4,000 / month',
+    salaryInr: 'approx ₹2,25,000 – ₹3,60,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules. Safety certification requirements differ by country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification:
+      'Relevant scaffolding qualification or safety certification where required',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2 Years Renewable',
+    detailUrl: '/services/specialized-services/scaffolders',
+    benefits: [
+      'Assistance with work visa and European safety card verification',
+      'Direct employment contracts with accredited European contractors',
+      'Overtime compensation and generous weekend premiums',
+      'Accommodation assistance and daily site commute arrangements',
+    ],
+    isFeatured: true,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Immediate Selection',
+    description:
+      'We are looking for experienced scaffolders to assemble, inspect, modify, and dismantle scaffolding structures for construction and industrial projects. Candidates should understand scaffold stability, safe assembly procedures, and working-at-height safety.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      '2–5 years of relevant scaffolding experience in Europe.',
+      'Practical knowledge of scaffolding equipment and assembly.',
+      'Understanding of working-at-height safety procedures.',
+      'Relevant safety certifications where required by local regulations.',
+    ],
+  },
+  {
+    id: 'crane-operator-europe',
+    title: 'Crane Operator – Container Terminals at the Port',
+    category: 'Skilled Jobs',
+    country: 'Europe',
+    countryCode: 'eu',
+    region: 'Europe',
+    positions: 'Active Openings',
+    salary: '€2,500 – €3,500 / month',
+    salaryInr: 'approx ₹2,25,000 – ₹3,15,000 / mo',
+    salaryNote:
+      '* Indicative gross monthly salary estimate, not a guaranteed offer. Final compensation depends on destination country, employer, and shift schedules. Licence and certification requirements differ by country.',
+    experience: '2–5 years of relevant professional experience in Europe',
+    qualification:
+      'Relevant crane-operation diploma, licence, or recognized qualification',
+    languageReq: 'Minimum English-speaking ability',
+    contract: 'Full-Time / 2 Years Renewable',
+    detailUrl: '/services/specialized-services/crane-operators',
+    benefits: [
+      'European legal work permit and visa guidance',
+      'Modern container handling gantry and STS cabin facilities',
+      'Port terminal shift premiums and statutory benefits',
+      'Relocation guidance and settlement assistance',
+    ],
+    isFeatured: true,
+    isUrgent: false,
+    postedDate: 'Current Vacancy',
+    deadline: 'Immediate Selection',
+    description:
+      'We are recruiting experienced crane operators for port and container-terminal operations. Responsibilities include loading and unloading shipping containers, lifting and positioning cargo, coordinating with terminal teams, and following operational and workplace safety procedures.',
+    requirements: [
+      'Minimum English-speaking ability.',
+      'Relevant crane-operation diploma, licence, or qualification as required locally.',
+      '2–5 years of relevant crane-operation experience in Europe.',
+      'Port or container-terminal experience preferred.',
+      'Knowledge of lifting procedures and workplace safety requirements.',
+    ],
   },
 ];

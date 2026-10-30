@@ -9,12 +9,21 @@ import ChatbotWidget from '@/components/ChatbotWidget';
 
 export default function Layout() {
   const [applyOpen, setApplyOpen] = useState(false);
+  const [initialPosition, setInitialPosition] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
   // Listen to custom DOM events
   useEffect(() => {
-    const handler = () => setApplyOpen(true);
+    const handler = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent?.detail?.profession || customEvent?.detail?.position) {
+        setInitialPosition(customEvent.detail.profession || customEvent.detail.position);
+      } else {
+        setInitialPosition('');
+      }
+      setApplyOpen(true);
+    };
     window.addEventListener('open-apply-modal', handler);
     return () => window.removeEventListener('open-apply-modal', handler);
   }, []);
@@ -68,7 +77,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      <ApplyNowModal open={applyOpen} onClose={handleClose} />
+      <ApplyNowModal open={applyOpen} onClose={handleClose} initialPosition={initialPosition} />
       <AnnouncementPopup onApplyClick={() => setApplyOpen(true)} />
       <ChatbotWidget />
     </>
